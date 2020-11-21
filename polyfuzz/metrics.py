@@ -2,31 +2,54 @@ import numpy as np
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
+from typing import Tuple, List
 from matplotlib import gridspec
 from matplotlib.cm import get_cmap
 from matplotlib.lines import Line2D
 
 
-def precision_recall_curve(model, precision_steps=0.01):
-    """ Calculate precision recall curve based on minimum similarity between strings """
+def precision_recall_curve(matches: pd.DataFrame,
+                           precision_steps: float = 0.01) -> Tuple[np.ndarray,
+                                                                   List[float],
+                                                                   List[float]]:
+    """ Calculate precision recall curve based on minimum similarity between strings
+
+    Arguments:
+        matches: contains the columns *From*, *To*, and *Similarity* used for calculating
+                 precision, recall, and average precision
+        precision_steps: the incremental steps in minimum precision
+
+    Returns:
+        min_precisions: minimum precision steps
+        recall: recall per minimum precision step
+        average_precision: average precision per minimum precision step
+    """
     min_precisions = np.arange(0., 1 + precision_steps, precision_steps)
     average_precision = []
     recall = []
-    similarities = model.Similarity.values
-    total = len(model)
+    similarities = matches.Similarity.values
+    total = len(matches)
 
     for min_precision in min_precisions:
         selection = similarities[similarities >= min_precision]
         recall.append(sum(selection) / total)
-        average_precision.append(np.mean(selection))
+        average_precision.append(float(np.mean(selection)))
 
     return min_precisions, recall, average_precision
 
 
-def visualize_precision_recall(matches, min_precision, recall):
+def visualize_precision_recall(matches, min_precisions, recall):
+    """ Visualize the precision recall curve for one or more models
+
+    Arguments:
+        matches: contains the columns *From*, *To*, and *Similarity* used for calculating
+                 precision, recall, and average precision
+        min_precisions: minimum precision steps
+        recall: recall per minimum precision step
+    """
     if not isinstance(matches, dict):
         matches = {"Model": matches}
-        min_precision = {"Model": min_precision}
+        min_precisions = {"Model": min_precisions}
         recall = {"Model": recall}
 
     # Create single dataset of similarity score for all models
@@ -47,7 +70,7 @@ def visualize_precision_recall(matches, min_precision, recall):
 
     # Precision-recall curve
     for color, model_name in zip(cmap.colors, model_names):
-        ax1.plot(min_precision[model_name], recall[model_name], color=color)
+        ax1.plot(min_precisions[model_name], recall[model_name], color=color)
 
     # Similarity Histogram
     for color, model_name in zip(cmap.colors, model_names):
