@@ -6,10 +6,10 @@ import pandas as pd
 from tqdm import tqdm
 from typing import List, Union
 from sklearn.preprocessing import normalize
+from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
 from flair.data import Sentence
-from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings
 
-from polyfuzz.models.utils import _extract_best_matches
+from polyfuzz.models.utils import extract_best_matches
 from .base import BaseMatcher
 
 
@@ -74,8 +74,11 @@ class Embeddings(BaseMatcher):
         if not embedding_method:
             self.document_embeddings = DocumentPoolEmbeddings([WordEmbeddings('news')])
 
-        if isinstance(embedding_method, list):
+        elif isinstance(embedding_method, list):
             self.document_embeddings = DocumentPoolEmbeddings(embedding_method)
+
+        elif isinstance(embedding_method, TokenEmbeddings):
+            self.document_embeddings = DocumentPoolEmbeddings([embedding_method])
 
         else:
             self.document_embeddings = embedding_method
@@ -111,15 +114,15 @@ class Embeddings(BaseMatcher):
             embeddings_from = self._embed(from_list)
         if not embeddings_to:
             embeddings_to = self._embed(to_list)
-        matches = _extract_best_matches(embeddings_from, from_list,
-                                        embeddings_to, to_list,
-                                        self.min_similarity, self.cosine_method)
+        matches = extract_best_matches(embeddings_to, from_list,
+                                       embeddings_from, to_list,
+                                       self.min_similarity, self.cosine_method)
         return matches
 
     def _embed(self, strings: List[str]) -> np.ndarray:
         """ Create embeddings from a list of strings """
         embeddings = []
-        for name in tqdm(strings):
+        for name in strings:
             sentence = Sentence(name)
             self.document_embeddings.embed(sentence)
             embeddings.append(sentence.embedding.cpu().numpy())

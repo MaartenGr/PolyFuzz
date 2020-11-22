@@ -14,12 +14,12 @@ except ImportError:
     _HAVE_SPARSE_DOT = False
 
 
-def _extract_best_matches(from_vector: np.ndarray,
-                          from_list: List[str],
-                          to_vector: np.ndarray,
-                          to_list: List[str],
-                          min_similarity: float = 0.8,
-                          method: str = "sparse") -> pd.DataFrame:
+def extract_best_matches(from_vector: np.ndarray,
+                         from_list: List[str],
+                         to_vector: np.ndarray,
+                         to_list: List[str],
+                         min_similarity: float = 0.8,
+                         method: str = "sparse") -> pd.DataFrame:
     """ Calculate similarity between two matrices
 
     Arguments:

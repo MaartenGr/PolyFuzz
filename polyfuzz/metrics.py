@@ -1,3 +1,4 @@
+import warnings
 import numpy as np
 import seaborn as sns
 import pandas as pd
@@ -13,6 +14,17 @@ def precision_recall_curve(matches: pd.DataFrame,
                                                                    List[float],
                                                                    List[float]]:
     """ Calculate precision recall curve based on minimum similarity between strings
+
+    A minimum similarity score might be used to identify
+    when a match could be considered to be correct. For example,
+    we can assume that if a similarity score pass 0.95 we are
+    quite confident that the matches are correct. This minimum
+    similarity score can be defined as **precision** since it shows
+    you how precise we believe the matches are at a minimum.
+
+    **Recall** can then be defined as as the percentage of matches
+    found at a certain minimum similarity score. A high recall means
+    that for a certain minimum precision score, we find many matches.
 
     Arguments:
         matches: contains the columns *From*, *To*, and *Similarity* used for calculating
@@ -33,7 +45,10 @@ def precision_recall_curve(matches: pd.DataFrame,
     for min_precision in min_precisions:
         selection = similarities[similarities >= min_precision]
         recall.append(sum(selection) / total)
-        average_precision.append(float(np.mean(selection)))
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=RuntimeWarning)
+            average_precision.append(float(np.mean(selection)))
 
     return min_precisions, recall, average_precision
 
