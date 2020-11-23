@@ -44,7 +44,7 @@ def precision_recall_curve(matches: pd.DataFrame,
 
     for min_precision in min_precisions:
         selection = similarities[similarities >= min_precision]
-        recall.append(sum(selection) / total)
+        recall.append(len(selection) / total)
 
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", category=RuntimeWarning)
@@ -76,9 +76,9 @@ def visualize_precision_recall(matches, min_precisions, recall):
 
     # Create layout
     cmap = get_cmap('Accent')
-    fig = plt.figure(figsize=(20, 4))
-    widths = [3, .1, 1.5]
-    heights = [1]
+    fig = plt.figure(figsize=(20, 5))
+    widths = [1.5, .1, 1.5]
+    heights = [1.5]
     gs = gridspec.GridSpec(1, 3, width_ratios=widths, height_ratios=heights)
     ax1 = plt.subplot(gs[:, 0])
     ax2 = plt.subplot(gs[:, 2], sharex=ax1)
@@ -86,24 +86,31 @@ def visualize_precision_recall(matches, min_precisions, recall):
     # Precision-recall curve
     for color, model_name in zip(cmap.colors, model_names):
         ax1.plot(min_precisions[model_name], recall[model_name], color=color)
+    ax1.set_ylim(bottom=0, top=1)
+    ax1.set_xlim(left=0, right=1)
+    ax1.spines['right'].set_visible(False)
+    ax1.spines['top'].set_visible(False)
+    ax1.set_xlabel(r"$\bf{Precision}$" + "\n(Minimum Similarity)")
+    ax1.set_ylabel(r"$\bf{Recall}$" + "\n(Percentage Matched)")
 
     # Similarity Histogram
     for color, model_name in zip(cmap.colors, model_names):
         sns.kdeplot(matches[model_name]["Similarity"], fill=True, ax=ax2, color=color)
+    ax2.yaxis.set_label_position("right")
     ax2.yaxis.tick_right()
-    ax2.set_xlabel("Similarity Score")
-    ax2.set_xlim(left=0, right=1)
+    ax2.set_xlabel(r"$\bf{Similarity}$")
+    ax2.set_ylabel("")
+    ax2.set_xlim(left=-0, right=1)
 
     # Titles
     if len(model_names) == 1:
-        fig.suptitle(f'Score Metrics', size=20, y=1.1, x=0.5)
+        fig.suptitle(f'Score Metrics', size=20, y=1, x=0.5)
     else:
-        fig.suptitle('Score Metrics', size=20, y=1.1, x=0.5)
-    plt.setp([ax1], title='Effect of Minimum Similarity')
-    plt.setp([ax2], title='Score Frequency')
+        fig.suptitle('Score Metrics', size=20, y=1, x=0.5)
+    plt.setp([ax1], title='Precision-Recall Curve')
+    plt.setp([ax2], title='Score Frequency - KDE')
 
     # Custom Legend
-    if len(model_names) != 1:
-        custom_lines = [Line2D([0], [0], color=color, lw=4) for color, model_name in zip(cmap.colors, model_names)]
-        ax1.legend(custom_lines, model_names, bbox_to_anchor=(1.01, .7, 1., .102), loc=3,
-                   ncol=1, borderaxespad=0., frameon=False)
+    custom_lines = [Line2D([0], [0], color=color, lw=4) for color, model_name in zip(cmap.colors, model_names)]
+    ax1.legend(custom_lines, model_names, bbox_to_anchor=(1.05, .61, .7, .902), loc=3,
+               ncol=1, borderaxespad=0., frameon=True)

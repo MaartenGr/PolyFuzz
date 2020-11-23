@@ -9,7 +9,7 @@ from sklearn.preprocessing import normalize
 from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
 from flair.data import Sentence
 
-from polyfuzz.models.utils import extract_best_matches
+from .utils import extract_best_matches
 from .base import BaseMatcher
 
 
@@ -35,7 +35,7 @@ class Embeddings(BaseMatcher):
 
                         knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
-        model_id: The name of the particular instance, used when comparing models
+        matcher_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -65,10 +65,10 @@ class Embeddings(BaseMatcher):
     """
     def __init__(self,
                  embedding_method: Union[List, None] = None,
-                 min_similarity: float = 0.8,
+                 min_similarity: float = 0.75,
                  cosine_method: str = "sparse",
-                 model_id: str = None):
-        super().__init__(model_id)
+                 matcher_id: str = None):
+        super().__init__(matcher_id)
         self.type = "Embeddings"
 
         if not embedding_method:
@@ -110,9 +110,9 @@ class Embeddings(BaseMatcher):
                               ["string_three", "string_four"])
         ```
         """
-        if not embeddings_from:
+        if not isinstance(embeddings_from, np.ndarray):
             embeddings_from = self._embed(from_list)
-        if not embeddings_to:
+        if not isinstance(embeddings_to, np.ndarray):
             embeddings_to = self._embed(to_list)
         matches = extract_best_matches(embeddings_to, from_list,
                                        embeddings_from, to_list,

@@ -1,4 +1,5 @@
-import setuptools
+from setuptools import setup, find_packages
+
 
 test_packages = [
     "pytest>=5.4.3",
@@ -30,9 +31,9 @@ dev_packages = docs_packages + test_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="polyfuzz",
-    packages=["polyfuzz"],
+    packages=find_packages(),
     version="0.0.1",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",

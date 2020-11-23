@@ -19,7 +19,7 @@ class EditDistance(BaseMatcher):
                 This function should give back a float between 0 and 1, and work as follows:
                     scorer("string_one", "string_two")
 
-        model_id: The name of the particular instance, used when comparing models
+        matcher_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -31,9 +31,9 @@ class EditDistance(BaseMatcher):
     def __init__(self,
                  n_jobs: int = 1,
                  scorer: Callable = fuzz.ratio,
-                 model_id: str = None,
+                 matcher_id: str = None,
                  normalize: bool = True):
-        super().__init__(model_id)
+        super().__init__(matcher_id)
         self.type = "EditDistance"
         self.scorer = scorer
         self.normalize = normalize

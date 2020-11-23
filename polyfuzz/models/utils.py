@@ -18,7 +18,7 @@ def extract_best_matches(from_vector: np.ndarray,
                          from_list: List[str],
                          to_vector: np.ndarray,
                          to_list: List[str],
-                         min_similarity: float = 0.8,
+                         min_similarity: float = 0.75,
                          method: str = "sparse") -> pd.DataFrame:
     """ Calculate similarity between two matrices
 
@@ -100,9 +100,9 @@ def extract_best_matches(from_vector: np.ndarray,
 
 def cluster_mappings(vector: np.ndarray,
                      strings: List[str],
-                     min_similarity: float = 0.8) -> Tuple[Mapping[int, List[str]],
-                                                           Mapping[str, int],
-                                                           Mapping[str, str]]:
+                     min_similarity: float = 0.75) -> Tuple[Mapping[int, List[str]],
+                                                            Mapping[str, int],
+                                                            Mapping[str, str]]:
     """ Calculate similarity between within a vector/matrix and groups
     the results through single linkage of high similarity matches.
 

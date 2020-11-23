@@ -2,9 +2,10 @@ import pandas as pd
 from typing import List, Mapping, Tuple
 
 
-def single_linkage(matches: pd.DataFrame) -> Tuple[Mapping[int, List[str]],
-                                                   Mapping[str, int],
-                                                   Mapping[str, str]]:
+def single_linkage(matches: pd.DataFrame,
+                   min_similarity: float = 0.8) -> Tuple[Mapping[int, List[str]],
+                                                         Mapping[str, int],
+                                                         Mapping[str, str]]:
     """ Single linkage clustering from column 'From' to column 'To'
 
     `matches` contains three columns: *From*, *To*, and *Similarity* where
@@ -13,6 +14,7 @@ def single_linkage(matches: pd.DataFrame) -> Tuple[Mapping[int, List[str]],
 
     Arguments:
         matches: contains the columns *From*, *To*, and *Similarity* used for creating groups
+        min_similarity: minimum similarity between strings before they can be merged into a group
 
     Returns:
         clusters: The populated clusters
@@ -20,6 +22,8 @@ def single_linkage(matches: pd.DataFrame) -> Tuple[Mapping[int, List[str]],
         cluster_name_map: The mapping from a string to the representative string
                           in its respective cluster
     """
+    matches = matches.loc[matches.Similarity > min_similarity, :]
+
     cluster_mapping = {}
     cluster_id = 0
 

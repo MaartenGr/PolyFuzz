@@ -6,8 +6,8 @@ from abc import ABC, abstractmethod
 class BaseMatcher(ABC):
     """ The abstract BaseMatching to be modelled after for string matching """
 
-    def __init__(self, model_id: str = None):
-        self.model_id = model_id
+    def __init__(self, matcher_id: str = "Model 0"):
+        self.matcher_id = matcher_id
         self.type = "Base Model"
 
     @abstractmethod

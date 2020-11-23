@@ -9,8 +9,7 @@ To do:
     * Unit Tests
     * CI/CD
     * Readme
+        * Add `reference` / `inspired by`
     * MKDocs
     * Overview.ipynb
-    * Update labels visualization
-    * Pass custom model to `group`
-    * Add `reference` / `inspired by`
+    * Add custom data by downloading from github repo
