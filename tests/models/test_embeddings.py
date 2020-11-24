@@ -6,10 +6,10 @@ from tests.utils import get_test_strings
 
 from_list, to_list = get_test_strings()
 
-with open('from_list.npy', 'rb') as f:
+with open('../from_list.npy', 'rb') as f:
     from_vector = np.load(f)
 
-with open('to_list.npy', 'rb') as f:
+with open('../to_list.npy', 'rb') as f:
     to_vector = np.load(f)
 
 
