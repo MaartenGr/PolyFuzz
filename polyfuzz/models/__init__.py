@@ -4,7 +4,6 @@ __all__ = [
     "Embeddings",
     "RapidFuzz",
     "TFIDF",
-    "cluster_mappings",
     "extract_best_matches"
 ]
 
@@ -13,4 +12,4 @@ from .distance import EditDistance
 from .embeddings import Embeddings
 from .rapidfuzz import RapidFuzz
 from .tfidf import TFIDF
-from .utils import cluster_mappings, extract_best_matches
+from .utils import extract_best_matches

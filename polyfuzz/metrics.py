@@ -36,7 +36,7 @@ def precision_recall_curve(matches: pd.DataFrame,
         recall: recall per minimum precision step
         average_precision: average precision per minimum precision step
     """
-    min_precisions = np.arange(0., 1 + precision_steps, precision_steps)
+    min_precisions = list(np.arange(0., 1 + precision_steps, precision_steps))
     average_precision = []
     recall = []
     similarities = matches.Similarity.values

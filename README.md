@@ -6,10 +6,8 @@ String matching using a variety of algorithms. Including Edit Distance using Rap
 character-based n-gram TF-IDF for fast matching, and embedding models using Flair.
 
 To do:
-    * Unit Tests
     * CI/CD
     * Readme
         * Add `reference` / `inspired by`
     * MKDocs
-    * Overview.ipynb
     * Add custom data by downloading from github repo

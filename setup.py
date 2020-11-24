@@ -37,11 +37,11 @@ setup(
     version="0.0.1",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
-    description="PolyFuzz performs string matching and extensive evaluation.",
+    description="PolyFuzz performs fuzzy string matching, grouping, and evaluation.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/MaartenGr/PolyFuzz",
-    keywords="nlp string matching embeddings levenshtein tfidf",
+    keywords="nlp string matching embeddings levenshtein tfidf bert",
     classifiers=[
         "Programming Language :: Python",
         "Intended Audience :: Science/Research",

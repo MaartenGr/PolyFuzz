@@ -3,7 +3,7 @@ import pandas as pd
 from typing import List, Mapping, Union, Iterable
 
 from polyfuzz.linkage import single_linkage
-from polyfuzz.utils import check_matches, create_logger
+from polyfuzz.utils import check_matches, check_grouped, create_logger
 from polyfuzz.models import TFIDF, RapidFuzz, Embeddings, BaseMatcher
 from polyfuzz.metrics import precision_recall_curve, visualize_precision_recall
 
@@ -118,12 +118,17 @@ class PolyFuzz:
         """
         # Standard models - quick access
         if isinstance(self.method, str):
-            if self.method == "TF-IDF":
+            if self.method in ["TF-IDF", "TFIDF"]:
                 self.matches = {"TF-IDF": TFIDF(min_similarity=0).match(from_list, to_list)}
-            elif self.method == "EditDistance":
+            elif self.method in ["EditDistance", "Edit Distance"]:
                 self.matches = {"EditDistance": RapidFuzz().match(from_list, to_list)}
-            elif self.method == "Embeddings":
+            elif self.method == ["Embeddings", "Embedding"]:
                 self.matches = {"Embeddings": Embeddings(min_similarity=0).match(from_list, to_list)}
+            else:
+                raise ValueError("Please instantiate the model with one of the following methods: \n"
+                                 "* 'TF-IDF'\n"
+                                 "* 'EditDistance'\n"
+                                 "* 'Embeddings'")
             logger.info(f"Ran matcher with model id = {self.method}")
 
         # Custom models
@@ -206,7 +211,7 @@ class PolyFuzz:
             self.clusters[name] = clusters
             self.cluster_mappings[name] = cluster_id_map
 
-    def get_all_matcher_ids(self) -> Union[str, List[str], None]:
+    def get_ids(self) -> Union[str, List[str], None]:
         """ Get all model ids for easier access """
         check_matches(self)
 
@@ -216,24 +221,18 @@ class PolyFuzz:
             return [model.matcher_id for model in self.method]
         return None
 
-    def get_all_matches(self) -> Union[pd.DataFrame,
-                                       Mapping[str, pd.DataFrame]]:
-        """ Returns the matches from all models """
-        check_matches(self)
-        return self.matches
-
-    def get_matches(self, matcher_id: str = None) -> pd.DataFrame:
-        """ Get the matches from a single model """
+    def get_matches(self, matcher_id: str = None) -> Union[pd.DataFrame,
+                                                           Mapping[str, pd.DataFrame]]:
+        """ Get the matches from one or more models"""
         check_matches(self)
 
         if len(self.matches) == 1:
             return list(self.matches.values())[0]
 
-        elif len(self.matches) > 1 and not matcher_id:
-            raise ValueError(f"Please use the parameter 'name' with one of the following values: "
-                             f"{self.get_all_matcher_ids()}")
+        elif len(self.matches) > 1 and matcher_id:
+            return self.matches[matcher_id]
 
-        return self.matches[matcher_id]
+        return self.matches
 
     def get_clusters(self, matcher_id: str = None) -> Mapping[str, List[str]]:
         """ Get the groupings/clusters from a single model
@@ -243,28 +242,28 @@ class PolyFuzz:
 
         """
         check_matches(self)
+        check_grouped(self)
 
         if len(self.matches) == 1:
             return list(self.clusters.values())[0]
 
-        elif len(self.matches) > 1 and not matcher_id:
-            raise ValueError(f"Please use the parameter 'name' with one of the following values: "
-                             f"{self.get_all_matcher_ids()}")
+        elif len(self.matches) > 1 and matcher_id:
+            return self.clusters[matcher_id]
 
-        return self.clusters[matcher_id]
+        return self.clusters
 
     def get_cluster_mappings(self, name: str = None) -> Mapping[str, int]:
         """ Get the mappings from the `To` column to its respective column """
         check_matches(self)
+        check_grouped(self)
 
         if len(self.matches) == 1:
             return list(self.cluster_mappings.values())[0]
 
-        elif len(self.matches) > 1 and not name:
-            raise ValueError(f"Please use the parameter 'name' with one of the following values: "
-                             f"{self.get_all_matcher_ids()}")
+        elif len(self.matches) > 1 and name:
+            return self.cluster_mappings[name]
 
-        return self.cluster_mappings[name]
+        return self.cluster_mappings
 
     def _map_groups(self, name: str, cluster_name_map: Mapping[str, str]):
         """ Map the 'to' list to groups """
