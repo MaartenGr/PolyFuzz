@@ -4,8 +4,8 @@ import pandas as pd
 from typing import List, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from polyfuzz.models.utils import _extract_best_matches
-from .base import BaseMatcher
+from polyfuzz.models._utils import extract_best_matches
+from ._base import BaseMatcher
 
 
 class TFIDF(BaseMatcher):
@@ -35,7 +35,7 @@ class TFIDF(BaseMatcher):
 
                         knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
-        model_id: The name of the particular instance, used when comparing models
+        matcher_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -47,16 +47,15 @@ class TFIDF(BaseMatcher):
     def __init__(self,
                  n_gram_range: Tuple[int, int] = (3, 3),
                  clean_string: bool = True,
-                 min_similarity: float = 0.8,
+                 min_similarity: float = 0.75,
                  cosine_method: str = "sparse",
-                 model_id: str = None):
-        super().__init__(model_id)
+                 matcher_id: str = None):
+        super().__init__(matcher_id)
         self.type = "TF-IDF"
         self.n_gram_range = n_gram_range
         self.clean_string = clean_string
         self.min_similarity = min_similarity
         self.cosine_method = cosine_method
-
 
     def match(self,
               from_list: List[str],
@@ -81,9 +80,8 @@ class TFIDF(BaseMatcher):
         """
 
         tf_idf_from, tf_idf_to = self._extract_tf_idf(from_list, to_list)
-        matches = _extract_best_matches(tf_idf_from, from_list,
-                                        tf_idf_to, to_list,
-                                        self.min_similarity, self.cosine_method)
+        matches = extract_best_matches(tf_idf_from, from_list, tf_idf_to, to_list,
+                                       self.min_similarity, self.cosine_method)
 
         return matches
 

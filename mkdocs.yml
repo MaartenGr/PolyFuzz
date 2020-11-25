@@ -1,0 +1,44 @@
+site_name: PolyFuzz
+extra_css: [style.css]
+repo_url: https://github.com/MaartenGr/PolyFuzz
+site_url: https://maartengr.github.io/PolyFuzz/
+site_description: PolyFuzz performs string matching, grouping, and evaluation.
+site_author: Maarten P. Grootendorst
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quickstart: tutorial/quickstart/quickstart.md
+    - Models: tutorial/models/models.md
+    - Custom Models: tutorial/basematcher/basematcher.md
+    - Custom Grouper: tutorial/grouper/grouper.md
+  - API:
+    - PolyFuzz: api/polyfuzz.md
+    - Linkage: api/linkage.md
+    - Metrics: api/metrics.md
+    - Models:
+      - BaseMatcher: api/models/base.md
+      - EditDistance: api/models/distance.md
+      - RapidFuzzy: api/models/rapidfuzz.md
+      - TFIDF: api/models/tfidf.md
+      - Embeddings: api/models/embeddings.md
+      - CosineSimilarity: api/models/matches.md
+  - Releases: releases.md
+plugins:
+  - mkdocstrings
+  - search
+copyright: Copyright &copy; 2020 , Maintained by <a href="https://github.com/MaartenGr/">Maarten Grootendorst</a>.
+theme:
+  name: material
+  favicon: images/favicon.png
+  logo: images/logo.png
+  feature:
+    tabs: true
+  palette:
+    primary: white
+    accent: blue
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true

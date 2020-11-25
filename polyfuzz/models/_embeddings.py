@@ -3,14 +3,13 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
 from typing import List, Union
 from sklearn.preprocessing import normalize
+from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
 from flair.data import Sentence
-from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings
 
-from polyfuzz.models.utils import _extract_best_matches
-from .base import BaseMatcher
+from ._utils import extract_best_matches
+from ._base import BaseMatcher
 
 
 class Embeddings(BaseMatcher):
@@ -22,20 +21,14 @@ class Embeddings(BaseMatcher):
         embedding_method: list of Flair embeddings to use
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
         cosine_method: The method/package for calculating the cosine similarity.
-                        Options:
-                            * sparse
-                            * sklearn
-                            * knn
-
-                        sparse is the fastest and most memory efficient but requires a
-                        package that might be difficult to install
-
-                        sklearn is a bit slower than sparse and requires significantly more memory as
+                        Options: "sparse", "sklearn", "knn".
+                        Sparse is the fastest and most memory efficient but requires a
+                        package that might be difficult to install.
+                        Sklearn is a bit slower than sparse and requires significantly more memory as
                         the distance matrix is not sparse
-
-                        knn uses 1-nearest neighbor to extract the most similar strings
+                        Knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
-        model_id: The name of the particular instance, used when comparing models
+        matcher_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -65,17 +58,20 @@ class Embeddings(BaseMatcher):
     """
     def __init__(self,
                  embedding_method: Union[List, None] = None,
-                 min_similarity: float = 0.8,
+                 min_similarity: float = 0.75,
                  cosine_method: str = "sparse",
-                 model_id: str = None):
-        super().__init__(model_id)
+                 matcher_id: str = None):
+        super().__init__(matcher_id)
         self.type = "Embeddings"
 
         if not embedding_method:
             self.document_embeddings = DocumentPoolEmbeddings([WordEmbeddings('news')])
 
-        if isinstance(embedding_method, list):
+        elif isinstance(embedding_method, list):
             self.document_embeddings = DocumentPoolEmbeddings(embedding_method)
+
+        elif isinstance(embedding_method, TokenEmbeddings):
+            self.document_embeddings = DocumentPoolEmbeddings([embedding_method])
 
         else:
             self.document_embeddings = embedding_method
@@ -107,19 +103,19 @@ class Embeddings(BaseMatcher):
                               ["string_three", "string_four"])
         ```
         """
-        if not embeddings_from:
+        if not isinstance(embeddings_from, np.ndarray):
             embeddings_from = self._embed(from_list)
-        if not embeddings_to:
+        if not isinstance(embeddings_to, np.ndarray):
             embeddings_to = self._embed(to_list)
-        matches = _extract_best_matches(embeddings_from, from_list,
-                                        embeddings_to, to_list,
-                                        self.min_similarity, self.cosine_method)
+        matches = extract_best_matches(embeddings_to, from_list,
+                                       embeddings_from, to_list,
+                                       self.min_similarity, self.cosine_method)
         return matches
 
     def _embed(self, strings: List[str]) -> np.ndarray:
         """ Create embeddings from a list of strings """
         embeddings = []
-        for name in tqdm(strings):
+        for name in strings:
             sentence = Sentence(name)
             self.document_embeddings.embed(sentence)
             embeddings.append(sentence.embedding.cpu().numpy())

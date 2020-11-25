@@ -1,4 +1,21 @@
-from .distance import EditDistance
-from .tfidf import TFIDF
-from .embeddings import Embeddings
-from .base import BaseMatcher
+from ._base import BaseMatcher
+from ._distance import EditDistance
+from ._rapidfuzz import RapidFuzz
+from ._tfidf import TFIDF
+from ._utils import extract_best_matches
+
+from polyfuzz.error import NotInstalled
+
+try:
+    from ._embeddings import Embeddings
+except ModuleNotFoundError as e:
+    Embeddings = NotInstalled("Flair and Huggingface Transformer Models", "flair")
+
+__all__ = [
+    "BaseMatcher",
+    "EditDistance",
+    "Embeddings",
+    "RapidFuzz",
+    "TFIDF",
+    "extract_best_matches"
+]

@@ -5,12 +5,12 @@ from typing import List, Tuple, Callable, Union
 from joblib import Parallel, delayed
 from multiprocessing import cpu_count
 
-from .base import BaseMatcher
+from ._base import BaseMatcher
 
 
-class EditDistance(BaseMatcher):
+class RapidFuzz(BaseMatcher):
     """
-    Calculate the Edit Distance between lists of strings using RapidFuzz
+    Calculate the Edit Distance between lists of strings using RapidFuzz's process function
 
     We are using RapidFuzz instead of FuzzyWuzzy since it is much faster
     and does not require the more restrictive GPL license
@@ -31,24 +31,23 @@ class EditDistance(BaseMatcher):
                     * fuzz.partial_token_ratio
                     * fuzz.WRation
                     * fuzz.QRatio
-
                 See https://maxbachmann.github.io/rapidfuzz/usage/fuzz/ for an extensive
                 description of the scoring methods.
-        model_id: The name of the particular instance, used when comparing models
+        matcher_id: The name of the particular instance, used when comparing models
 
     Usage:
 
     ```python
     from rapidfuzz import fuzz
-    model = EditDistance(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)
+    model = RapidFuzz(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)
     ```
     """
     def __init__(self,
                  n_jobs: int = 1,
                  score_cutoff: float = 0,
                  scorer: Callable = fuzz.WRatio,
-                 model_id: str = None):
-        super().__init__(model_id)
+                 matcher_id: str = None):
+        super().__init__(matcher_id)
         self.type = "EditDistance"
         self.score_cutoff = score_cutoff * 100
         self.scorer = scorer
@@ -77,7 +76,7 @@ class EditDistance(BaseMatcher):
 
         ```python
         from rapidfuzz import fuzz
-        model = EditDistance(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)
+        model = RapidFuzz(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)
         matches = model.match(["string_one", "string_two"],
                               ["string_three", "string_four"])
         ```
@@ -90,7 +89,8 @@ class EditDistance(BaseMatcher):
 
         matches = Parallel(n_jobs=self.n_jobs)(delayed(self._calculate_edit_distance)
                                                (from_string, to_list)
-                                               for from_string in tqdm(from_list, total=expected_iterations))
+                                               for from_string in tqdm(from_list, total=expected_iterations,
+                                                                       disable=True))
         matches = pd.DataFrame(matches, columns=['From', "To", "Similarity"])
         return matches
 

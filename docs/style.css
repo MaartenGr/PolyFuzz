@@ -1,0 +1,28 @@
+body{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.md-typeset h1{
+  font-weight: 700;
+  color: black;
+}
+
+.md-typeset h2{
+    font-weight: 700;
+}
+
+.md-typeset h3{
+    font-weight: 700;
+  }
+
+.md-typeset h4{
+    font-weight: 700;
+}
+
+.md-typeset h5{
+    font-weight: 700;
+}
+
+.md-typeset h6{
+    font-weight: 700;
+}
