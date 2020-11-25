@@ -16,11 +16,7 @@ class PolyFuzz:
 
     Arguments:
         method: the method(s) used for matching. For quick selection of models
-                select one of the following:
-                    * "EditDistance"
-                    * "TF-IDF"
-                    * "Embeddings"
-
+                select one of the following: "EditDistance", "TF-IDF" or "Embeddings".
                 If you want more control over the models above, pass
                 in a model from polyfuzz.models. For examples, see
                 usage below.
@@ -122,13 +118,13 @@ class PolyFuzz:
                 self.matches = {"TF-IDF": TFIDF(min_similarity=0).match(from_list, to_list)}
             elif self.method in ["EditDistance", "Edit Distance"]:
                 self.matches = {"EditDistance": RapidFuzz().match(from_list, to_list)}
-            elif self.method == ["Embeddings", "Embedding"]:
+            elif self.method in ["Embeddings", "Embedding"]:
                 self.matches = {"Embeddings": Embeddings(min_similarity=0).match(from_list, to_list)}
             else:
                 raise ValueError("Please instantiate the model with one of the following methods: \n"
                                  "* 'TF-IDF'\n"
                                  "* 'EditDistance'\n"
-                                 "* 'Embeddings'")
+                                 "* 'Embeddings'\n")
             logger.info(f"Ran matcher with model id = {self.method}")
 
         # Custom models
@@ -146,7 +142,7 @@ class PolyFuzz:
 
         return self
 
-    def visualize_precision_recall(self):
+    def visualize_precision_recall(self, save_path: str = None):
         """ Calculate and visualize precision-recall curves
 
         A minimum similarity score might be used to identify
@@ -160,6 +156,9 @@ class PolyFuzz:
         found at a certain minimum similarity score. A high recall means
         that for a certain minimum precision score, we find many matches.
 
+        Arguments:
+            save_path: the path to save the resulting image to
+
         Usage:
 
         ```python
@@ -167,7 +166,7 @@ class PolyFuzz:
         model = pf.PolyFuzz("TF-IDF", matcher_id="TF-IDF-Matcher")
         model.match(from_list = ["string_one", "string_two"],
                     to_list = ["string_three", "string_four"])
-        model.visualize_precision_recall()
+        model.visualize_precision_recall(save_path="results.png")
         ```
         """
         check_matches(self)
@@ -182,7 +181,7 @@ class PolyFuzz:
             self.recalls[name] = recall
             self.average_precisions[name] = average_precision
 
-        visualize_precision_recall(self.matches, self.min_precisions, self.recalls)
+        visualize_precision_recall(self.matches, self.min_precisions, self.recalls, save_path)
 
     def group(self, model: BaseMatcher = None, link_min_similarity: float = 0.75):
         """ From the matches, group the `To` matches together using single linkage

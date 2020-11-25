@@ -3,14 +3,14 @@ import numpy as np
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
-from typing import Tuple, List
+from typing import Tuple, List, Mapping
 from matplotlib import gridspec
 from matplotlib.cm import get_cmap
 from matplotlib.lines import Line2D
 
 
 def precision_recall_curve(matches: pd.DataFrame,
-                           precision_steps: float = 0.01) -> Tuple[np.ndarray,
+                           precision_steps: float = 0.01) -> Tuple[List[float],
                                                                    List[float],
                                                                    List[float]]:
     """ Calculate precision recall curve based on minimum similarity between strings
@@ -53,14 +53,24 @@ def precision_recall_curve(matches: pd.DataFrame,
     return min_precisions, recall, average_precision
 
 
-def visualize_precision_recall(matches, min_precisions, recall):
+def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
+                               min_precisions: Mapping[str, List[float]],
+                               recall: Mapping[str, List[float]],
+                               save_path: str = None):
     """ Visualize the precision recall curve for one or more models
 
     Arguments:
         matches: contains the columns *From*, *To*, and *Similarity* used for calculating
-                 precision, recall, and average precision
-        min_precisions: minimum precision steps
-        recall: recall per minimum precision step
+                 precision, recall, and average precision per model
+        min_precisions: minimum precision steps per model
+        recall: recall per minimum precision step per model
+        save_path: the path to save the resulting image to
+
+    Usage:
+
+    ```python
+    visualize_precision_recall(matches, min_precisions, recall, save_path="data/results.png")
+    ```
     """
     if not isinstance(matches, dict):
         matches = {"Model": matches}
@@ -114,3 +124,6 @@ def visualize_precision_recall(matches, min_precisions, recall):
     custom_lines = [Line2D([0], [0], color=color, lw=4) for color, model_name in zip(cmap.colors, model_names)]
     ax1.legend(custom_lines, model_names, bbox_to_anchor=(1.05, .61, .7, .902), loc=3,
                ncol=1, borderaxespad=0., frameon=True)
+
+    if save_path:
+        plt.savefig(save_path, dpi=300)

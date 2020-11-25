@@ -6,7 +6,7 @@ from typing import List, Tuple, Callable
 from joblib import Parallel, delayed
 from multiprocessing import cpu_count
 
-from .base import BaseMatcher
+from ._base import BaseMatcher
 
 
 class EditDistance(BaseMatcher):
@@ -18,7 +18,6 @@ class EditDistance(BaseMatcher):
         scorer: The scorer function to be used to calculate the edit distance.
                 This function should give back a float between 0 and 1, and work as follows:
                     scorer("string_one", "string_two")
-
         matcher_id: The name of the particular instance, used when comparing models
 
     Usage:

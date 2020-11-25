@@ -5,7 +5,7 @@ from typing import List, Tuple, Callable, Union
 from joblib import Parallel, delayed
 from multiprocessing import cpu_count
 
-from .base import BaseMatcher
+from ._base import BaseMatcher
 
 
 class RapidFuzz(BaseMatcher):
@@ -31,7 +31,6 @@ class RapidFuzz(BaseMatcher):
                     * fuzz.partial_token_ratio
                     * fuzz.WRation
                     * fuzz.QRatio
-
                 See https://maxbachmann.github.io/rapidfuzz/usage/fuzz/ for an extensive
                 description of the scoring methods.
         matcher_id: The name of the particular instance, used when comparing models

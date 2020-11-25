@@ -4,8 +4,8 @@ import pandas as pd
 from typing import List, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from polyfuzz.models.utils import extract_best_matches
-from .base import BaseMatcher
+from polyfuzz.models._utils import extract_best_matches
+from ._base import BaseMatcher
 
 
 class TFIDF(BaseMatcher):

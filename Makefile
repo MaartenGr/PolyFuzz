@@ -1,3 +1,5 @@
+.PHONY: docs
+
 test:
 	pytest
 
@@ -17,3 +19,12 @@ clean:
 	rm -rf **/.ipynb_checkpoints **/.pytest_cache **/__pycache__ **/**/__pycache__ .ipynb_checkpoints .pytest_cache
 
 check: test clean
+
+docs:
+	mkdocs build --clean --site-dir public
+
+serve-docs:
+	mkdocs serve
+
+pages: docs
+	mkdocs gh-deploy --clean

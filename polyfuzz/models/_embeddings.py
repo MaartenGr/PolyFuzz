@@ -3,14 +3,13 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
 from typing import List, Union
 from sklearn.preprocessing import normalize
 from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
 from flair.data import Sentence
 
-from .utils import extract_best_matches
-from .base import BaseMatcher
+from ._utils import extract_best_matches
+from ._base import BaseMatcher
 
 
 class Embeddings(BaseMatcher):
@@ -22,18 +21,12 @@ class Embeddings(BaseMatcher):
         embedding_method: list of Flair embeddings to use
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
         cosine_method: The method/package for calculating the cosine similarity.
-                        Options:
-                            * sparse
-                            * sklearn
-                            * knn
-
-                        sparse is the fastest and most memory efficient but requires a
-                        package that might be difficult to install
-
-                        sklearn is a bit slower than sparse and requires significantly more memory as
+                        Options: "sparse", "sklearn", "knn".
+                        Sparse is the fastest and most memory efficient but requires a
+                        package that might be difficult to install.
+                        Sklearn is a bit slower than sparse and requires significantly more memory as
                         the distance matrix is not sparse
-
-                        knn uses 1-nearest neighbor to extract the most similar strings
+                        Knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
         matcher_id: The name of the particular instance, used when comparing models
 

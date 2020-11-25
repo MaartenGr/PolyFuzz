@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 import pandas as pd
-from polyfuzz.models.utils import extract_best_matches
+from polyfuzz.models._utils import extract_best_matches
 from tests.utils import get_test_strings
 
 from_list, to_list = get_test_strings()

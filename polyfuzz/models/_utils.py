@@ -1,11 +1,9 @@
 import numpy as np
 import pandas as pd
 from scipy.sparse import csr_matrix
-from typing import List, Mapping, Tuple
+from typing import List
 from sklearn.neighbors import NearestNeighbors
 from sklearn.metrics.pairwise import cosine_similarity
-
-from polyfuzz.linkage import single_linkage
 
 try:
     from sparse_dot_topn import awesome_cossim_topn
@@ -29,22 +27,26 @@ def extract_best_matches(from_vector: np.ndarray,
         to_list: The list where you want to map to
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
         method: The method/package for calculating the cosine similarity.
-                Options:
-                    * sparse
-                    * sklearn
-                    * knn
-
-                sparse is the fastest and most memory efficient but requires a
-                package that might be difficult to install
-
-                sklearn is a bit slower than sparse and requires significantly more memory as
+                Options: "sparse", "sklearn", "knn".
+                Sparse is the fastest and most memory efficient but requires a
+                package that might be difficult to install.
+                Sklearn is a bit slower than sparse and requires significantly more memory as
                 the distance matrix is not sparse
-
-                knn uses 1-nearest neighbor to extract the most similar strings
+                Knn uses 1-nearest neighbor to extract the most similar strings
                 it is significantly slower than both methods but requires little memory
 
     Returns:
         matches:  The best matches between the lists of strings
+
+    Usage:
+
+    Make sure to fill the `to_vector` and `from_vector` with vector representations
+    of `to_list` and `from_list` respectively:
+
+    ```python
+    from polyfuzz.models import extract_best_matches
+    matches = extract_best_matches(to_vector, from_list, from_vector, to_list, method="sparse")
+    ```
     """
     # Slower but uses less memory
     if method == "knn":
