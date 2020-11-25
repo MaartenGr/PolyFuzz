@@ -26,7 +26,7 @@ pip install polyfuzz
 
 This will install the base dependencies and excludes any deep learning/embedding models. 
 
-If you want to be making use of 🤗 transformers embeddings, install the additional additional `Flair` dependency:
+If you want to be making use of 🤗 Transformers, install the additional additional `Flair` dependency:
 
 ```bash
 pip install polyfuzz[flair]
@@ -55,8 +55,9 @@ from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
 to_list = ["apple", "apples", "mouse"]
 
 model = PolyFuzz("TF-IDF").match(from_list, to_list)
-
 ```  
+
+**NOTE**: Simply use "EditDistance" or "Embeddings" to quickly access Levenshtein and FastText respectively. 
 
 The resulting matches can be accessed through `model.get_matches()`:
 
@@ -89,7 +90,7 @@ Creating the visualizations is as simple as:
 ```python
 model.visualize_precision_recall()
 ```
-<img src="images/tfidf.png" width="70%" height="70%"/>
+<img src="images/tfidf.png" width="100%" height="100%"/>
 
 ### Group Matches
 We can group the matches `To` as there might be significant overlap in strings in our to_list. 
@@ -99,6 +100,8 @@ group the strings with a high similarity.
 ```python
 model.group(link_min_similarity=0.75)
 ```
+
+When we extract the new matches, we can see an additional column `Group` in which all the `To` matches were grouped to:
 
 ```python
 >>> model.get_matches()
@@ -116,6 +119,21 @@ will fall in the cluster of `[apples, apple]` and will be mapped to the first in
 
 For example, `appl` is mapped to apple and since apple falls into the cluster `[apples, apple]`, `appl` will be mapped to `apples`.
 
+## 🤗 Transformers
+
+With `Flair`, we can use all 🤗 Transformers that are publicly available. We simply have to instantiate any Flair
+WordEmbedding method and pass it through PolyFuzzy:  
+
+```python
+from polyfuzz.models import Embeddings
+from flair.embeddings import TransformerWordEmbeddings
+
+bert = TransformerWordEmbeddings('bert-base-multilingual-cased')
+bert_matcher = Embeddings(bert, matcher_id="BERT", min_similarity=0)
+model = PolyFuzz("TF-IDF")
+```
+
+For a full list of transformer models see [this](# https://huggingface.co/transformers/pretrained_models.html) link. 
 
 ## Multiple Models
 You might be interested in running multiple models with different matchers and different parameters in order to compare the best results.
@@ -124,36 +142,15 @@ Fortunately, PolyFuzz allows you to exactly do this!
 Below, you will find all models currently implemented in PolyFuzz and are compared against one another.
 
 ```python
-from polyfuzz.models import EditDistance, TFIDF, Embeddings, RapidFuzz
-from polyfuzz import PolyFuzz
+from polyfuzz.models import EditDistance, TFIDF, Embeddings
+from flair.embeddings import TransformerWordEmbeddings
 
-from jellyfish import jaro_winkler_similarity
-from flair.embeddings import TransformerWordEmbeddings, WordEmbeddings
+bert = TransformerWordEmbeddings('bert-base-multilingual-cased')
+bert_matcher = Embeddings(bert, min_similarity=0)
+tfidf_matcher = TFIDF(min_similarity=0)
+edit_matcher = EditDistance()
 
-from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
-to_list = ["apple", "apples", "mouse"]
-
-# BERT
-bert = TransformerWordEmbeddings('bert-base-multilingual-cased')  # https://huggingface.co/transformers/pretrained_models.html
-bert_matcher = Embeddings(bert, matcher_id="BERT", min_similarity=0)
-
-# FastText
-fasttext = WordEmbeddings('en-crawl')
-fasttext_matcher = Embeddings(fasttext, min_similarity=0)
-
-# TF-IDF
-tfidf_matcher = TFIDF(n_gram_range=(3, 3), min_similarity=0, matcher_id="TF-IDF")
-tfidf_large_matcher = TFIDF(n_gram_range=(3, 6), min_similarity=0)
-
-# Edit Distance models with custom distance function
-base_edit_matcher = EditDistance(n_jobs=1)
-jellyfish_matcher = EditDistance(n_jobs=1, scorer=jaro_winkler_similarity)
-
-# Edit distance with RapidFuzz --> slightly faster implementation than Edit Distance
-rapidfuzz_matcher = RapidFuzz(n_jobs=1)
-
-matchers = [bert_matcher, fasttext_matcher, tfidf_matcher, tfidf_large_matcher,
-            base_edit_matcher, jellyfish_matcher, rapidfuzz_matcher]
+matchers = [bert_matcher, tfidf_matcher, edit_matcher]
 ```
 
 Then, we simply call `PolyFuzz` with all matchers and visualize the results:
@@ -163,7 +160,7 @@ model = PolyFuzz(matchers).match(from_list, to_list)
 model.visualize_precision_recall()
 ```
 
-<img src="images/multiple_models.png" width="70%" height="70%"/>
+<img src="images/multiple_models.png" width="100%" height="100%"/>
 
 
 ## Custom Grouper
@@ -194,7 +191,8 @@ from polyfuzz.models import BaseMatcher
 class MyModel(BaseMatcher):
     def match(self, from_list, to_list):
         # Calculate distances
-        matches = [[fuzz.ratio(from_string, to_string) / 100 for to_string in to_list] for from_string in from_list]
+        matches = [[fuzz.ratio(from_string, to_string) / 100 for to_string in to_list] 
+                    for from_string in from_list]
         
         # Get best matches
         mappings = [to_list[index] for index in np.argmax(matches, axis=1)]
