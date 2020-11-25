@@ -9,9 +9,7 @@
 PolyFuzz is meant to bring fuzzy string matching techniques together within a single framework.
 
 Currently, methods include Levenshtein distance with RapidFuzz, a character-based n-gram TF-IDF, word embedding
-techniques such as FastText and GloVe, and finally 🤗 transformers embeddings. 
-
-You can use your own **custom models** for both the fuzzy string matching as well as the string grouping. 
+techniques such as FastText and GloVe, and 🤗 transformers embeddings.  
 
 Corresponding medium post can be found [here]().
 
@@ -35,7 +33,7 @@ pip install polyfuzz[flair]
 <a name="gettingstarted"/></a>
 ## Getting Started
 
-For a quick start check the section below. For a more in depth overview of the possibilities of **`PolyFuzz`** 
+For an in-depth overview of the possibilities of **`PolyFuzz`** 
 you can check the full documentation [here](https://maartengr.github.io/PolyFuzz/) or you can follow along 
 with the notebook [here](https://github.com/MaartenGr/PolyFuzz/blob/master/notebooks/Overview.ipynb).
 
@@ -57,8 +55,6 @@ to_list = ["apple", "apples", "mouse"]
 model = PolyFuzz("TF-IDF").match(from_list, to_list)
 ```  
 
-**NOTE**: Simply use "EditDistance" or "Embeddings" to quickly access Levenshtein and FastText respectively. 
-
 The resulting matches can be accessed through `model.get_matches()`:
 
 ```python
@@ -73,17 +69,13 @@ The resulting matches can be accessed through `model.get_matches()`:
 
 ``` 
 
+**NOTE**: We instantiating `PolyFuzz` we also could have used "EditDistance" or "Embeddings" to quickly 
+access Levenshtein and FastText respectively. 
 
 ### Precision Recall Curve  
-Next, we would like to see how well our model is doing on our data. Although this method is unsupervised, 
-we can use the similarity score as a proxy for the accuracy of our model (assuming we trust that similarity score).
-
-A minimum similarity score might be used to identify when a match could be considered to be correct. 
-For example, we can assume that if a similarity score pass 0.95 we are quite confident that the matches are correct. 
-This minimum similarity score can be defined as `Precision` since it shows you how precise we believe the matches are at a minimum.
-
-`Recall` can then be defined as as the percentage of matches found at a certain minimum similarity score. 
-A high recall means that for a certain minimum precision score, we find many matches.
+Next, we would like to see how well our model is doing on our data. We express our results as 
+**`precision`** and **`recall`** where precision is defined as the minimum similarity score before a match is correct and 
+recall the percentage of matches found at a certain minimum similarity score.  
 
 Creating the visualizations is as simple as:
 
@@ -175,8 +167,7 @@ model.group(base_edit_grouper)
 
 ## Custom Models
 Although the options above are a great solution for comparing different models, what if you have developed your own? 
-What if you want a different similarity/distance measure that is not defined in PolyFuzz? 
-That is where custom models come in. If you follow the structure of PolyFuzz's BaseMatcher 
+If you follow the structure of PolyFuzz's BaseMatcher 
 you can quickly implement any model you would like.
 
 Below, we are implementing the ratio similarity measure from RapidFuzz.
