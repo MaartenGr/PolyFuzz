@@ -58,7 +58,7 @@ The resulting matches can be accessed through `model.get_matches()`:
 
 ```python
 >>> model.get_matches()
-         From      To  Similarity
+         From      To    Similarity
 0       apple   apple    1.000000
 1      apples  apples    1.000000
 2        appl   apple    0.783751
@@ -76,15 +76,12 @@ We can group the matches `To` as there might be significant overlap in strings i
 To do this, we calculate the similarity within strings in to_list and use `single linkage` to then 
 group the strings with a high similarity.
 
-```python
-model.group(link_min_similarity=0.75)
-```
-
 When we extract the new matches, we can see an additional column `Group` in which all the `To` matches were grouped to:
 
 ```python
+>>> model.group(link_min_similarity=0.75)
 >>> model.get_matches()
-	      From	To	    Similarity	Group
+	      From	To		Similarity	Group
 0	     apple	apple	1.000000	apples
 1	    apples	apples	1.000000	apples
 2	      appl	apple	0.783751	apples
@@ -95,8 +92,6 @@ When we extract the new matches, we can see an additional column `Group` in whic
 
 As can be seen above, we grouped apple and apples together to `apple` such that when a string is mapped to `apple` it 
 will fall in the cluster of `[apples, apple]` and will be mapped to the first instance in the cluster which is `apples`.
-
-For example, `appl` is mapped to apple and since apple falls into the cluster `[apples, apple]`, `appl` will be mapped to `apples`.
 
 ### Precision-Recall Curve  
 Next, we would like to see how well our model is doing on our data. We express our results as 
@@ -111,7 +106,7 @@ model.visualize_precision_recall()
 <img src="images/tfidf.png" width="100%" height="100%"/> 
 
 ## Models
-Currently, there are several models implemented in PolyFuzz:
+Currently, the following models are implemented in PolyFuzz:
 * TF-IDF
 * EditDistance with RapidFuzz
 * FastText and GloVe
@@ -143,24 +138,22 @@ In order to access the results of a specific model, call `get_matches` with the 
 
 ```python
 >>> models.get_matches("BERT")
-    From	    To	    Similarity
+        From	    To          Similarity
 0	apple	    apple	1.000000
 1	apples	    apples	1.000000
 2	appl	    apple	0.928045
 3	recal	    apples	0.825268
 4	house	    mouse	0.887524
-5	similarity	mouse	0.791548
+5	similarity  mouse	0.791548
 ``` 
 
 Finally, visualize the results to compare the models:
 
 ```python
-models.visualize_precision_recall()
+models.visualize_precision_recall(kde=True)
 ```
 
 <img src="images/multiple_models.png" width="100%" height="100%"/>
-
-**NOTE**: Call `models.get_ids()` to get all ids of models implemented.
 
 ## Custom Grouper
 We can even use one of the `polyfuzz.models` to be used as the grouper in case you would like to use 

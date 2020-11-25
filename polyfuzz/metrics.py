@@ -56,6 +56,7 @@ def precision_recall_curve(matches: pd.DataFrame,
 def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
                                min_precisions: Mapping[str, List[float]],
                                recall: Mapping[str, List[float]],
+                               kde: bool = True,
                                save_path: str = None):
     """ Visualize the precision recall curve for one or more models
 
@@ -64,6 +65,7 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
                  precision, recall, and average precision per model
         min_precisions: minimum precision steps per model
         recall: recall per minimum precision step per model
+        kde: whether to also visualize the kde plot
         save_path: the path to save the resulting image to
 
     Usage:
@@ -87,11 +89,18 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
     # Create layout
     cmap = get_cmap('Accent')
     fig = plt.figure(figsize=(20, 5))
-    widths = [1.5, .1, 1.5]
+
+    if kde:
+        widths = [1.5, .1, 1.5]
+    else:
+        widths = [1.5, .1, 0]
+
     heights = [1.5]
     gs = gridspec.GridSpec(1, 3, width_ratios=widths, height_ratios=heights)
     ax1 = plt.subplot(gs[:, 0])
-    ax2 = plt.subplot(gs[:, 2], sharex=ax1)
+
+    if kde:
+        ax2 = plt.subplot(gs[:, 2], sharex=ax1)
 
     # Precision-recall curve
     for color, model_name in zip(cmap.colors, model_names):
@@ -102,23 +111,24 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
     ax1.spines['top'].set_visible(False)
     ax1.set_xlabel(r"$\bf{Precision}$" + "\n(Minimum Similarity)")
     ax1.set_ylabel(r"$\bf{Recall}$" + "\n(Percentage Matched)")
+    plt.setp([ax1], title='Precision-Recall Curve')
 
     # Similarity Histogram
-    for color, model_name in zip(cmap.colors, model_names):
-        sns.kdeplot(matches[model_name]["Similarity"], fill=True, ax=ax2, color=color)
-    ax2.yaxis.set_label_position("right")
-    ax2.yaxis.tick_right()
-    ax2.set_xlabel(r"$\bf{Similarity}$")
-    ax2.set_ylabel("")
-    ax2.set_xlim(left=-0, right=1)
+    if kde:
+        for color, model_name in zip(cmap.colors, model_names):
+            sns.kdeplot(matches[model_name]["Similarity"], fill=True, ax=ax2, color=color)
+        ax2.yaxis.set_label_position("right")
+        ax2.yaxis.tick_right()
+        ax2.set_xlabel(r"$\bf{Similarity}$")
+        ax2.set_ylabel("")
+        ax2.set_xlim(left=-0, right=1)
+        plt.setp([ax2], title='Score Frequency - KDE')
 
     # Titles
-    if len(model_names) == 1:
+    if len(model_names) == 1 and kde:
         fig.suptitle(f'Score Metrics', size=20, y=1, x=0.5)
-    else:
+    elif kde:
         fig.suptitle('Score Metrics', size=20, y=1, x=0.5)
-    plt.setp([ax1], title='Precision-Recall Curve')
-    plt.setp([ax2], title='Score Frequency - KDE')
 
     # Custom Legend
     custom_lines = [Line2D([0], [0], color=color, lw=4) for color, model_name in zip(cmap.colors, model_names)]

@@ -142,7 +142,10 @@ class PolyFuzz:
 
         return self
 
-    def visualize_precision_recall(self, save_path: str = None):
+    def visualize_precision_recall(self,
+                                   kde: bool = False,
+                                   save_path: str = None
+                                   ):
         """ Calculate and visualize precision-recall curves
 
         A minimum similarity score might be used to identify
@@ -157,6 +160,7 @@ class PolyFuzz:
         that for a certain minimum precision score, we find many matches.
 
         Arguments:
+            kde: whether to also visualize the kde plot
             save_path: the path to save the resulting image to
 
         Usage:
@@ -181,7 +185,7 @@ class PolyFuzz:
             self.recalls[name] = recall
             self.average_precisions[name] = average_precision
 
-        visualize_precision_recall(self.matches, self.min_precisions, self.recalls, save_path)
+        visualize_precision_recall(self.matches, self.min_precisions, self.recalls, kde, save_path)
 
     def group(self, model: BaseMatcher = None, link_min_similarity: float = 0.75):
         """ From the matches, group the `To` matches together using single linkage
