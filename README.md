@@ -41,7 +41,8 @@ with the notebook [here](https://github.com/MaartenGr/PolyFuzz/blob/master/noteb
 
 The main goal of `PolyFuzz` is to allow the user to perform different methods for matching strings. 
 We start by defining two lists, one to map from and one to map to. We are going to be using `TF-IDF` to create 
-n-grams on a character level in order to compare similarity between strings. 
+n-grams on a character level in order to compare similarity between strings. Then, we calculate the similarity 
+between strings by calculating the cosine similarity between vector representations. 
 
 We only have to instantiate `PolyFuzz` with `TF-IDF` and match the lists:
 

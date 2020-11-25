@@ -8,7 +8,10 @@ site_author: Maarten P. Grootendorst
 nav:
   - Home: index.md
   - Getting Started:
-    - Quickstart: tutorial/quickstart.md
+    - Quickstart: tutorial/quickstart/quickstart.md
+    - Models: tutorial/models/models.md
+    - Custom Models: tutorial/basematcher/basematcher.md
+    - Custom Grouper: tutorial/grouper/grouper.md
   - API:
     - PolyFuzz: api/polyfuzz.md
     - Linkage: api/linkage.md
