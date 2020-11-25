@@ -1,3 +1,7 @@
+v0.1.0
+- Additional tests
+- More thorough documentation
+- Prepare for public release
 
 v0.0.1
 
