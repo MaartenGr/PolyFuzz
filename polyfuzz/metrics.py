@@ -74,6 +74,18 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
     visualize_precision_recall(matches, min_precisions, recall, save_path="data/results.png")
     ```
     """
+    SMALL_SIZE = 10
+    MEDIUM_SIZE = 12
+    BIGGER_SIZE = 14
+
+    plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
+    plt.rc('axes', titlesize=SMALL_SIZE)  # fontsize of the axes title
+    plt.rc('axes', labelsize=MEDIUM_SIZE)  # fontsize of the x and y labels
+    plt.rc('xtick', labelsize=SMALL_SIZE)  # fontsize of the tick labels
+    plt.rc('ytick', labelsize=SMALL_SIZE)  # fontsize of the tick labels
+    plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
+    plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
     if not isinstance(matches, dict):
         matches = {"Model": matches}
         min_precisions = {"Model": min_precisions}
@@ -90,10 +102,15 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
     cmap = get_cmap('Accent')
     fig = plt.figure(figsize=(20, 5))
 
-    if kde:
-        widths = [1.5, .1, 1.5]
+    if len(model_names) == 1:
+        middle = 0
     else:
-        widths = [1.5, .1, 0]
+        middle = .1
+
+    if kde:
+        widths = [1.5, middle, 1.5]
+    else:
+        widths = [1.5, middle, 0]
 
     heights = [1.5]
     gs = gridspec.GridSpec(1, 3, width_ratios=widths, height_ratios=heights)
@@ -111,7 +128,7 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
     ax1.spines['top'].set_visible(False)
     ax1.set_xlabel(r"$\bf{Precision}$" + "\n(Minimum Similarity)")
     ax1.set_ylabel(r"$\bf{Recall}$" + "\n(Percentage Matched)")
-    plt.setp([ax1], title='Precision-Recall Curve')
+
 
     # Similarity Histogram
     if kde:
@@ -127,13 +144,18 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
     # Titles
     if len(model_names) == 1 and kde:
         fig.suptitle(f'Score Metrics', size=20, y=1, x=0.5)
+        plt.setp([ax1], title='Precision-Recall Curve')
     elif kde:
         fig.suptitle('Score Metrics', size=20, y=1, x=0.5)
+        plt.setp([ax1], title='Precision-Recall Curve')
+    else:
+        fig.suptitle('Precision-Recall Curve', size=20, y=1, x=0.45)
 
     # Custom Legend
-    custom_lines = [Line2D([0], [0], color=color, lw=4) for color, model_name in zip(cmap.colors, model_names)]
-    ax1.legend(custom_lines, model_names, bbox_to_anchor=(1.05, .61, .7, .902), loc=3,
-               ncol=1, borderaxespad=0., frameon=True)
+    if len(model_names) > 1:
+        custom_lines = [Line2D([0], [0], color=color, lw=4) for color, model_name in zip(cmap.colors, model_names)]
+        ax1.legend(custom_lines, model_names, bbox_to_anchor=(1.05, .61, .7, .902), loc=3,
+                   ncol=1, borderaxespad=0., frameon=True, fontsize=10)
 
     if save_path:
         plt.savefig(save_path, dpi=300)
