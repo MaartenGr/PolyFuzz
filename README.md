@@ -33,7 +33,7 @@ pip install polyfuzz[flair]
 <a name="gettingstarted"/></a>
 ## Getting Started
 
-For an in-depth overview of the possibilities of **`PolyFuzz`** 
+For an in-depth overview of the possibilities of `PolyFuzz` 
 you can check the full documentation [here](https://maartengr.github.io/PolyFuzz/) or you can follow along 
 with the notebook [here](https://github.com/MaartenGr/PolyFuzz/blob/master/notebooks/Overview.ipynb).
 
@@ -44,7 +44,6 @@ We start by defining two lists, one to map from and one to map to. We are going 
 n-grams on a character level in order to compare similarity between strings. 
 
 We only have to instantiate `PolyFuzz` with `TF-IDF` and match the lists:
-
 
 ```python
 from polyfuzz import PolyFuzz
@@ -69,20 +68,8 @@ The resulting matches can be accessed through `model.get_matches()`:
 
 ``` 
 
-**NOTE**: We instantiating `PolyFuzz` we also could have used "EditDistance" or "Embeddings" to quickly 
-access Levenshtein and FastText respectively. 
-
-### Precision Recall Curve  
-Next, we would like to see how well our model is doing on our data. We express our results as 
-**`precision`** and **`recall`** where precision is defined as the minimum similarity score before a match is correct and 
-recall the percentage of matches found at a certain minimum similarity score.  
-
-Creating the visualizations is as simple as:
-
-```python
-model.visualize_precision_recall()
-```
-<img src="images/tfidf.png" width="100%" height="100%"/>
+**NOTE**: When instantiating `PolyFuzz` we also could have used "EditDistance" or "Embeddings" to quickly 
+access Levenshtein and FastText (English) respectively. 
 
 ### Group Matches
 We can group the matches `To` as there might be significant overlap in strings in our to_list. 
@@ -111,49 +98,69 @@ will fall in the cluster of `[apples, apple]` and will be mapped to the first in
 
 For example, `appl` is mapped to apple and since apple falls into the cluster `[apples, apple]`, `appl` will be mapped to `apples`.
 
-## 🤗 Transformers
+### Precision-Recall Curve  
+Next, we would like to see how well our model is doing on our data. We express our results as 
+**`precision`** and **`recall`** where precision is defined as the minimum similarity score before a match is correct and 
+recall the percentage of matches found at a certain minimum similarity score.  
 
-With `Flair`, we can use all 🤗 Transformers that are publicly available. We simply have to instantiate any Flair
-WordEmbedding method and pass it through PolyFuzzy:  
+Creating the visualizations is as simple as:
 
-```python
-from polyfuzz.models import Embeddings
-from flair.embeddings import TransformerWordEmbeddings
-
-bert = TransformerWordEmbeddings('bert-base-multilingual-cased')
-bert_matcher = Embeddings(bert, matcher_id="BERT", min_similarity=0)
-model = PolyFuzz("TF-IDF")
 ```
+model.visualize_precision_recall()
+```
+<img src="images/tfidf.png" width="100%" height="100%"/> 
 
-For a full list of transformer models see [this](# https://huggingface.co/transformers/pretrained_models.html) link. 
+## Models
+Currently, there are several models implemented in PolyFuzz:
+* TF-IDF
+* EditDistance with RapidFuzz
+* FastText and GloVe
+* 🤗 Transformers
 
-## Multiple Models
-You might be interested in running multiple models with different matchers and different parameters in order to compare the best results.
-Fortunately, PolyFuzz allows you to exactly do this!
+With `Flair`, we can use all 🤗 Transformers that are 
+[publicly available](https://huggingface.co/transformers/pretrained_models.html). 
+We simply have to instantiate any Flair WordEmbedding method and pass it through PolyFuzzy.
 
-Below, you will find all models currently implemented in PolyFuzz and are compared against one another.
+All models listed above can be found in `polyfuzz.models` and can be used to create and compare different matchers:
 
 ```python
 from polyfuzz.models import EditDistance, TFIDF, Embeddings
 from flair.embeddings import TransformerWordEmbeddings
 
 bert = TransformerWordEmbeddings('bert-base-multilingual-cased')
-bert_matcher = Embeddings(bert, min_similarity=0)
+bert_matcher = Embeddings(bert, min_similarity=0, matcher_id="BERT")
 tfidf_matcher = TFIDF(min_similarity=0)
 edit_matcher = EditDistance()
 
 matchers = [bert_matcher, tfidf_matcher, edit_matcher]
+models = PolyFuzz(matchers).match(from_list, to_list)
 ```
 
-Then, we simply call `PolyFuzz` with all matchers and visualize the results:
+To access the results, we again can call `get_matches` but since we have multiple models we get back a dictionary 
+of dataframes back. 
 
-```
-model = PolyFuzz(matchers).match(from_list, to_list)
-model.visualize_precision_recall()
+In order to access the results of a specific model, call `get_matches` with the correct id: 
+
+```python
+>>> models.get_matches("BERT")
+    From	    To	    Similarity
+0	apple	    apple	1.000000
+1	apples	    apples	1.000000
+2	appl	    apple	0.928045
+3	recal	    apples	0.825268
+4	house	    mouse	0.887524
+5	similarity	mouse	0.791548
+``` 
+
+Finally, visualize the results to compare the models:
+
+```python
+models.visualize_precision_recall()
 ```
 
 <img src="images/multiple_models.png" width="100%" height="100%"/>
 
+**NOTE**: Call `models.get_ids()` to get all ids of models implemented.
 
 ## Custom Grouper
 We can even use one of the `polyfuzz.models` to be used as the grouper in case you would like to use 
@@ -167,7 +174,7 @@ model.group(base_edit_grouper)
 
 ## Custom Models
 Although the options above are a great solution for comparing different models, what if you have developed your own? 
-If you follow the structure of PolyFuzz's BaseMatcher 
+If you follow the structure of PolyFuzz's `BaseMatcher`  
 you can quickly implement any model you would like.
 
 Below, we are implementing the ratio similarity measure from RapidFuzz.
