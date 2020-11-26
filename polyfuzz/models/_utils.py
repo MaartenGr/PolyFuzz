@@ -83,7 +83,7 @@ def extract_best_matches(from_vector: np.ndarray,
         indices = np.array(similarity_matrix.argmax(axis=1).T).flatten()
         similarity = similarity_matrix.max(axis=1).toarray().T.flatten()
 
-    # Faster but uses more memory
+    # Faster than knn and slower than sparse but uses more memory
     else:
         similarity_matrix = cosine_similarity(to_vector, from_vector)
 

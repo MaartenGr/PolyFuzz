@@ -18,16 +18,16 @@ base_packages = [
     "pandas>= 0.25.3",
     "tqdm>=4.41.1",
     "joblib>= 0.14.0",
-    "sparse_dot_topn>=0.2.9",
     "matplotlib>= 3.2.2",
     "seaborn>= 0.11.0",
     "rapidfuzz>= 0.13.1",
     "scikit_learn>= 0.22.2.post1"
 ]
 
+fast_cosine = ["sparse_dot_topn>=0.2.9"]
 embeddings_packages = ["flair>= 0.6.1.post1"]
 
-extra_packages = embeddings_packages
+extra_packages = embeddings_packages + fast_cosine
 
 dev_packages = docs_packages + test_packages + extra_packages
 
@@ -71,6 +71,7 @@ setup(
         "docs": docs_packages,
         "dev": dev_packages,
         "flair": embeddings_packages,
+        "fast": fast_cosine,
         "all": extra_packages
     },
     python_requires='>=3.6',

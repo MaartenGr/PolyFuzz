@@ -22,13 +22,41 @@ You can install **`PolyFuzz`** via pip:
 pip install polyfuzz
 ```
 
-This will install the base dependencies and excludes any deep learning/embedding models. 
+This will install the base dependencies. If you want to speed 
+up the cosine similarity comparison and decrease memory usage, 
+you can use `sparse_dot_topn` which is installed via:
+
+```bash
+pip install polyfuzz[fast]
+```
 
 If you want to be making use of 🤗 Transformers, install the additional additional `Flair` dependency:
 
 ```bash
 pip install polyfuzz[flair]
 ```
+
+To install all the additional dependencies:
+
+```bash
+pip install polyfuzz[all]
+```
+
+<details>
+<summary>Installation Issues</summary>
+
+You might run into installation issues with `sparse_dot_topn`. If so, one solution that has worked for many 
+is by installing it via conda first before installing PolyFuzz:
+
+```bash
+conda install -c conda-forge sparse_dot_topn
+```
+
+If that does not work, I would advise you to look through their 
+issues](https://github.com/ing-bank/sparse_dot_topn/issues) page or continue to use PolyFuzz without `sparse_dot_topn`. 
+
+</details>  
+
 
 <a name="gettingstarted"/></a>
 ## Getting Started
@@ -52,7 +80,8 @@ from polyfuzz import PolyFuzz
 from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
 to_list = ["apple", "apples", "mouse"]
 
-model = PolyFuzz("TF-IDF").match(from_list, to_list)
+model = PolyFuzz("TF-IDF")
+model.match(from_list, to_list)
 ```  
 
 The resulting matches can be accessed through `model.get_matches()`:
@@ -117,19 +146,20 @@ With `Flair`, we can use all 🤗 Transformers that are
 [publicly available](https://huggingface.co/transformers/pretrained_models.html). 
 We simply have to instantiate any Flair WordEmbedding method and pass it through PolyFuzzy.
 
-All models listed above can be found in `polyfuzz.models` and can be used to create and compare different matchers:
+All models listed above can be found in `polyfuzz.models` and can be used to create and compare different models:
 
 ```python
 from polyfuzz.models import EditDistance, TFIDF, Embeddings
 from flair.embeddings import TransformerWordEmbeddings
 
-bert = TransformerWordEmbeddings('bert-base-multilingual-cased')
-bert_matcher = Embeddings(bert, min_similarity=0, matcher_id="BERT")
-tfidf_matcher = TFIDF(min_similarity=0)
-edit_matcher = EditDistance()
+embeddings = TransformerWordEmbeddings('bert-base-multilingual-cased')
+bert = Embeddings(embeddings, min_similarity=0, model_id="BERT")
+tfidf = TFIDF(min_similarity=0)
+edit = EditDistance()
 
-matchers = [bert_matcher, tfidf_matcher, edit_matcher]
-models = PolyFuzz(matchers).match(from_list, to_list)
+string_models = [bert, tfidf, edit]
+model = PolyFuzz(string_models)
+model.match(from_list, to_list)
 ```
 
 To access the results, we again can call `get_matches` but since we have multiple models we get back a dictionary 
@@ -138,7 +168,7 @@ of dataframes back.
 In order to access the results of a specific model, call `get_matches` with the correct id: 
 
 ```python
->>> models.get_matches("BERT")
+>>> model.get_matches("BERT")
         From	    To          Similarity
 0	apple	    apple	1.000000
 1	apples	    apples	1.000000
@@ -151,19 +181,21 @@ In order to access the results of a specific model, call `get_matches` with the 
 Finally, visualize the results to compare the models:
 
 ```python
-models.visualize_precision_recall(kde=True)
+model.visualize_precision_recall(kde=True)
 ```
 
 <img src="images/multiple_models.png" width="100%" height="100%"/>
 
 ## Custom Grouper
 We can even use one of the `polyfuzz.models` to be used as the grouper in case you would like to use 
-something else than the standard TF-IDF matcher:
+something else than the standard TF-IDF model:
 
 ```python
-model = PolyFuzz("TF-IDF").match(from_list, to_list)
-base_edit_grouper = EditDistance(n_jobs=1)
-model.group(base_edit_grouper)
+model = PolyFuzz("TF-IDF")
+model.match(from_list, to_list)
+
+edit_grouper = EditDistance(n_jobs=1)
+model.group(edit_grouper)
 ```
 
 ## Custom Models
@@ -196,8 +228,23 @@ class MyModel(BaseMatcher):
 ```
 Then, we can simply create an instance of MyModel and pass it through PolyFuzz:
 ```python
-custom_matcher = MyModel()
-model = PolyFuzz(custom_matcher)
+custom_model = MyModel()
+model = PolyFuzz(custom_model)
 ```
 
 ## References
+Below, you can find several resources that were used for the creation of PolyFuzz:
+
+**Edit distance algorithms**:
+These algorithms focus primarily on edit distance measures and can be used in `polyfuzz.models.EditDistance`:
+
+* https://github.com/jamesturk/jellyfish
+* https://github.com/ztane/python-Levenshtein
+* https://github.com/seatgeek/fuzzywuzzy
+* https://github.com/maxbachmann/rapidfuzz
+* https://github.com/roy-ht/editdistance
+
+**Other interesting repos**:
+
+* https://github.com/ing-bank/sparse_dot_topn
+    * Used in PolyFuzz for fast cosine similarity between sparse matrices

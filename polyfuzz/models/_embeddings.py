@@ -28,7 +28,7 @@ class Embeddings(BaseMatcher):
                         the distance matrix is not sparse
                         Knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
-        matcher_id: The name of the particular instance, used when comparing models
+        model_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -60,8 +60,8 @@ class Embeddings(BaseMatcher):
                  embedding_method: Union[List, None] = None,
                  min_similarity: float = 0.75,
                  cosine_method: str = "sparse",
-                 matcher_id: str = None):
-        super().__init__(matcher_id)
+                 model_id: str = None):
+        super().__init__(model_id)
         self.type = "Embeddings"
 
         if not embedding_method:

@@ -33,7 +33,7 @@ class RapidFuzz(BaseMatcher):
                     * fuzz.QRatio
                 See https://maxbachmann.github.io/rapidfuzz/usage/fuzz/ for an extensive
                 description of the scoring methods.
-        matcher_id: The name of the particular instance, used when comparing models
+        model_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -46,8 +46,8 @@ class RapidFuzz(BaseMatcher):
                  n_jobs: int = 1,
                  score_cutoff: float = 0,
                  scorer: Callable = fuzz.WRatio,
-                 matcher_id: str = None):
-        super().__init__(matcher_id)
+                 model_id: str = None):
+        super().__init__(model_id)
         self.type = "EditDistance"
         self.score_cutoff = score_cutoff * 100
         self.scorer = scorer
