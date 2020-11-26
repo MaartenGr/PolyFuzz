@@ -138,12 +138,11 @@ model.visualize_precision_recall()
 ## Models
 Currently, the following models are implemented in PolyFuzz:
 * TF-IDF
-* EditDistance (you can use any distance measure, see documentation [here](https://maartengr.github.io/PolyFuzz/tutorial/models/#EditDistance))
+* EditDistance (you can use any distance measure, see [documentation](https://maartengr.github.io/PolyFuzz/tutorial/models/#EditDistance))
 * FastText and GloVe
 * 🤗 Transformers
 
-With `Flair`, we can use all 🤗 Transformers that are 
-[publicly available](https://huggingface.co/transformers/pretrained_models.html). 
+With `Flair`, we can use all 🤗 Transformers [models](https://huggingface.co/transformers/pretrained_models.html). 
 We simply have to instantiate any Flair WordEmbedding method and pass it through PolyFuzzy.
 
 All models listed above can be found in `polyfuzz.models` and can be used to create and compare different models:

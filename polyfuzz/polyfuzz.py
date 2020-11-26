@@ -187,7 +187,9 @@ class PolyFuzz:
 
         visualize_precision_recall(self.matches, self.min_precisions, self.recalls, kde, save_path)
 
-    def group(self, model: BaseMatcher = None, link_min_similarity: float = 0.75):
+    def group(self,
+              model: Union[str, BaseMatcher] = None,
+              link_min_similarity: float = 0.75):
         """ From the matches, group the `To` matches together using single linkage
 
          Arguments:
@@ -199,11 +201,26 @@ class PolyFuzz:
             self.matches: Adds a column `Group` that is the grouped version of the `To` column
          """
         check_matches(self)
-
         self.clusters = {}
         self.cluster_mappings = {}
 
-        if not model:
+        # Standard models - quick access
+        if isinstance(model, str):
+            if model in ["TF-IDF", "TFIDF"]:
+                model = TFIDF(n_gram_range=(3, 3), min_similarity=link_min_similarity)
+            elif self.method in ["EditDistance", "Edit Distance"]:
+                model = RapidFuzz()
+            elif self.method in ["Embeddings", "Embedding"]:
+                model = Embeddings(min_similarity=link_min_similarity)
+            else:
+                raise ValueError("Please instantiate the model with one of the following methods: \n"
+                                 "* 'TF-IDF'\n"
+                                 "* 'EditDistance'\n"
+                                 "* 'Embeddings'\n"
+                                 "* Or None if you want to automatically use TF-IDF")
+
+        # Use TF-IDF if no model is specified
+        elif not model:
             model = TFIDF(n_gram_range=(3, 3), min_similarity=link_min_similarity)
 
         for name, match in self.matches.items():

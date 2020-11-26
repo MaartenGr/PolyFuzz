@@ -58,7 +58,7 @@ def test_wrongbase_model(method):
 
 
 def test_multiple_models():
-    tfidf_matcher = TFIDF(n_gram_range=(3, 3), min_similarity=0, matcher_id="TF-IDF")
+    tfidf_matcher = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF")
     tfidf_large_matcher = TFIDF(n_gram_range=(3, 6), min_similarity=0)
     base_edit_matcher = EditDistance(n_jobs=1)
     ratio_matcher = EditDistance(n_jobs=1, scorer=fuzz.ratio)
