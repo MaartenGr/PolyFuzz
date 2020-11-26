@@ -8,7 +8,7 @@
 **`PolyFuzz`** performs fuzzy string matching, string grouping, and contains extensive evaluation functions. 
 PolyFuzz is meant to bring fuzzy string matching techniques together within a single framework.
 
-Currently, methods include Levenshtein distance with RapidFuzz, a character-based n-gram TF-IDF, word embedding
+Currently, methods include a variety of edit distance measures, a character-based n-gram TF-IDF, word embedding
 techniques such as FastText and GloVe, and 🤗 transformers embeddings.  
 
 Corresponding medium post can be found [here]().
@@ -138,7 +138,7 @@ model.visualize_precision_recall()
 ## Models
 Currently, the following models are implemented in PolyFuzz:
 * TF-IDF
-* EditDistance with RapidFuzz
+* EditDistance (you can use any distance measure, see documentation [here](https://maartengr.github.io/PolyFuzz/tutorial/models/#EditDistance))
 * FastText and GloVe
 * 🤗 Transformers
 
@@ -233,9 +233,9 @@ model = PolyFuzz(custom_model)
 ```
 
 ## References
-Below, you can find several resources that were used for the creation of PolyFuzz:
-
-**Edit distance algorithms**:
+Below, you can find several resources that were used for or inspired by when developing PolyFuzz:  
+  
+**Edit distance algorithms**:  
 These algorithms focus primarily on edit distance measures and can be used in `polyfuzz.models.EditDistance`:
 
 * https://github.com/jamesturk/jellyfish
