@@ -8,7 +8,7 @@ from sklearn.preprocessing import normalize
 from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
 from flair.data import Sentence
 
-from ._utils import extract_best_matches
+from ._utils import cosine_similarity
 from ._base import BaseMatcher
 
 
@@ -28,7 +28,7 @@ class Embeddings(BaseMatcher):
                         the distance matrix is not sparse
                         Knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
-        matcher_id: The name of the particular instance, used when comparing models
+        model_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -60,8 +60,8 @@ class Embeddings(BaseMatcher):
                  embedding_method: Union[List, None] = None,
                  min_similarity: float = 0.75,
                  cosine_method: str = "sparse",
-                 matcher_id: str = None):
-        super().__init__(matcher_id)
+                 model_id: str = None):
+        super().__init__(model_id)
         self.type = "Embeddings"
 
         if not embedding_method:
@@ -107,9 +107,11 @@ class Embeddings(BaseMatcher):
             embeddings_from = self._embed(from_list)
         if not isinstance(embeddings_to, np.ndarray):
             embeddings_to = self._embed(to_list)
-        matches = extract_best_matches(embeddings_to, from_list,
-                                       embeddings_from, to_list,
-                                       self.min_similarity, self.cosine_method)
+
+        matches = cosine_similarity(embeddings_from, embeddings_to,
+                                    from_list, to_list,
+                                    self.min_similarity, self.cosine_method)
+
         return matches
 
     def _embed(self, strings: List[str]) -> np.ndarray:

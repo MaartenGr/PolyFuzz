@@ -2,7 +2,7 @@ from ._base import BaseMatcher
 from ._distance import EditDistance
 from ._rapidfuzz import RapidFuzz
 from ._tfidf import TFIDF
-from ._utils import extract_best_matches
+from ._utils import cosine_similarity
 
 from polyfuzz.error import NotInstalled
 
@@ -17,5 +17,5 @@ __all__ = [
     "Embeddings",
     "RapidFuzz",
     "TFIDF",
-    "extract_best_matches"
+    "cosine_similarity"
 ]

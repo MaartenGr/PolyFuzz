@@ -4,7 +4,7 @@ import pandas as pd
 from typing import List, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from polyfuzz.models._utils import extract_best_matches
+from ._utils import cosine_similarity
 from ._base import BaseMatcher
 
 
@@ -35,7 +35,7 @@ class TFIDF(BaseMatcher):
 
                         knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
-        matcher_id: The name of the particular instance, used when comparing models
+        model_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -49,8 +49,8 @@ class TFIDF(BaseMatcher):
                  clean_string: bool = True,
                  min_similarity: float = 0.75,
                  cosine_method: str = "sparse",
-                 matcher_id: str = None):
-        super().__init__(matcher_id)
+                 model_id: str = None):
+        super().__init__(model_id)
         self.type = "TF-IDF"
         self.n_gram_range = n_gram_range
         self.clean_string = clean_string
@@ -80,8 +80,9 @@ class TFIDF(BaseMatcher):
         """
 
         tf_idf_from, tf_idf_to = self._extract_tf_idf(from_list, to_list)
-        matches = extract_best_matches(tf_idf_from, from_list, tf_idf_to, to_list,
-                                       self.min_similarity, self.cosine_method)
+        matches = cosine_similarity(tf_idf_from, tf_idf_to,
+                                    from_list, to_list,
+                                    self.min_similarity, self.cosine_method)
 
         return matches
 
@@ -97,7 +98,7 @@ class TFIDF(BaseMatcher):
             tf_idf_to = TfidfVectorizer(min_df=1, analyzer=self._create_ngrams).fit_transform(from_list)
             tf_idf_from = None
 
-        return tf_idf_to, tf_idf_from
+        return tf_idf_from, tf_idf_to
 
     def _create_ngrams(self, string: str) -> List[str]:
         """ Create n_grams from a string

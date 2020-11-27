@@ -37,16 +37,16 @@ class PolyFuzz:
     in these models separately:
 
     ```python
-    tfidf_matcher = TFIDF(n_gram_range=(3, 3), min_similarity=0, matcher_id="TF-IDF-Sklearn")
-    model = pf.PolyFuzz(tfidf_matcher)
+    tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF-Sklearn")
+    model = pf.PolyFuzz(tfidf)
     ```
 
     You can also select multiple models in order to compare performance:
 
     ```python
-    tfidf_matcher = TFIDF(n_gram_range=(3, 3), min_similarity=0, matcher_id="TF-IDF-Sklearn")
-    edit_matcher = EditDistance(n_jobs=-1)
-    model = pf.PolyFuzz([tfidf_matcher, edit_matcher])
+    tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF-Sklearn")
+    edit = EditDistance(n_jobs=-1)
+    model = pf.PolyFuzz([tfidf, edit])
     ```
 
     To use embedding models, please use Flair word embeddings:
@@ -55,8 +55,8 @@ class PolyFuzz:
     from flair.embeddings import WordEmbeddings, TransformerWordEmbeddings
     fasttext_embedding = WordEmbeddings('news')
     bert_embedding = TransformerWordEmbeddings('bert-base-multilingual-cased')
-    embedding_matcher = Embeddings([fasttext_embedding, bert_embedding ], min_similarity=0.0)
-    model = pf.PolyFuzz(embedding_matcher)
+    embedding = Embeddings([fasttext_embedding, bert_embedding ], min_similarity=0.0)
+    model = pf.PolyFuzz(embedding)
     ```
     """
 
@@ -96,7 +96,7 @@ class PolyFuzz:
         Updates:
             self.matches: A dictionary with the matches from all models, can
                           be accessed with `model.get_all_matches` or
-                          `model.get_match("TF-IDF-Matcher")`
+                          `model.get_match("TF-IDF")`
 
         Usage:
 
@@ -104,13 +104,13 @@ class PolyFuzz:
 
         ```python
         import polyfuzz as pf
-        model = pf.PolyFuzz("TF-IDF", matcher_id="TF-IDF-Matcher")
+        model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
         model.match(from_list = ["string_one", "string_two"],
                     to_list = ["string_three", "string_four"])
         ```
 
         You can access the results matches with `model.get_all_matches` or a specific
-        model with `model.get_match("TF-IDF-Matcher")` based on their matcher_id.
+        model with `model.get_match("TF-IDF")` based on their model_id.
         """
         # Standard models - quick access
         if isinstance(self.method, str):
@@ -125,20 +125,20 @@ class PolyFuzz:
                                  "* 'TF-IDF'\n"
                                  "* 'EditDistance'\n"
                                  "* 'Embeddings'\n")
-            logger.info(f"Ran matcher with model id = {self.method}")
+            logger.info(f"Ran model with model id = {self.method}")
 
         # Custom models
         elif isinstance(self.method, BaseMatcher):
-            self.matches = {self.method.matcher_id: self.method.match(from_list, to_list)}
-            logging.info(f"Ran matcher with model id = {self.method.matcher_id}")
+            self.matches = {self.method.model_id: self.method.match(from_list, to_list)}
+            logging.info(f"Ran model with model id = {self.method.model_id}")
 
         # Multiple custom models
         elif isinstance(self.method, Iterable):
-            self._update_matcher_ids()
+            self._update_model_ids()
             self.matches = {}
             for model in self.method:
-                self.matches[model.matcher_id] = model.match(from_list, to_list)
-                logging.info(f"Ran matcher with model id = {model.matcher_id}")
+                self.matches[model.model_id] = model.match(from_list, to_list)
+                logging.info(f"Ran model with model id = {model.model_id}")
 
         return self
 
@@ -167,7 +167,7 @@ class PolyFuzz:
 
         ```python
         import polyfuzz as pf
-        model = pf.PolyFuzz("TF-IDF", matcher_id="TF-IDF-Matcher")
+        model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
         model.match(from_list = ["string_one", "string_two"],
                     to_list = ["string_three", "string_four"])
         model.visualize_precision_recall(save_path="results.png")
@@ -187,7 +187,9 @@ class PolyFuzz:
 
         visualize_precision_recall(self.matches, self.min_precisions, self.recalls, kde, save_path)
 
-    def group(self, model: BaseMatcher = None, link_min_similarity: float = 0.75):
+    def group(self,
+              model: Union[str, BaseMatcher] = None,
+              link_min_similarity: float = 0.75):
         """ From the matches, group the `To` matches together using single linkage
 
          Arguments:
@@ -199,11 +201,26 @@ class PolyFuzz:
             self.matches: Adds a column `Group` that is the grouped version of the `To` column
          """
         check_matches(self)
-
         self.clusters = {}
         self.cluster_mappings = {}
 
-        if not model:
+        # Standard models - quick access
+        if isinstance(model, str):
+            if model in ["TF-IDF", "TFIDF"]:
+                model = TFIDF(n_gram_range=(3, 3), min_similarity=link_min_similarity)
+            elif self.method in ["EditDistance", "Edit Distance"]:
+                model = RapidFuzz()
+            elif self.method in ["Embeddings", "Embedding"]:
+                model = Embeddings(min_similarity=link_min_similarity)
+            else:
+                raise ValueError("Please instantiate the model with one of the following methods: \n"
+                                 "* 'TF-IDF'\n"
+                                 "* 'EditDistance'\n"
+                                 "* 'Embeddings'\n"
+                                 "* Or None if you want to automatically use TF-IDF")
+
+        # Use TF-IDF if no model is specified
+        elif not model:
             model = TFIDF(n_gram_range=(3, 3), min_similarity=link_min_similarity)
 
         for name, match in self.matches.items():
@@ -221,10 +238,10 @@ class PolyFuzz:
         if isinstance(self.method, str):
             return self.method
         elif isinstance(self.method, Iterable):
-            return [model.matcher_id for model in self.method]
+            return [model.model_id for model in self.method]
         return None
 
-    def get_matches(self, matcher_id: str = None) -> Union[pd.DataFrame,
+    def get_matches(self, model_id: str = None) -> Union[pd.DataFrame,
                                                            Mapping[str, pd.DataFrame]]:
         """ Get the matches from one or more models"""
         check_matches(self)
@@ -232,16 +249,16 @@ class PolyFuzz:
         if len(self.matches) == 1:
             return list(self.matches.values())[0]
 
-        elif len(self.matches) > 1 and matcher_id:
-            return self.matches[matcher_id]
+        elif len(self.matches) > 1 and model_id:
+            return self.matches[model_id]
 
         return self.matches
 
-    def get_clusters(self, matcher_id: str = None) -> Mapping[str, List[str]]:
+    def get_clusters(self, model_id: str = None) -> Mapping[str, List[str]]:
         """ Get the groupings/clusters from a single model
 
         Arguments:
-            matcher_id: the model id of the model if you have specified multiple matchers
+            model_id: the model id of the model if you have specified multiple models
 
         """
         check_matches(self)
@@ -250,8 +267,8 @@ class PolyFuzz:
         if len(self.matches) == 1:
             return list(self.clusters.values())[0]
 
-        elif len(self.matches) > 1 and matcher_id:
-            return self.clusters[matcher_id]
+        elif len(self.matches) > 1 and model_id:
+            return self.clusters[model_id]
 
         return self.clusters
 
@@ -279,15 +296,15 @@ class PolyFuzz:
                                                         (df.From == df.Group), "To"]
         self.matches[name] = df
 
-    def _update_matcher_ids(self):
+    def _update_model_ids(self):
         """ Update model ids such that there is no overlap between ids """
-        # Give models a matcher_id if it didn't already exist
+        # Give models a model_id if it didn't already exist
         for index, model in enumerate(self.method):
-            if not model.matcher_id:
-                model.matcher_id = f"Model {index}"
+            if not model.model_id:
+                model.model_id = f"Model {index}"
 
         # Update duplicate names
-        matcher_ids = [model.matcher_id for model in self.method]
-        if len(set(matcher_ids)) != len(matcher_ids):
+        model_ids = [model.model_id for model in self.method]
+        if len(set(model_ids)) != len(model_ids):
             for index, model in enumerate(self.method):
-                model.matcher_id = f"Model {index}"
+                model.model_id = f"Model {index}"

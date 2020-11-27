@@ -18,7 +18,7 @@ class EditDistance(BaseMatcher):
         scorer: The scorer function to be used to calculate the edit distance.
                 This function should give back a float between 0 and 1, and work as follows:
                     scorer("string_one", "string_two")
-        matcher_id: The name of the particular instance, used when comparing models
+        model_id: The name of the particular instance, used when comparing models
 
     Usage:
 
@@ -30,9 +30,9 @@ class EditDistance(BaseMatcher):
     def __init__(self,
                  n_jobs: int = 1,
                  scorer: Callable = fuzz.ratio,
-                 matcher_id: str = None,
+                 model_id: str = None,
                  normalize: bool = True):
-        super().__init__(matcher_id)
+        super().__init__(model_id)
         self.type = "EditDistance"
         self.scorer = scorer
         self.normalize = normalize
