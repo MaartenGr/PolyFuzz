@@ -665,7 +665,7 @@ word. Then, we simply apply cosine similarity through k-NN</p>
 
                 knn uses 1-nearest neighbor to extract the most similar strings
                 it is significantly slower than both methods but requires little memory
-matcher_id: The name of the particular instance, used when comparing models
+model_id: The name of the particular instance, used when comparing models
 </code></pre></div>
 
 <p>Usage:</p>
@@ -699,7 +699,8 @@ matcher_id: The name of the particular instance, used when comparing models
 83
 84
 85
-86</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+86
+87</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">from_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
               <span class="n">to_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Match two lists of strings to each other and return the most similar strings</span>
@@ -722,8 +723,9 @@ matcher_id: The name of the particular instance, used when comparing models
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">tf_idf_from</span><span class="p">,</span> <span class="n">tf_idf_to</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_tf_idf</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
-        <span class="n">matches</span> <span class="o">=</span> <span class="n">extract_best_matches</span><span class="p">(</span><span class="n">tf_idf_from</span><span class="p">,</span> <span class="n">from_list</span><span class="p">,</span> <span class="n">tf_idf_to</span><span class="p">,</span> <span class="n">to_list</span><span class="p">,</span>
-                                       <span class="bp">self</span><span class="o">.</span><span class="n">min_similarity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosine_method</span><span class="p">)</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">tf_idf_from</span><span class="p">,</span> <span class="n">tf_idf_to</span><span class="p">,</span>
+                                    <span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">min_similarity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosine_method</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">matches</span>
 </code></pre></div>

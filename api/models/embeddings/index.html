@@ -647,7 +647,7 @@ the best matches between two lists of strings</p>
 <td><code>'sparse'</code></td>
 </tr>
 <tr>
-<td><code>matcher_id</code></td>
+<td><code>model_id</code></td>
 <td><code>str</code></td>
 <td>The name of the particular instance, used when comparing models</td>
 <td><code>None</code></td>
@@ -703,7 +703,9 @@ results will be averaged:</p>
 110
 111
 112
-113</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+113
+114
+115</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">from_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
               <span class="n">to_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
               <span class="n">embeddings_from</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -731,9 +733,11 @@ results will be averaged:</p>
             <span class="n">embeddings_from</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed</span><span class="p">(</span><span class="n">from_list</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">embeddings_to</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">embeddings_to</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed</span><span class="p">(</span><span class="n">to_list</span><span class="p">)</span>
-        <span class="n">matches</span> <span class="o">=</span> <span class="n">extract_best_matches</span><span class="p">(</span><span class="n">embeddings_to</span><span class="p">,</span> <span class="n">from_list</span><span class="p">,</span>
-                                       <span class="n">embeddings_from</span><span class="p">,</span> <span class="n">to_list</span><span class="p">,</span>
-                                       <span class="bp">self</span><span class="o">.</span><span class="n">min_similarity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosine_method</span><span class="p">)</span>
+
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">embeddings_from</span><span class="p">,</span> <span class="n">embeddings_to</span><span class="p">,</span>
+                                    <span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">min_similarity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosine_method</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">matches</span>
 </code></pre></div>
 </td></tr></table>

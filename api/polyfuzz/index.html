@@ -724,34 +724,34 @@ with either "EditDistance"  or "Embeddings" for quick access to these models:</p
 </code></pre></div>
 <p>If you want more control over the String Matching models, you can load
 in these models separately:</p>
-<div class="highlight"><pre><span></span><code><span class="n">tfidf_matcher</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF-Sklearn&quot;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="n">tfidf_matcher</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF-Sklearn&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="n">tfidf</span><span class="p">)</span>
 </code></pre></div>
 <p>You can also select multiple models in order to compare performance:</p>
-<div class="highlight"><pre><span></span><code><span class="n">tfidf_matcher</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF-Sklearn&quot;</span><span class="p">)</span>
-<span class="n">edit_matcher</span> <span class="o">=</span> <span class="n">EditDistance</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">([</span><span class="n">tfidf_matcher</span><span class="p">,</span> <span class="n">edit_matcher</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF-Sklearn&quot;</span><span class="p">)</span>
+<span class="n">edit</span> <span class="o">=</span> <span class="n">EditDistance</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">([</span><span class="n">tfidf</span><span class="p">,</span> <span class="n">edit</span><span class="p">])</span>
 </code></pre></div>
 <p>To use embedding models, please use Flair word embeddings:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flair.embeddings</span> <span class="kn">import</span> <span class="n">WordEmbeddings</span><span class="p">,</span> <span class="n">TransformerWordEmbeddings</span>
 <span class="n">fasttext_embedding</span> <span class="o">=</span> <span class="n">WordEmbeddings</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">)</span>
 <span class="n">bert_embedding</span> <span class="o">=</span> <span class="n">TransformerWordEmbeddings</span><span class="p">(</span><span class="s1">&#39;bert-base-multilingual-cased&#39;</span><span class="p">)</span>
-<span class="n">embedding_matcher</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">([</span><span class="n">fasttext_embedding</span><span class="p">,</span> <span class="n">bert_embedding</span> <span class="p">],</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="n">embedding_matcher</span><span class="p">)</span>
+<span class="n">embedding</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">([</span><span class="n">fasttext_embedding</span><span class="p">,</span> <span class="n">bert_embedding</span> <span class="p">],</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="n">embedding</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="polyfuzz.polyfuzz.PolyFuzz.get_cluster_mappings"><code class="highlight"><span class="n">get_cluster_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_cluster_mappings" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
-269</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_cluster_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_cluster_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; Get the mappings from the `To` column to its respective column &quot;&quot;&quot;</span>
         <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">check_grouped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -767,28 +767,28 @@ in these models separately:</p>
 </td></tr></table>
 </details>
 <p>Get the mappings from the <code>To</code> column to its respective column </p>
-<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_clusters"><code class="highlight"><span class="n">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_clusters" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
-254
-255
-256</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matcher_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_clusters"><code class="highlight"><span class="n">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_clusters" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot; Get the groupings/clusters from a single model</span>
 
 <span class="sd">        Arguments:</span>
-<span class="sd">            matcher_id: the model id of the model if you have specified multiple matchers</span>
+<span class="sd">            model_id: the model id of the model if you have specified multiple models</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -797,8 +797,8 @@ in these models separately:</p>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">matcher_id</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">matcher_id</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">model_id</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">model_id</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span>
 </code></pre></div>
@@ -817,48 +817,48 @@ in these models separately:</p>
 </thead>
 <tbody>
 <tr>
-<td><code>matcher_id</code></td>
+<td><code>model_id</code></td>
 <td><code>str</code></td>
-<td>the model id of the model if you have specified multiple matchers</td>
+<td>the model id of the model if you have specified multiple models</td>
 <td><code>None</code></td>
 </tr>
 </tbody>
 </table>
 <h2 id="polyfuzz.polyfuzz.PolyFuzz.get_ids"><code class="highlight"><span class="n">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_ids" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>217
-218
-219
-220
-221
-222
-223
-224
-225</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
+<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>234
+235
+236
+237
+238
+239
+240
+241
+242</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot; Get all model ids for easier access &quot;&quot;&quot;</span>
         <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">matcher_id</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">]</span>
         <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div>
 </td></tr></table>
 </details>
 <p>Get all model ids for easier access </p>
-<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_matches"><code class="highlight"><span class="n">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_matches" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matcher_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_matches"><code class="highlight"><span class="n">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_matches" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                                                            <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot; Get the matches from one or more models&quot;&quot;&quot;</span>
         <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -866,8 +866,8 @@ in these models separately:</p>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">matcher_id</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">matcher_id</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">model_id</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">model_id</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span>
 </code></pre></div>
@@ -900,7 +900,26 @@ in these models separately:</p>
 212
 213
 214
-215</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BaseMatcher</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">):</span>
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+              <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BaseMatcher</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="n">link_min_similarity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; From the matches, group the `To` matches together using single linkage</span>
 
 <span class="sd">         Arguments:</span>
@@ -912,11 +931,26 @@ in these models separately:</p>
 <span class="sd">            self.matches: Adds a column `Group` that is the grouped version of the `To` column</span>
 <span class="sd">         &quot;&quot;&quot;</span>
         <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cluster_mappings</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="p">:</span>
+        <span class="c1"># Standard models - quick access</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="s2">&quot;TFIDF&quot;</span><span class="p">]:</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="n">link_min_similarity</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;EditDistance&quot;</span><span class="p">,</span> <span class="s2">&quot;Edit Distance&quot;</span><span class="p">]:</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">RapidFuzz</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Embeddings&quot;</span><span class="p">,</span> <span class="s2">&quot;Embedding&quot;</span><span class="p">]:</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">(</span><span class="n">min_similarity</span><span class="o">=</span><span class="n">link_min_similarity</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please instantiate the model with one of the following methods: </span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;* &#39;TF-IDF&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;* &#39;EditDistance&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;* &#39;Embeddings&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;* Or None if you want to automatically use TF-IDF&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Use TF-IDF if no model is specified</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">model</span><span class="p">:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="n">link_min_similarity</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -943,7 +977,7 @@ in these models separately:</p>
 <tbody>
 <tr>
 <td><code>model</code></td>
-<td><code>BaseMatcher</code></td>
+<td><code>Union[str, polyfuzz.models._base.BaseMatcher]</code></td>
 <td>you can choose one of the models in <code>polyfuzz.models</code> to be used as a grouper</td>
 <td><code>None</code></td>
 </tr>
@@ -1028,7 +1062,7 @@ in these models separately:</p>
 <span class="sd">        Updates:</span>
 <span class="sd">            self.matches: A dictionary with the matches from all models, can</span>
 <span class="sd">                          be accessed with `model.get_all_matches` or</span>
-<span class="sd">                          `model.get_match(&quot;TF-IDF-Matcher&quot;)`</span>
+<span class="sd">                          `model.get_match(&quot;TF-IDF&quot;)`</span>
 
 <span class="sd">        Usage:</span>
 
@@ -1036,13 +1070,13 @@ in these models separately:</p>
 
 <span class="sd">        ```python</span>
 <span class="sd">        import polyfuzz as pf</span>
-<span class="sd">        model = pf.PolyFuzz(&quot;TF-IDF&quot;, matcher_id=&quot;TF-IDF-Matcher&quot;)</span>
+<span class="sd">        model = pf.PolyFuzz(&quot;TF-IDF&quot;, model_id=&quot;TF-IDF&quot;)</span>
 <span class="sd">        model.match(from_list = [&quot;string_one&quot;, &quot;string_two&quot;],</span>
 <span class="sd">                    to_list = [&quot;string_three&quot;, &quot;string_four&quot;])</span>
 <span class="sd">        ```</span>
 
 <span class="sd">        You can access the results matches with `model.get_all_matches` or a specific</span>
-<span class="sd">        model with `model.get_match(&quot;TF-IDF-Matcher&quot;)` based on their matcher_id.</span>
+<span class="sd">        model with `model.get_match(&quot;TF-IDF&quot;)` based on their model_id.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Standard models - quick access</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -1057,20 +1091,20 @@ in these models separately:</p>
                                  <span class="s2">&quot;* &#39;TF-IDF&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
                                  <span class="s2">&quot;* &#39;EditDistance&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
                                  <span class="s2">&quot;* &#39;Embeddings&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran matcher with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{self.method}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Custom models</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">BaseMatcher</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">matcher_id</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran matcher with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">matcher_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">model_id</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{self.method.model_id}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Multiple custom models</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_matcher_ids</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_model_ids</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">matcher_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
-                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran matcher with model id = </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">matcher_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{model.model_id}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span>
 </code></pre></div>
@@ -1106,16 +1140,16 @@ you have initialized</p>
 <p>Updates:
     self.matches: A dictionary with the matches from all models, can
                   be accessed with <code>model.get_all_matches</code> or
-                  <code>model.get_match("TF-IDF-Matcher")</code></p>
+                  <code>model.get_match("TF-IDF")</code></p>
 <p>Usage:</p>
 <p>After having initialized your models, you can pass through lists of strings:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">polyfuzz</span> <span class="k">as</span> <span class="nn">pf</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF-Matcher&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;string_one&quot;</span><span class="p">,</span> <span class="s2">&quot;string_two&quot;</span><span class="p">],</span>
             <span class="n">to_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;string_three&quot;</span><span class="p">,</span> <span class="s2">&quot;string_four&quot;</span><span class="p">])</span>
 </code></pre></div>
 <p>You can access the results matches with <code>model.get_all_matches</code> or a specific
-model with <code>model.get_match("TF-IDF-Matcher")</code> based on their matcher_id.</p>
+model with <code>model.get_match("TF-IDF")</code> based on their model_id.</p>
 <h2 id="polyfuzz.polyfuzz.PolyFuzz.visualize_precision_recall"><code class="highlight"><span class="n">visualize_precision_recall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.visualize_precision_recall" title="Permanent link">&para;</a></h2>
 <details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>145
 146
@@ -1185,7 +1219,7 @@ model with <code>model.get_match("TF-IDF-Matcher")</code> based on their matcher
 
 <span class="sd">        ```python</span>
 <span class="sd">        import polyfuzz as pf</span>
-<span class="sd">        model = pf.PolyFuzz(&quot;TF-IDF&quot;, matcher_id=&quot;TF-IDF-Matcher&quot;)</span>
+<span class="sd">        model = pf.PolyFuzz(&quot;TF-IDF&quot;, model_id=&quot;TF-IDF&quot;)</span>
 <span class="sd">        model.match(from_list = [&quot;string_one&quot;, &quot;string_two&quot;],</span>
 <span class="sd">                    to_list = [&quot;string_three&quot;, &quot;string_four&quot;])</span>
 <span class="sd">        model.visualize_precision_recall(save_path=&quot;results.png&quot;)</span>
@@ -1244,7 +1278,7 @@ that for a certain minimum precision score, we find many matches.</p>
 </table>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">polyfuzz</span> <span class="k">as</span> <span class="nn">pf</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF-Matcher&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">PolyFuzz</span><span class="p">(</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;string_one&quot;</span><span class="p">,</span> <span class="s2">&quot;string_two&quot;</span><span class="p">],</span>
             <span class="n">to_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;string_three&quot;</span><span class="p">,</span> <span class="s2">&quot;string_four&quot;</span><span class="p">])</span>
 <span class="n">model</span><span class="o">.</span><span class="n">visualize_precision_recall</span><span class="p">(</span><span class="n">save_path</span><span class="o">=</span><span class="s2">&quot;results.png&quot;</span><span class="p">)</span>

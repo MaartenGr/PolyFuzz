@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#polyfuzzmodelsextract_best_matches" tabindex="0" class="md-skip">
+      <a href="#polyfuzzmodelscosine_similarity" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -569,8 +569,8 @@
                   <a href="https://github.com/MaartenGr/PolyFuzz/edit/master/docs/api/models/matches.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="polyfuzzmodelsextract_best_matches"><code>polyfuzz.models.extract_best_matches</code><a class="headerlink" href="#polyfuzzmodelsextract_best_matches" title="Permanent link">&para;</a></h1>
-<p>Calculate similarity between two matrices</p>
+                <h1 id="polyfuzzmodelscosine_similarity"><code>polyfuzz.models.cosine_similarity</code><a class="headerlink" href="#polyfuzzmodelscosine_similarity" title="Permanent link">&para;</a></h1>
+<p>Calculate similarity between two matrices/vectors and return best matches</p>
 <p><strong>Parameters</strong></p>
 <table>
 <thead>
@@ -589,15 +589,15 @@
 <td><em>required</em></td>
 </tr>
 <tr>
-<td><code>from_list</code></td>
-<td><code>List[str]</code></td>
-<td>The list from which you want mappings</td>
-<td><em>required</em></td>
-</tr>
-<tr>
 <td><code>to_vector</code></td>
 <td><code>ndarray</code></td>
 <td>the matrix or vector representing the embedded strings to map to</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>from_list</code></td>
+<td><code>List[str]</code></td>
+<td>The list from which you want mappings</td>
 <td><em>required</em></td>
 </tr>
 <tr>
@@ -639,7 +639,7 @@
 <p>Make sure to fill the <code>to_vector</code> and <code>from_vector</code> with vector representations
 of <code>to_list</code> and <code>from_list</code> respectively:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">polyfuzz.models</span> <span class="kn">import</span> <span class="n">extract_best_matches</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">extract_best_matches</span><span class="p">(</span><span class="n">to_vector</span><span class="p">,</span> <span class="n">from_list</span><span class="p">,</span> <span class="n">from_vector</span><span class="p">,</span> <span class="n">to_list</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;sparse&quot;</span><span class="p">)</span>
+<span class="n">indices</span><span class="p">,</span> <span class="n">similarity</span> <span class="o">=</span> <span class="n">extract_best_matches</span><span class="p">(</span><span class="n">from_vector</span><span class="p">,</span> <span class="n">to_vector</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;sparse&quot;</span><span class="p">)</span>
 </code></pre></div>
                 
                   
