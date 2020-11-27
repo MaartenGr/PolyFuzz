@@ -3,7 +3,7 @@ import pandas as pd
 from scipy.sparse import csr_matrix
 from typing import List
 from sklearn.neighbors import NearestNeighbors
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics.pairwise import cosine_similarity as scikit_cosine_similarity
 
 try:
     from sparse_dot_topn import awesome_cossim_topn
@@ -12,18 +12,18 @@ except ImportError:
     _HAVE_SPARSE_DOT = False
 
 
-def extract_best_matches(from_vector: np.ndarray,
-                         from_list: List[str],
-                         to_vector: np.ndarray,
-                         to_list: List[str],
-                         min_similarity: float = 0.75,
-                         method: str = "sparse") -> pd.DataFrame:
-    """ Calculate similarity between two matrices
+def cosine_similarity(from_vector: np.ndarray,
+                      to_vector: np.ndarray,
+                      from_list: List[str],
+                      to_list: List[str],
+                      min_similarity: float = 0.75,
+                      method: str = "sparse") -> pd.DataFrame:
+    """ Calculate similarity between two matrices/vectors and return best matches
 
     Arguments:
         from_vector: the matrix or vector representing the embedded strings to map from
-        from_list: The list from which you want mappings
         to_vector: the matrix or vector representing the embedded strings to map to
+        from_list: The list from which you want mappings
         to_list: The list where you want to map to
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
         method: The method/package for calculating the cosine similarity.
@@ -38,6 +38,7 @@ def extract_best_matches(from_vector: np.ndarray,
     Returns:
         matches:  The best matches between the lists of strings
 
+
     Usage:
 
     Make sure to fill the `to_vector` and `from_vector` with vector representations
@@ -45,7 +46,7 @@ def extract_best_matches(from_vector: np.ndarray,
 
     ```python
     from polyfuzz.models import extract_best_matches
-    matches = extract_best_matches(to_vector, from_list, from_vector, to_list, method="sparse")
+    indices, similarity = extract_best_matches(from_vector, to_vector, method="sparse")
     ```
     """
     # Slower but uses less memory
@@ -85,7 +86,7 @@ def extract_best_matches(from_vector: np.ndarray,
 
     # Faster than knn and slower than sparse but uses more memory
     else:
-        similarity_matrix = cosine_similarity(from_vector, to_vector)
+        similarity_matrix = scikit_cosine_similarity(from_vector, to_vector)
 
         if from_list == to_list:
             np.fill_diagonal(similarity_matrix, 0)
@@ -93,8 +94,10 @@ def extract_best_matches(from_vector: np.ndarray,
         indices = similarity_matrix.argmax(axis=1)
         similarity = similarity_matrix.max(axis=1)
 
+    # Convert results to df
     matches = [to_list[idx] for idx in indices.flatten()]
     matches = pd.DataFrame(np.vstack((from_list, matches, similarity)).T, columns=["From", "To", "Similarity"])
     matches.Similarity = matches.Similarity.astype(float)
     matches.loc[matches.Similarity < 0.001, "To"] = None
+
     return matches

@@ -8,7 +8,7 @@ from sklearn.preprocessing import normalize
 from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
 from flair.data import Sentence
 
-from ._utils import extract_best_matches
+from ._utils import cosine_similarity
 from ._base import BaseMatcher
 
 
@@ -107,9 +107,11 @@ class Embeddings(BaseMatcher):
             embeddings_from = self._embed(from_list)
         if not isinstance(embeddings_to, np.ndarray):
             embeddings_to = self._embed(to_list)
-        matches = extract_best_matches(embeddings_from, from_list,
-                                       embeddings_to, to_list,
-                                       self.min_similarity, self.cosine_method)
+
+        matches = cosine_similarity(embeddings_from, embeddings_to,
+                                    from_list, to_list,
+                                    self.min_similarity, self.cosine_method)
+
         return matches
 
     def _embed(self, strings: List[str]) -> np.ndarray:

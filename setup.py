@@ -37,7 +37,7 @@ with open("README.md", "r") as fh:
 setup(
     name="polyfuzz",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.1.0",
+    version="0.2.0",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="PolyFuzz performs fuzzy string matching, grouping, and evaluation.",

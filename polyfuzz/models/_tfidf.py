@@ -4,7 +4,7 @@ import pandas as pd
 from typing import List, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from polyfuzz.models._utils import extract_best_matches
+from ._utils import cosine_similarity
 from ._base import BaseMatcher
 
 
@@ -80,8 +80,9 @@ class TFIDF(BaseMatcher):
         """
 
         tf_idf_from, tf_idf_to = self._extract_tf_idf(from_list, to_list)
-        matches = extract_best_matches(tf_idf_from, from_list, tf_idf_to, to_list,
-                                       self.min_similarity, self.cosine_method)
+        matches = cosine_similarity(tf_idf_from, tf_idf_to,
+                                    from_list, to_list,
+                                    self.min_similarity, self.cosine_method)
 
         return matches
 
