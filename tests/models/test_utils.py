@@ -15,7 +15,7 @@ with open('tests/to_list.npy', 'rb') as f:
 
 @pytest.mark.parametrize("method", ["sparse", "knn", "sklearn"])
 def test_extract_best_matches(method):
-    matches = extract_best_matches(to_vector, from_list, from_vector, to_list, method=method)
+    matches = extract_best_matches(from_vector, from_list, to_vector, to_list, method=method)
     assert isinstance(matches, pd.DataFrame)
     assert matches.Similarity.mean() > 0.0
     assert len(matches) == 6

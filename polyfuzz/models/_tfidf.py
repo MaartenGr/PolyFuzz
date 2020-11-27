@@ -97,7 +97,7 @@ class TFIDF(BaseMatcher):
             tf_idf_to = TfidfVectorizer(min_df=1, analyzer=self._create_ngrams).fit_transform(from_list)
             tf_idf_from = None
 
-        return tf_idf_to, tf_idf_from
+        return tf_idf_from, tf_idf_to
 
     def _create_ngrams(self, string: str) -> List[str]:
         """ Create n_grams from a string

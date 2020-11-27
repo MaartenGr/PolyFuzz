@@ -107,8 +107,8 @@ class Embeddings(BaseMatcher):
             embeddings_from = self._embed(from_list)
         if not isinstance(embeddings_to, np.ndarray):
             embeddings_to = self._embed(to_list)
-        matches = extract_best_matches(embeddings_to, from_list,
-                                       embeddings_from, to_list,
+        matches = extract_best_matches(embeddings_from, from_list,
+                                       embeddings_to, to_list,
                                        self.min_similarity, self.cosine_method)
         return matches
 
