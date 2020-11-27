@@ -4,7 +4,7 @@
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/keybert/blob/master/LICENSE)
 [![PyPI - PyPi](https://img.shields.io/pypi/v/polyfuzz)](https://pypi.org/project/polyfuzz/)
 [![Build](https://img.shields.io/github/workflow/status/MaartenGr/polyfuzz/Code%20Checks/master)](https://pypi.org/project/polyfuzz/)
-
+[![docs](https://img.shields.io/badge/docs-Passing-green.svg)](https://maartengr.github.io/PolyFuzz/)
 **`PolyFuzz`** performs fuzzy string matching, string grouping, and contains extensive evaluation functions. 
 PolyFuzz is meant to bring fuzzy string matching techniques together within a single framework.
 

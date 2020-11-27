@@ -1,3 +1,3 @@
-# `polyfuzz.models.extract_best_matches`
+# `polyfuzz.models.cosine_similarity`
 
-::: polyfuzz.models.extract_best_matches
+::: polyfuzz.models.cosine_similarity
