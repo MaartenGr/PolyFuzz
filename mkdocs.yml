@@ -12,6 +12,7 @@ nav:
     - Models: tutorial/models/models.md
     - Custom Models: tutorial/basematcher/basematcher.md
     - Custom Grouper: tutorial/grouper/grouper.md
+    - Datasets: tutorial/datasets/datasets.md
   - API:
     - PolyFuzz: api/polyfuzz.md
     - Linkage: api/linkage.md
