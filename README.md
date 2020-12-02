@@ -11,7 +11,7 @@ PolyFuzz is meant to bring fuzzy string matching techniques together within a si
 Currently, methods include a variety of edit distance measures, a character-based n-gram TF-IDF, word embedding
 techniques such as FastText and GloVe, and 🤗 transformers embeddings.  
 
-Corresponding medium post can be found [here]().
+Corresponding medium post can be found [here](https://towardsdatascience.com/string-matching-with-bert-tf-idf-and-more-274bb3a95136?source=friends_link&sk=0f765b76ceaba49363829c13dfdc9d98).
 
 
 <a name="installation"/></a>
