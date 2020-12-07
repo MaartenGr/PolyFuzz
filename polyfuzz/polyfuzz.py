@@ -189,13 +189,17 @@ class PolyFuzz:
 
     def group(self,
               model: Union[str, BaseMatcher] = None,
-              link_min_similarity: float = 0.75):
+              link_min_similarity: float = 0.75,
+              group_all_strings: bool = False):
         """ From the matches, group the `To` matches together using single linkage
 
          Arguments:
              model: you can choose one of the models in `polyfuzz.models` to be used as a grouper
              link_min_similarity: the minimum similarity between strings before they are grouped
                                   in a single linkage fashion
+             group_all_strings: if you want to compare a list of strings with itself and then cluster
+                                those strings, set this to True. Otherwise, only the strings that
+                                were mapped To are clustered.
 
          Updates:
             self.matches: Adds a column `Group` that is the grouped version of the `To` column
@@ -223,13 +227,9 @@ class PolyFuzz:
         elif not model:
             model = TFIDF(n_gram_range=(3, 3), min_similarity=link_min_similarity)
 
+        # Group per model
         for name, match in self.matches.items():
-            strings = list(self.matches[name].To.dropna().unique())
-            matches = model.match(strings, strings)
-            clusters, cluster_id_map, cluster_name_map = single_linkage(matches, link_min_similarity)
-            self._map_groups(name, cluster_name_map)
-            self.clusters[name] = clusters
-            self.cluster_mappings[name] = cluster_id_map
+            self._create_groups(name, model, link_min_similarity, group_all_strings)
 
     def get_ids(self) -> Union[str, List[str], None]:
         """ Get all model ids for easier access """
@@ -285,16 +285,32 @@ class PolyFuzz:
 
         return self.cluster_mappings
 
-    def _map_groups(self, name: str, cluster_name_map: Mapping[str, str]):
-        """ Map the 'to' list to groups """
+    def _create_groups(self,
+                       name: str,
+                       model: BaseMatcher,
+                       link_min_similarity: float,
+                       group_all_strings: bool):
+        """ Create groups based on either the To mappings if you compare two different lists of strings, or
+        the From mappings if you compare lists of strings that are equal (set group_all_strings to True)
+        """
+
+        if group_all_strings:
+            strings = list(self.matches[name].From.dropna().unique())
+        else:
+            strings = list(self.matches[name].To.dropna().unique())
+
+        # Create clusters
+        matches = model.match(strings, strings)
+        clusters, cluster_id_map, cluster_name_map = single_linkage(matches, link_min_similarity)
+
+        # Map the `to` list to groups
         df = self.matches[name]
         df["Group"] = df['To'].map(cluster_name_map).fillna(df['To'])
-
-        # Fix that some mappings from "From" end up in "Group"
-        df.loc[(df.From != df.To) &
-               (df.From == df.Group), "Group"] = df.loc[(df.From != df.To) &
-                                                        (df.From == df.Group), "To"]
         self.matches[name] = df
+
+        # Track clusters and their ids
+        self.clusters[name] = clusters
+        self.cluster_mappings[name] = cluster_id_map
 
     def _update_model_ids(self):
         """ Update model ids such that there is no overlap between ids """
