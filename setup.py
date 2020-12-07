@@ -24,7 +24,7 @@ base_packages = [
     "scikit_learn>= 0.22.2.post1"
 ]
 
-fast_cosine = ["sparse_dot_topn>=0.2.9"]
+fast_cosine = ["numpy>= 1.18.5,<=1.19.4", "sparse_dot_topn>=0.2.9"]
 embeddings_packages = ["torch>=1.2.0", "flair>= 0.7"]
 
 extra_packages = embeddings_packages + fast_cosine
