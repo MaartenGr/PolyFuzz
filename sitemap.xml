@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://maartengr.github.io/PolyFuzz/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/tutorial/quickstart/quickstart/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/tutorial/models/models/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/tutorial/basematcher/basematcher/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/tutorial/grouper/grouper/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/tutorial/datasets/datasets/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/polyfuzz/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/linkage/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/metrics/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/models/base/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/models/distance/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/models/rapidfuzz/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/models/tfidf/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/models/embeddings/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/api/models/matches/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://maartengr.github.io/PolyFuzz/releases/</loc>
-     <lastmod>2020-11-28</lastmod>
+     <lastmod>2020-12-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

@@ -886,7 +886,7 @@ in these models separately:</p>
 </td></tr></table>
 </details>
 <p>Get the matches from one or more models</p>
-<h2 id="polyfuzz.polyfuzz.PolyFuzz.group"><code class="highlight"><span class="n">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.group" title="Permanent link">&para;</a></h2>
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.group"><code class="highlight"><span class="n">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">group_all_strings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.group" title="Permanent link">&para;</a></h2>
 <details class="note"><summary>Show source code in <code>polyfuzz\polyfuzz.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>190
 191
 192
@@ -931,13 +931,17 @@ in these models separately:</p>
 231
 232</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BaseMatcher</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="n">link_min_similarity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">):</span>
+              <span class="n">link_min_similarity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">,</span>
+              <span class="n">group_all_strings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; From the matches, group the `To` matches together using single linkage</span>
 
 <span class="sd">         Arguments:</span>
 <span class="sd">             model: you can choose one of the models in `polyfuzz.models` to be used as a grouper</span>
 <span class="sd">             link_min_similarity: the minimum similarity between strings before they are grouped</span>
 <span class="sd">                                  in a single linkage fashion</span>
+<span class="sd">             group_all_strings: if you want to compare a list of strings with itself and then cluster</span>
+<span class="sd">                                those strings, set this to True. Otherwise, only the strings that</span>
+<span class="sd">                                were mapped To are clustered.</span>
 
 <span class="sd">         Updates:</span>
 <span class="sd">            self.matches: Adds a column `Group` that is the grouped version of the `To` column</span>
@@ -965,13 +969,9 @@ in these models separately:</p>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">model</span><span class="p">:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="n">link_min_similarity</span><span class="p">)</span>
 
+        <span class="c1"># Group per model</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">strings</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">To</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-            <span class="n">matches</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">strings</span><span class="p">,</span> <span class="n">strings</span><span class="p">)</span>
-            <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_id_map</span><span class="p">,</span> <span class="n">cluster_name_map</span> <span class="o">=</span> <span class="n">single_linkage</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_map_groups</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cluster_name_map</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusters</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cluster_mappings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_id_map</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_groups</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="p">,</span> <span class="n">group_all_strings</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
 </details>
@@ -998,6 +998,12 @@ in these models separately:</p>
 <td><code>float</code></td>
 <td>the minimum similarity between strings before they are grouped in a single linkage fashion</td>
 <td><code>0.75</code></td>
+</tr>
+<tr>
+<td><code>group_all_strings</code></td>
+<td><code>bool</code></td>
+<td>if you want to compare a list of strings with itself and then cluster those strings, set this to True. Otherwise, only the strings that were mapped To are clustered.</td>
+<td><code>False</code></td>
 </tr>
 </tbody>
 </table>
@@ -1103,12 +1109,12 @@ in these models separately:</p>
                                  <span class="s2">&quot;* &#39;TF-IDF&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
                                  <span class="s2">&quot;* &#39;EditDistance&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
                                  <span class="s2">&quot;* &#39;Embeddings&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{self.method}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Custom models</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">BaseMatcher</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">model_id</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{self.method.model_id}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Multiple custom models</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
@@ -1116,7 +1122,7 @@ in these models separately:</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
-                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{model.model_id}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span>
 </code></pre></div>
