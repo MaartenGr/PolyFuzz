@@ -1,3 +1,6 @@
+v0.2.2  
+- Update grouping to include all strings only if identical lists of strings are compared  
+
 v0.2.0  
 - Update naming convention matcher --> model  
 - Update documentation  
