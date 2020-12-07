@@ -1,6 +1,6 @@
 <img src="images/logo.png" width="70%" height="70%"/>
 
-[![PyPI - Python](https://img.shields.io/badge/python-3.6%20|%203.7%20|%203.8-blue.svg)](https://pypi.org/project/keybert/)
+[![PyPI - Python](https://img.shields.io/badge/python-3.7%20|%203.8%20|%203.9-blue.svg)](https://pypi.org/project/keybert/)
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/keybert/blob/master/LICENSE)
 [![PyPI - PyPi](https://img.shields.io/pypi/v/polyfuzz)](https://pypi.org/project/polyfuzz/)
 [![Build](https://img.shields.io/github/workflow/status/MaartenGr/polyfuzz/Code%20Checks/master)](https://pypi.org/project/polyfuzz/)
