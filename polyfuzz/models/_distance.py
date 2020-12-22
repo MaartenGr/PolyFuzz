@@ -45,7 +45,8 @@ class EditDistance(BaseMatcher):
 
     def match(self,
               from_list: List[str],
-              to_list: List[str]) -> pd.DataFrame:
+              to_list: List[str],
+              nbest) -> pd.DataFrame:
         """ Calculate the edit distances between two list of strings
         by parallelizing the calculation and passing the lists in
         batches.
