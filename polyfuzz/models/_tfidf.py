@@ -59,7 +59,8 @@ class TFIDF(BaseMatcher):
 
     def match(self,
               from_list: List[str],
-              to_list: List[str]) -> pd.DataFrame:
+              to_list: List[str],
+              nbest) -> pd.DataFrame:
         """ Match two lists of strings to each other and return the most similar strings
 
         Arguments:
@@ -81,7 +82,7 @@ class TFIDF(BaseMatcher):
 
         tf_idf_from, tf_idf_to = self._extract_tf_idf(from_list, to_list)
         matches = cosine_similarity(tf_idf_from, tf_idf_to,
-                                    from_list, to_list,
+                                    from_list, to_list,nbest,
                                     self.min_similarity, self.cosine_method)
 
         return matches
