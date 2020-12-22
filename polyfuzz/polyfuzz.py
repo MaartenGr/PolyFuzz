@@ -13,7 +13,6 @@ logger = create_logger()
 class PolyFuzz:
     """
     PolyFuzz class for Fuzzy string matching, grouping, and evaluation.
-
     Arguments:
         method: the method(s) used for matching. For quick selection of models
                 select one of the following: "EditDistance", "TF-IDF" or "Embeddings".
@@ -22,35 +21,26 @@ class PolyFuzz:
                 usage below.
         verbose: Changes the verbosity of the model, Set to True if you want
                  to track the stages of the model.
-
     Usage:
-
     For basic, out-of-the-box usage, run the code below. You can replace "TF-IDF"
     with either "EditDistance"  or "Embeddings" for quick access to these models:
-
     ```python
     import polyfuzz as pf
     model = pf.PolyFuzz("TF-IDF")
     ```
-
     If you want more control over the String Matching models, you can load
     in these models separately:
-
     ```python
     tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF-Sklearn")
     model = pf.PolyFuzz(tfidf)
     ```
-
     You can also select multiple models in order to compare performance:
-
     ```python
     tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF-Sklearn")
     edit = EditDistance(n_jobs=-1)
     model = pf.PolyFuzz([tfidf, edit])
     ```
-
     To use embedding models, please use Flair word embeddings:
-
     ```python
     from flair.embeddings import WordEmbeddings, TransformerWordEmbeddings
     fasttext_embedding = WordEmbeddings('news')
@@ -89,27 +79,21 @@ class PolyFuzz:
               nbest):
         """ Match the from_list of strings to the to_list of strings with whatever models
         you have initialized
-
         Arguments:
             from_list: The list from which you want mappings
             to_list: The list where you want to map to
-
         Updates:
             self.matches: A dictionary with the matches from all models, can
                           be accessed with `model.get_all_matches` or
                           `model.get_match("TF-IDF")`
-
         Usage:
-
         After having initialized your models, you can pass through lists of strings:
-
         ```python
         import polyfuzz as pf
         model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
         model.match(from_list = ["string_one", "string_two"],
                     to_list = ["string_three", "string_four"])
         ```
-
         You can access the results matches with `model.get_all_matches` or a specific
         model with `model.get_match("TF-IDF")` based on their model_id.
         """
@@ -118,7 +102,7 @@ class PolyFuzz:
             if self.method in ["TF-IDF", "TFIDF"]:
                 self.matches = {"TF-IDF": TFIDF(min_similarity=0).match(from_list, to_list, nbest)}
             elif self.method in ["EditDistance", "Edit Distance"]:
-                self.matches = {"EditDistance": RapidFuzz().match(from_list, to_list)}
+                self.matches = {"EditDistance": RapidFuzz().match(from_list, to_list, nbest= None)}
             elif self.method in ["Embeddings", "Embedding"]:
                 self.matches = {"Embeddings": Embeddings(min_similarity=0).match(from_list, to_list, nbest)}
             else:
@@ -130,7 +114,7 @@ class PolyFuzz:
 
         # Custom models
         elif isinstance(self.method, BaseMatcher):
-            self.matches = {self.method.model_id: self.method.match(from_list, to_list)}
+            self.matches = {self.method.model_id: self.method.match(from_list, to_list, nbest)}
             logging.info(f"Ran model with model id = {self.method.model_id}")
 
         # Multiple custom models
@@ -138,7 +122,7 @@ class PolyFuzz:
             self._update_model_ids()
             self.matches = {}
             for model in self.method:
-                self.matches[model.model_id] = model.match(from_list, to_list)
+                self.matches[model.model_id] = model.match(from_list, to_list, nbest)
                 logging.info(f"Ran model with model id = {model.model_id}")
 
         return self
@@ -148,24 +132,19 @@ class PolyFuzz:
                                    save_path: str = None
                                    ):
         """ Calculate and visualize precision-recall curves
-
         A minimum similarity score might be used to identify
         when a match could be considered to be correct. For example,
         we can assume that if a similarity score pass 0.95 we are
         quite confident that the matches are correct. This minimum
         similarity score can be defined as **precision** since it shows
         you how precise we believe the matches are at a minimum.
-
         **Recall** can then be defined as as the percentage of matches
         found at a certain minimum similarity score. A high recall means
         that for a certain minimum precision score, we find many matches.
-
         Arguments:
             kde: whether to also visualize the kde plot
             save_path: the path to save the resulting image to
-
         Usage:
-
         ```python
         import polyfuzz as pf
         model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
@@ -193,7 +172,6 @@ class PolyFuzz:
               link_min_similarity: float = 0.75,
               group_all_strings: bool = False):
         """ From the matches, group the `To` matches together using single linkage
-
          Arguments:
              model: you can choose one of the models in `polyfuzz.models` to be used as a grouper
              link_min_similarity: the minimum similarity between strings before they are grouped
@@ -201,7 +179,6 @@ class PolyFuzz:
              group_all_strings: if you want to compare a list of strings with itself and then cluster
                                 those strings, set this to True. Otherwise, only the strings that
                                 were mapped To are clustered.
-
          Updates:
             self.matches: Adds a column `Group` that is the grouped version of the `To` column
          """
@@ -257,10 +234,8 @@ class PolyFuzz:
 
     def get_clusters(self, model_id: str = None) -> Mapping[str, List[str]]:
         """ Get the groupings/clusters from a single model
-
         Arguments:
             model_id: the model id of the model if you have specified multiple models
-
         """
         check_matches(self)
         check_grouped(self)
@@ -301,7 +276,7 @@ class PolyFuzz:
             strings = list(self.matches[name].To.dropna().unique())
 
         # Create clusters
-        matches = model.match(strings, strings, nbest = None)
+        matches = model.match(strings, strings, nbest= None)
         clusters, cluster_id_map, cluster_name_map = single_linkage(matches, link_min_similarity)
 
         # Map the `to` list to groups
