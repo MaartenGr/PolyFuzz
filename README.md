@@ -81,7 +81,7 @@ from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
 to_list = ["apple", "apples", "mouse"]
 
 model = PolyFuzz("TF-IDF")
-model.match(from_list, to_list)
+model.match(from_list, to_list, nbest=None)
 ```  
 
 The resulting matches can be accessed through `model.get_matches()`:
