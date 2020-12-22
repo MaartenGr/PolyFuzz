@@ -86,7 +86,7 @@ class PolyFuzz:
     def match(self,
               from_list: List[str],
               to_list: List[str],
-              nbest)):
+              nbest):
         """ Match the from_list of strings to the to_list of strings with whatever models
         you have initialized
 
