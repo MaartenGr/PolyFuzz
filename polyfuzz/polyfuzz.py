@@ -116,11 +116,11 @@ class PolyFuzz:
         # Standard models - quick access
         if isinstance(self.method, str):
             if self.method in ["TF-IDF", "TFIDF"]:
-                self.matches = {"TF-IDF": TFIDF(min_similarity=0).match(from_list, to_list, nbest))}
+                self.matches = {"TF-IDF": TFIDF(min_similarity=0).match(from_list, to_list, nbest)}
             elif self.method in ["EditDistance", "Edit Distance"]:
                 self.matches = {"EditDistance": RapidFuzz().match(from_list, to_list)}
             elif self.method in ["Embeddings", "Embedding"]:
-                self.matches = {"Embeddings": Embeddings(min_similarity=0).match(from_list, to_list, nbest))}
+                self.matches = {"Embeddings": Embeddings(min_similarity=0).match(from_list, to_list, nbest)}
             else:
                 raise ValueError("Please instantiate the model with one of the following methods: \n"
                                  "* 'TF-IDF'\n"
