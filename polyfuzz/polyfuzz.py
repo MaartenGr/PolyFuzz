@@ -301,7 +301,7 @@ class PolyFuzz:
             strings = list(self.matches[name].To.dropna().unique())
 
         # Create clusters
-        matches = model.match(strings, strings)
+        matches = model.match(strings, strings, nbest = None)
         clusters, cluster_id_map, cluster_name_map = single_linkage(matches, link_min_similarity)
 
         # Map the `to` list to groups
