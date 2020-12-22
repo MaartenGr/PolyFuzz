@@ -16,6 +16,7 @@ def cosine_similarity(from_vector: np.ndarray,
                       to_vector: np.ndarray,
                       from_list: List[str],
                       to_list: List[str],
+                      nbest,
                       min_similarity: float = 0.75,
                       method: str = "sparse") -> pd.DataFrame:
     """ Calculate similarity between two matrices/vectors and return best matches
@@ -49,6 +50,10 @@ def cosine_similarity(from_vector: np.ndarray,
     indices, similarity = extract_best_matches(from_vector, to_vector, method="sparse")
     ```
     """
+    if nbest != None:
+        if int(nbest) >  len(to_list):
+            raise ValueError('best choice must be less than to_list')
+            
     # Slower but uses less memory
     if method == "knn":
 
@@ -90,14 +95,29 @@ def cosine_similarity(from_vector: np.ndarray,
 
         if from_list == to_list:
             np.fill_diagonal(similarity_matrix, 0)
-
-        indices = similarity_matrix.argmax(axis=1)
-        similarity = similarity_matrix.max(axis=1)
+        if nbest == None and method == "sparse":
+            indices = similarity_matrix.argmax(axis=1)
+            similarity = similarity_matrix.max(axis=1)
+        elif nbest != None and method == "sparse":
+            similarity = np.take_along_axis(similarity_matrix.toarray(), np.argsort(similarity_matrix.toarray(), axis =1), axis=1) [:,-nbest:]
+            indices = np.argsort(np.array(similarity_matrix.toarray()), axis =1)[:,-nbest:]            
 
     # Convert results to df
-    matches = [to_list[idx] for idx in indices.flatten()]
-    matches = pd.DataFrame(np.vstack((from_list, matches, similarity)).T, columns=["From", "To", "Similarity"])
-    matches.Similarity = matches.Similarity.astype(float)
-    matches.loc[matches.Similarity < 0.001, "To"] = None
+    if nbest == None:    
+        matches = [to_list[idx] for idx in indices.flatten()]
+        matches = pd.DataFrame(np.vstack((from_list, matches, similarity)).T, columns=["From", "To", "Similarity"])
+        matches.Similarity = matches.Similarity.astype(float)
+        matches.loc[matches.Similarity < 0.001, "To"] = None
+    else:
+        matches = [np.array([to_list[idx] for idx in l]) for l in indices] ##In progress
+        column = ["To"]
+        for i in range(nbest - 1):
+            column.append("BestMatch" + "__" + str(i))
+        column.append("Similarity")
+        for j in range(nbest - 1):
+            column.append("Similarity" + "__" + str(j))
+        matches = pd.concat([pd.DataFrame({'From' : from_list}), pd.DataFrame(np.hstack((matches, similarity)), columns= column)], axis =1)
+        matches.Similarity = matches.Similarity.astype(float)
+        matches.loc[matches.Similarity < 0.001, "To"] = None        
 
     return matches
