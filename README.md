@@ -231,6 +231,21 @@ custom_model = MyModel()
 model = PolyFuzz(custom_model)
 ```
 
+## Citation
+To cite PolyFuzz in your work, please use the following bibtex reference:
+
+```bibtex
+@misc{grootendorst2020polyfuzz,
+  author       = {Maarten Grootendorst},
+  title        = {PolyFuzz: Fuzzy string matching, grouping, and evaluation.},
+  year         = 2020,
+  publisher    = {Zenodo},
+  version      = {v0.2.2},
+  doi          = {10.5281/zenodo.4461050},
+  url          = {https://doi.org/10.5281/zenodo.4461050}
+}
+```
+
 ## References
 Below, you can find several resources that were used for or inspired by when developing PolyFuzz:  
   
