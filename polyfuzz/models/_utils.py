@@ -17,6 +17,7 @@ def cosine_similarity(from_vector: np.ndarray,
                       from_list: List[str],
                       to_list: List[str],
                       min_similarity: float = 0.75,
+                      top_n: int = 1,
                       method: str = "sparse") -> pd.DataFrame:
     """ Calculate similarity between two matrices/vectors and return best matches
 
@@ -26,6 +27,7 @@ def cosine_similarity(from_vector: np.ndarray,
         from_list: The list from which you want mappings
         to_list: The list where you want to map to
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
+        top_n: The number of matches you want returned
         method: The method/package for calculating the cosine similarity.
                 Options: "sparse", "sklearn", "knn".
                 Sparse is the fastest and most memory efficient but requires a
@@ -49,20 +51,22 @@ def cosine_similarity(from_vector: np.ndarray,
     indices, similarity = extract_best_matches(from_vector, to_vector, method="sparse")
     ```
     """
+    if top_n > len(set(to_list)):
+        top_n = len(set(to_list))
+
     # Slower but uses less memory
     if method == "knn":
 
         if from_list == to_list:
-            knn = NearestNeighbors(n_neighbors=2, n_jobs=-1, metric='cosine').fit(to_vector)
+            knn = NearestNeighbors(n_neighbors=top_n+1, n_jobs=-1, metric='cosine').fit(to_vector)
             distances, indices = knn.kneighbors(from_vector)
-            distances = distances[:, 1]
-            indices = indices[:, 1]
-
+            distances = distances[:, 1:]
+            indices = indices[:, 1:]
         else:
-            knn = NearestNeighbors(n_neighbors=1, n_jobs=-1, metric='cosine').fit(to_vector)
+            knn = NearestNeighbors(n_neighbors=top_n, n_jobs=-1, metric='cosine').fit(to_vector)
             distances, indices = knn.kneighbors(from_vector)
 
-        similarity = [round(1 - distance, 3) for distance in distances.flatten()]
+        similarities = [np.round(1 - distances[:, i], 3) for i in range(distances.shape[1])]
 
     # Fast, but does has some installation issues
     elif _HAVE_SPARSE_DOT and method == "sparse":
@@ -74,15 +78,16 @@ def cosine_similarity(from_vector: np.ndarray,
         # There is a bug with awesome_cossim_topn that when to_vector and from_vector
         # have the same shape, setting topn to 1 does not work. Apparently, you need
         # to it at least to 2 for it to work
-        similarity_matrix = awesome_cossim_topn(from_vector, to_vector.T, 2, min_similarity)
+        similarity_matrix = awesome_cossim_topn(from_vector, to_vector.T, top_n+1, min_similarity)
 
         if from_list == to_list:
             similarity_matrix = similarity_matrix.tolil()
             similarity_matrix.setdiag(0.)
             similarity_matrix = similarity_matrix.tocsr()
 
-        indices = np.array(similarity_matrix.argmax(axis=1).T).flatten()
-        similarity = similarity_matrix.max(axis=1).toarray().T.flatten()
+        indices = np.flip(np.argsort(similarity_matrix.toarray(), axis=-1), axis=1)[:, :top_n]
+        similarities = np.flip(np.sort(similarity_matrix.toarray(), axis=-1), axis=1)[:, :top_n]
+        similarities = [np.round(similarities[:, i], 3) for i in range(similarities.shape[1])]
 
     # Faster than knn and slower than sparse but uses more memory
     else:
@@ -91,13 +96,27 @@ def cosine_similarity(from_vector: np.ndarray,
         if from_list == to_list:
             np.fill_diagonal(similarity_matrix, 0)
 
-        indices = similarity_matrix.argmax(axis=1)
-        similarity = similarity_matrix.max(axis=1)
+        indices = np.flip(np.argsort(similarity_matrix, axis=-1), axis=1)[:, :top_n]
+        similarities = np.flip(np.sort(similarity_matrix, axis=-1), axis=1)[:, :top_n]
+        similarities = [np.round(similarities[:, i], 3) for i in range(similarities.shape[1])]
 
     # Convert results to df
-    matches = [to_list[idx] for idx in indices.flatten()]
-    matches = pd.DataFrame(np.vstack((from_list, matches, similarity)).T, columns=["From", "To", "Similarity"])
-    matches.Similarity = matches.Similarity.astype(float)
-    matches.loc[matches.Similarity < 0.001, "To"] = None
+    columns =  (["From"] +
+                ["To" if i == 0 else f"To_{i+1}" for i in range(top_n)] +
+                ["Similarity" if i ==0 else f"Similarity_{i+1}" for i in range(top_n)]); columns
+    matches = [[to_list[idx] for idx in indices[:, i]] for i in range(indices.shape[1])]
+    matches = pd.DataFrame(np.vstack(([from_list], matches, similarities)).T, columns = columns)
+
+    # Update column order
+    columns = [["From", "To", "Similarity"]] + [[f"To_{i+2}", f"Similarity_{i+2}"] for i in range((top_n-1))]
+    matches = matches.loc[:, [title for column in columns for title in column]]
+
+    # Update types
+    for column in matches.columns:
+        if "Similarity" in column:
+            print(column)
+            matches[column] = matches[column].astype(float)
+            matches.loc[matches[column] < 0.001, column] = float(0)
+            matches.loc[matches[column] < 0.001, column.replace("Similarity", "To")] = None
 
     return matches

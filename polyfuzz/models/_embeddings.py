@@ -110,7 +110,8 @@ class Embeddings(BaseMatcher):
 
         matches = cosine_similarity(embeddings_from, embeddings_to,
                                     from_list, to_list,
-                                    self.min_similarity, self.cosine_method)
+                                    self.min_similarity,
+                                    method=self.cosine_method)
 
         return matches
 

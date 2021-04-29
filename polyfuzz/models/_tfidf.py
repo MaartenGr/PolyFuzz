@@ -82,7 +82,8 @@ class TFIDF(BaseMatcher):
         tf_idf_from, tf_idf_to = self._extract_tf_idf(from_list, to_list)
         matches = cosine_similarity(tf_idf_from, tf_idf_to,
                                     from_list, to_list,
-                                    self.min_similarity, self.cosine_method)
+                                    self.min_similarity,
+                                    method=self.cosine_method)
 
         return matches
 

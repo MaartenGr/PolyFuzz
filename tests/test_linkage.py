@@ -26,6 +26,6 @@ def test_linkage(min_similarity):
         assert max(cluster_mapping.values()) == 1
         assert len(cluster_name_map) == 2
 
-    else:
+    elif min_similarity >= 0.6:
         assert max(cluster_mapping.values()) > 1
         assert len(cluster_name_map) == 3
