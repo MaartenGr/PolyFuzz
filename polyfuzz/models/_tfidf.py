@@ -21,6 +21,7 @@ class TFIDF(BaseMatcher):
         n_gram_range: The n_gram_range on a character-level
         clean_string: Whether to clean the string such that only alphanumerical characters are kept
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
+        top_n: The number of matches you want returned
         cosine_method: The method/package for calculating the cosine similarity.
                         Options:
                             * sparse
@@ -48,6 +49,7 @@ class TFIDF(BaseMatcher):
                  n_gram_range: Tuple[int, int] = (3, 3),
                  clean_string: bool = True,
                  min_similarity: float = 0.75,
+                 top_n: int = 1,
                  cosine_method: str = "sparse",
                  model_id: str = None):
         super().__init__(model_id)
@@ -56,6 +58,7 @@ class TFIDF(BaseMatcher):
         self.clean_string = clean_string
         self.min_similarity = min_similarity
         self.cosine_method = cosine_method
+        self.top_n = top_n
 
     def match(self,
               from_list: List[str],
@@ -83,6 +86,7 @@ class TFIDF(BaseMatcher):
         matches = cosine_similarity(tf_idf_from, tf_idf_to,
                                     from_list, to_list,
                                     self.min_similarity,
+                                    top_n=self.top_n,
                                     method=self.cosine_method)
 
         return matches

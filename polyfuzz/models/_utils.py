@@ -27,7 +27,7 @@ def cosine_similarity(from_vector: np.ndarray,
         from_list: The list from which you want mappings
         to_list: The list where you want to map to
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
-        top_n: The number of matches you want returned
+        top_n: The number of best matches you want returned
         method: The method/package for calculating the cosine similarity.
                 Options: "sparse", "sklearn", "knn".
                 Sparse is the fastest and most memory efficient but requires a
