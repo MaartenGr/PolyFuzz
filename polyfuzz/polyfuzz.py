@@ -85,13 +85,17 @@ class PolyFuzz:
 
     def match(self,
               from_list: List[str],
-              to_list: List[str]):
+              to_list: List[str],
+              top_n: int = 1):
         """ Match the from_list of strings to the to_list of strings with whatever models
         you have initialized
 
         Arguments:
             from_list: The list from which you want mappings
             to_list: The list where you want to map to
+            top_n: The number of matches you want returned. This is currently only implemented
+                   for `polyfuzz.models.TFIDF` and `polyfuzz.models.Embeddings` as they
+                   can computationally handle more comparisons.
 
         Updates:
             self.matches: A dictionary with the matches from all models, can
@@ -115,11 +119,11 @@ class PolyFuzz:
         # Standard models - quick access
         if isinstance(self.method, str):
             if self.method in ["TF-IDF", "TFIDF"]:
-                self.matches = {"TF-IDF": TFIDF(min_similarity=0).match(from_list, to_list)}
+                self.matches = {"TF-IDF": TFIDF(min_similarity=0, top_n=top_n).match(from_list, to_list)}
             elif self.method in ["EditDistance", "Edit Distance"]:
                 self.matches = {"EditDistance": RapidFuzz().match(from_list, to_list)}
             elif self.method in ["Embeddings", "Embedding"]:
-                self.matches = {"Embeddings": Embeddings(min_similarity=0).match(from_list, to_list)}
+                self.matches = {"Embeddings": Embeddings(min_similarity=0, top_n=top_n).match(from_list, to_list)}
             else:
                 raise ValueError("Please instantiate the model with one of the following methods: \n"
                                  "* 'TF-IDF'\n"
@@ -242,7 +246,7 @@ class PolyFuzz:
         return None
 
     def get_matches(self, model_id: str = None) -> Union[pd.DataFrame,
-                                                           Mapping[str, pd.DataFrame]]:
+                                                         Mapping[str, pd.DataFrame]]:
         """ Get the matches from one or more models"""
         check_matches(self)
 

@@ -11,7 +11,9 @@ class BaseMatcher(ABC):
         self.type = "Base Model"
 
     @abstractmethod
-    def match(self, from_list: List[str], to_list: List[str]) -> pd.DataFrame:
+    def match(self,
+              from_list: List[str],
+              to_list: List[str]) -> pd.DataFrame:
         """ Make sure you follow the same argument structure:
 
         Arguments:

@@ -20,6 +20,7 @@ class Embeddings(BaseMatcher):
     Arguments:
         embedding_method: list of Flair embeddings to use
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
+        top_n: The number of best matches you want returned
         cosine_method: The method/package for calculating the cosine similarity.
                         Options: "sparse", "sklearn", "knn".
                         Sparse is the fastest and most memory efficient but requires a
@@ -59,6 +60,7 @@ class Embeddings(BaseMatcher):
     def __init__(self,
                  embedding_method: Union[List, None] = None,
                  min_similarity: float = 0.75,
+                 top_n: int = 1,
                  cosine_method: str = "sparse",
                  model_id: str = None):
         super().__init__(model_id)
@@ -77,6 +79,7 @@ class Embeddings(BaseMatcher):
             self.document_embeddings = embedding_method
 
         self.min_similarity = min_similarity
+        self.top_n = top_n
         self.cosine_method = cosine_method
 
     def match(self,
@@ -110,7 +113,9 @@ class Embeddings(BaseMatcher):
 
         matches = cosine_similarity(embeddings_from, embeddings_to,
                                     from_list, to_list,
-                                    self.min_similarity, self.cosine_method)
+                                    self.min_similarity,
+                                    top_n=self.top_n,
+                                    method=self.cosine_method)
 
         return matches
 
