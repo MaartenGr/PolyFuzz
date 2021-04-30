@@ -1,3 +1,6 @@
+v0.3.0  
+- Use `top_n` in `polyfuzz.models.TFIDF` and `polyfuzz.models.Embeddings`   
+
 v0.2.2  
 - Update grouping to include all strings only if identical lists of strings are compared  
 

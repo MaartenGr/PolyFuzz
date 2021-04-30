@@ -114,7 +114,6 @@ def cosine_similarity(from_vector: np.ndarray,
     # Update types
     for column in matches.columns:
         if "Similarity" in column:
-            print(column)
             matches[column] = matches[column].astype(float)
             matches.loc[matches[column] < 0.001, column] = float(0)
             matches.loc[matches[column] < 0.001, column.replace("Similarity", "To")] = None

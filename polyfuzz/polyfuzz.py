@@ -95,7 +95,7 @@ class PolyFuzz:
             to_list: The list where you want to map to
             top_n: The number of matches you want returned. This is currently only implemented
                    for `polyfuzz.models.TFIDF` and `polyfuzz.models.Embeddings` as they
-                   can computationally handle more comparisons. 
+                   can computationally handle more comparisons.
 
         Updates:
             self.matches: A dictionary with the matches from all models, can
