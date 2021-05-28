@@ -87,6 +87,7 @@ def cosine_similarity(from_vector: np.ndarray,
 
         indices = _top_n_idx_sparse(similarity_matrix, top_n)
         similarities = _top_n_similarities_sparse(similarity_matrix, top_n, indices)
+        indices = np.array(np.nan_to_num(np.array(indices, dtype=np.float), nan=0), dtype=np.int)
 
     # Faster than knn and slower than sparse but uses more memory
     else:
