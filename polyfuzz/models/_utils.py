@@ -126,7 +126,7 @@ def _top_n_idx_sparse(matrix, n):
     for le, ri in zip(matrix.indptr[:-1], matrix.indptr[1:]):
         n_row_pick = min(n, ri - le)
         top_n_idx.append(matrix.indices[le + np.argpartition(matrix.data[le:ri], -n_row_pick)[-n_row_pick:]])
-    return top_n_idx
+    return np.array(top_n_idx)
 
 
 def _top_n_similarities_sparse(matrix, n, indices):
