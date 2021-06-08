@@ -126,7 +126,9 @@ def _top_n_idx_sparse(matrix, n):
     top_n_idx = []
     for le, ri in zip(matrix.indptr[:-1], matrix.indptr[1:]):
         n_row_pick = min(n, ri - le)
-        top_n_idx.append(matrix.indices[le + np.argpartition(matrix.data[le:ri], -n_row_pick)[-n_row_pick:]])
+        values = list(matrix.indices[le + np.argpartition(matrix.data[le:ri], -n_row_pick)[-n_row_pick:]])[::-1]
+        values = [values[index] if len(values) >= index + 1 else None for index in range(n)]
+        top_n_idx.append(values)
     return np.array(top_n_idx)
 
 
