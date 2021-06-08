@@ -1,3 +1,6 @@
+v0.3.1  
+- Fix exploding memory usage when using `top_n`   
+
 v0.3.0  
 - Use `top_n` in `polyfuzz.models.TFIDF` and `polyfuzz.models.Embeddings`   
 
@@ -16,8 +19,7 @@ v0.1.0
 - More thorough documentation  
 - Prepare for public release  
 
-v0.0.1
-
+v0.0.1  
 - First release of `PolyFuzz`
 - Matching through:
     - Edit Distance
