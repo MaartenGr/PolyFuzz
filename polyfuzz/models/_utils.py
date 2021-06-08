@@ -86,7 +86,7 @@ def cosine_similarity(from_vector: np.ndarray,
             similarity_matrix = similarity_matrix.tocsr()
 
         indices = _top_n_idx_sparse(similarity_matrix, top_n)
-        similarities = _top_n_similarities_sparse(similarity_matrix, top_n, indices)
+        similarities = _top_n_similarities_sparse(similarity_matrix, indices)
         indices = np.array(np.nan_to_num(np.array(indices, dtype=np.float), nan=0), dtype=np.int)
 
     # Faster than knn and slower than sparse but uses more memory
@@ -132,11 +132,11 @@ def _top_n_idx_sparse(matrix, n):
     return np.array(top_n_idx)
 
 
-def _top_n_similarities_sparse(matrix, n, indices):
+def _top_n_similarities_sparse(matrix, indices):
     """ Return similarity scores of top n values in each row of a sparse matrix """
     similarity_scores = []
     for row, values in enumerate(indices):
-        scores = [round(matrix[row, value], n) if value is not None else 0 for value in values]
+        scores = [round(matrix[row, value], 3) if value is not None else 0 for value in values]
         similarity_scores.append(scores)
     similarity_scores = np.array(similarity_scores).T
     return similarity_scores

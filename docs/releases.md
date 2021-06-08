@@ -1,4 +1,4 @@
-v0.3.1  
+v0.3.2  
 - Fix exploding memory usage when using `top_n`   
 
 v0.3.0  
