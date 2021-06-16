@@ -13,7 +13,7 @@ docs_packages = [
 ]
 
 base_packages = [
-    "numpy>= 1.18.5,<=1.19.4",
+    "numpy>=1.20.0",
     "scipy>= 1.3.1",
     "pandas>= 0.25.3",
     "tqdm>=4.41.1",
