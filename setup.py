@@ -13,7 +13,7 @@ docs_packages = [
 ]
 
 base_packages = [
-    "numpy>= 1.18.5,<=1.19.4",
+    "numpy>=1.20.0",
     "scipy>= 1.3.1",
     "pandas>= 0.25.3",
     "tqdm>=4.41.1",
@@ -25,7 +25,7 @@ base_packages = [
 ]
 
 fast_cosine = ["sparse_dot_topn>=0.2.9"]
-embeddings_packages = ["torch>=1.2.0", "flair>= 0.7"]
+embeddings_packages = ["torch>=1.4.0,<1.7.1", "flair>= 0.7"]
 
 extra_packages = embeddings_packages + fast_cosine
 
@@ -37,7 +37,7 @@ with open("README.md", "r") as fh:
 setup(
     name="polyfuzz",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.3.2",
+    version="0.3.3",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="PolyFuzz performs fuzzy string matching, grouping, and evaluation.",
