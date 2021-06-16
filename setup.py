@@ -25,7 +25,7 @@ base_packages = [
 ]
 
 fast_cosine = ["sparse_dot_topn>=0.2.9"]
-embeddings_packages = ["torch>=1.2.0", "flair>= 0.7"]
+embeddings_packages = ["torch>=1.4.0,<1.7.1", "flair>= 0.7"]
 
 extra_packages = embeddings_packages + fast_cosine
 
