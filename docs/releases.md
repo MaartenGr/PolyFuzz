@@ -1,3 +1,7 @@
+v0.3.3  
+- Update numpy to "numpy>=1.20.0" to prevent [this](https://github.com/MaartenGr/PolyFuzz/issues/23) and this [issue](https://github.com/MaartenGr/PolyFuzz/issues/21)
+- Update pytorch to "torch>=1.4.0,<1.7.1" to prevent save_state_warning error   
+
 v0.3.2  
 - Fix exploding memory usage when using `top_n`   
 
