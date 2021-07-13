@@ -62,7 +62,8 @@ class Embeddings(BaseMatcher):
                  min_similarity: float = 0.75,
                  top_n: int = 1,
                  cosine_method: str = "sparse",
-                 model_id: str = None):
+                 model_id: str = None,
+                 char_level: bool = False):
         super().__init__(model_id)
         self.type = "Embeddings"
 
@@ -81,6 +82,7 @@ class Embeddings(BaseMatcher):
         self.min_similarity = min_similarity
         self.top_n = top_n
         self.cosine_method = cosine_method
+        self.char_level = char_level
 
     def match(self,
               from_list: List[str],
@@ -107,9 +109,24 @@ class Embeddings(BaseMatcher):
         ```
         """
         if not isinstance(embeddings_from, np.ndarray):
-            embeddings_from = self._embed(from_list)
+            if self.char_level:
+                char_level_from_list = []
+                for  word in from_list:
+                    char_level_word = " ".join([char for char in word])
+                    char_level_from_list.append(char_level_word)
+                embeddings_from = self._embed(char_level_from_list)
+            else:
+                embeddings_from = self._embed(from_list)
+        
         if not isinstance(embeddings_to, np.ndarray):
-            embeddings_to = self._embed(to_list)
+            if self.char_level:
+                char_level_to_list = []
+                for  word in to_list:
+                    char_level_word = " ".join([char for char in word])
+                    char_level_to_list.append(char_level_word)
+                embeddings_to = self._embed(char_level_to_list)
+            else:
+                embeddings_to = self._embed(to_list)
 
         matches = cosine_similarity(embeddings_from, embeddings_to,
                                     from_list, to_list,
