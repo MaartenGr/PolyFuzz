@@ -1,6 +1,6 @@
 import logging
 import pandas as pd
-from typing import List, Mapping, Union, Iterable
+from typing import List, Mapping, Union, Iterable, Any
 
 from polyfuzz.linkage import single_linkage
 from polyfuzz.utils import check_matches, check_grouped, create_logger
@@ -149,7 +149,7 @@ class PolyFuzz:
     def visualize_precision_recall(self,
                                    kde: bool = False,
                                    save_path: str = None
-                                   ):
+                                   ) -> Any:
         """ Calculate and visualize precision-recall curves
 
         A minimum similarity score might be used to identify
@@ -189,7 +189,7 @@ class PolyFuzz:
             self.recalls[name] = recall
             self.average_precisions[name] = average_precision
 
-        visualize_precision_recall(self.matches, self.min_precisions, self.recalls, kde, save_path)
+        return visualize_precision_recall(self.matches, self.min_precisions, self.recalls, kde, save_path)
 
     def group(self,
               model: Union[str, BaseMatcher] = None,
