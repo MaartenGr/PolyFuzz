@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://maartengr.github.io/PolyFuzz/api/polyfuzz/">
-      
-      
         <meta name="author" content="Maarten P. Grootendorst">
       
-      <link rel="shortcut icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+      
+        <link rel="canonical" href="https://maartengr.github.io/PolyFuzz/api/polyfuzz/">
+      
+      <link rel="icon" href="../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.5143246d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -39,17 +39,21 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
       
     
     
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
       <link rel="stylesheet" href="../../style.css">
     
     
       
+
+
     
     
   </head>
@@ -61,8 +65,10 @@
     
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="blue">
-      
   
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -81,39 +87,54 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://maartengr.github.io/PolyFuzz/" title="PolyFuzz" class="md-header-nav__button md-logo" aria-label="PolyFuzz">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PolyFuzz" class="md-header__button md-logo" aria-label="PolyFuzz" data-md-component="logo">
       
   <img src="../../images/logo.png" alt="logo">
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis md-ellipsis">
-          PolyFuzz
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PolyFuzz
+          </span>
         </div>
-      
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PolyFuzz
+            
+          </span>
+        </div>
+      </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -129,12 +150,12 @@
 </div>
     
     
-      <div class="md-header-nav__source">
+      <div class="md-header__source">
         
-<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source">
+<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -143,25 +164,30 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
         
+          
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://maartengr.github.io/PolyFuzz/" title="PolyFuzz" class="md-nav__button md-logo" aria-label="PolyFuzz">
+    <a href="../.." title="PolyFuzz" class="md-nav__button md-logo" aria-label="PolyFuzz" data-md-component="logo">
       
   <img src="../../images/logo.png" alt="logo">
 
@@ -171,10 +197,10 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source">
+<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -188,97 +214,15 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../.." class="md-nav__link">
-      Home
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
-    <label class="md-nav__link" for="nav-2">
-      Getting Started
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
-        Getting Started
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tutorial/quickstart/quickstart/" class="md-nav__link">
-      Quickstart
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tutorial/models/models/" class="md-nav__link">
-      Models
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tutorial/basematcher/basematcher/" class="md-nav__link">
-      Custom Models
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tutorial/grouper/grouper/" class="md-nav__link">
-      Custom Grouper
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tutorial/datasets/datasets/" class="md-nav__link">
-      Datasets
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
 
     
       
@@ -286,48 +230,162 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
-    <label class="md-nav__link" for="nav-3">
-      API
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="API" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon"></span>
-        API
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
-          
-          
-
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/quickstart/quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/models/models/" class="md-nav__link">
+        Models
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/basematcher/basematcher/" class="md-nav__link">
+        Custom Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/grouper/grouper/" class="md-nav__link">
+        Custom Grouper
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/datasets/datasets/" class="md-nav__link">
+        Datasets
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
       
+      
+      
+
+  
+  
     
+  
+  
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          PolyFuzz
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         PolyFuzz
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
-      PolyFuzz
-    </a>
-    
+      </a>
       
+        
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -337,7 +395,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#polyfuzz.polyfuzz.PolyFuzz" class="md-nav__link">
@@ -398,146 +456,176 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linkage/" class="md-nav__link">
+        Linkage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        Metrics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
-  </li>
-
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/base/" class="md-nav__link">
+        BaseMatcher
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/distance/" class="md-nav__link">
+        EditDistance
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/rapidfuzz/" class="md-nav__link">
+        RapidFuzzy
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../linkage/" class="md-nav__link">
-      Linkage
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/tfidf/" class="md-nav__link">
+        TFIDF
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/embeddings/" class="md-nav__link">
+        Embeddings
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/matches/" class="md-nav__link">
+        CosineSimilarity
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../metrics/" class="md-nav__link">
-      Metrics
-    </a>
-  </li>
-
-        
+            
           
+        </ul>
+      </nav>
+    </li>
+  
+
+            
           
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" >
-    <label class="md-nav__link" for="nav-3-4">
-      Models
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Models" data-md-level="2">
-      <label class="md-nav__title" for="nav-3-4">
-        <span class="md-nav__icon md-icon"></span>
-        Models
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../models/base/" class="md-nav__link">
-      BaseMatcher
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../models/distance/" class="md-nav__link">
-      EditDistance
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../models/rapidfuzz/" class="md-nav__link">
-      RapidFuzzy
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../models/tfidf/" class="md-nav__link">
-      TFIDF
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../models/embeddings/" class="md-nav__link">
-      Embeddings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../models/matches/" class="md-nav__link">
-      CosineSimilarity
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../../releases/" class="md-nav__link">
-      Releases
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/" class="md-nav__link">
+        Releases
+      </a>
+    </li>
+  
 
     
   </ul>
@@ -547,11 +635,13 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -561,7 +651,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#polyfuzz.polyfuzz.PolyFuzz" class="md-nav__link">
@@ -627,7 +717,7 @@
               </div>
             
           
-          <div class="md-content">
+          <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
@@ -637,58 +727,57 @@
                 
                 
                 <h1 id="polyfuzzpolyfuzzpolyfuzz"><code>polyfuzz.polyfuzz.PolyFuzz</code><a class="headerlink" href="#polyfuzzpolyfuzzpolyfuzz" title="Permanent link">&para;</a></h1>
-<div class="doc doc-object doc-class">
-<h2 class="hidden-toc" href="#polyfuzz.polyfuzz.PolyFuzz" id="polyfuzz.polyfuzz.PolyFuzz" style="visibility: hidden; position: absolute;">
-        <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents first">
-<p>PolyFuzz class for Fuzzy string matching, grouping, and evaluation.</p>
+
+
+  <div class="doc doc-object doc-class">
+
+<a id="polyfuzz.polyfuzz.PolyFuzz"></a>
+    <div class="doc doc-contents first">
+
+      <p>PolyFuzz class for Fuzzy string matching, grouping, and evaluation.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>method</code></td>
-<td><code></code></td>
-<td>
-<p>the method(s) used for matching. For quick selection of models
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>method</code></td>
+        <td></td>
+        <td><p>the method(s) used for matching. For quick selection of models
     select one of the following: "EditDistance", "TF-IDF" or "Embeddings".
     If you want more control over the models above, pass
     in a model from polyfuzz.models. For examples, see
-    usage below.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>verbose</code></td>
-<td><code></code></td>
-<td>
-<p>Changes the verbosity of the model, Set to True if you want
-     to track the stages of the model.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-<p>Usage:</p>
+    usage below.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>verbose</code></td>
+        <td></td>
+        <td><p>Changes the verbosity of the model, Set to True if you want
+     to track the stages of the model.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>      <p>Usage:</p>
 <p>For basic, out-of-the-box usage, run the code below. You can replace "TF-IDF"
 with either "EditDistance"  or "Embeddings" for quick access to these models:</p>
 <pre><code class="language-python">import polyfuzz as pf
-model = pf.PolyFuzz("TF-IDF")
+model = pf.PolyFuzz(&quot;TF-IDF&quot;)
 </code></pre>
 <p>If you want more control over the String Matching models, you can load
 in these models separately:</p>
-<pre><code class="language-python">tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF-Sklearn")
+<pre><code class="language-python">tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id=&quot;TF-IDF-Sklearn&quot;)
 model = pf.PolyFuzz(tfidf)
 </code></pre>
 <p>You can also select multiple models in order to compare performance:</p>
-<pre><code class="language-python">tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF-Sklearn")
+<pre><code class="language-python">tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id=&quot;TF-IDF-Sklearn&quot;)
 edit = EditDistance(n_jobs=-1)
 model = pf.PolyFuzz([tfidf, edit])
 </code></pre>
@@ -699,22 +788,39 @@ bert_embedding = TransformerWordEmbeddings('bert-base-multilingual-cased')
 embedding = Embeddings([fasttext_embedding, bert_embedding ], min_similarity=0.0)
 model = pf.PolyFuzz(embedding)
 </code></pre>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="polyfuzz.polyfuzz.PolyFuzz.get_cluster_mappings">
-
-        <code class="highlight language-python">
-get_cluster_mappings<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
 
 
-      <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_cluster_mappings" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>Get the mappings from the <code>To</code> column to its respective column </p>
-<details class="quote">
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_cluster_mappings" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_cluster_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#polyfuzz.polyfuzz.PolyFuzz.get_cluster_mappings" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the mappings from the <code>To</code> column to its respective column </p>
+
+        <details class="quote">
           <summary>Source code in <code>polyfuzz\polyfuzz.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_cluster_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-    <span class="sd">""" Get the mappings from the `To` column to its respective column """</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_cluster_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot; Get the mappings from the `To` column to its respective column &quot;&quot;&quot;</span>
     <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="n">check_grouped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -725,52 +831,56 @@ get_cluster_mappings<span class="p">(</span><span class="bp">self</span><span cl
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_mappings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_mappings</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="polyfuzz.polyfuzz.PolyFuzz.get_clusters">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-get_clusters<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+  </div>
 
 
-      <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_clusters" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>Get the groupings/clusters from a single model</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_clusters" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#polyfuzz.polyfuzz.PolyFuzz.get_clusters" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the groupings/clusters from a single model</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>model_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>the model id of the model if you have specified multiple models</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model_id</code></td>
+        <td><code>str</code></td>
+        <td><p>the model id of the model if you have specified multiple models</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>polyfuzz\polyfuzz.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-    <span class="sd">""" Get the groupings/clusters from a single model</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot; Get the groupings/clusters from a single model</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        model_id: the model id of the model if you have specified multiple models</span>
 
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="n">check_grouped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -781,26 +891,32 @@ get_clusters<span class="p">(</span><span class="bp">self</span><span class="p">
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">model_id</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="polyfuzz.polyfuzz.PolyFuzz.get_ids">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-get_ids<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+  </div>
 
 
-      <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_ids" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>Get all model ids for easier access </p>
-<details class="quote">
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_ids" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#polyfuzz.polyfuzz.PolyFuzz.get_ids" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get all model ids for easier access </p>
+
+        <details class="quote">
           <summary>Source code in <code>polyfuzz\polyfuzz.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">""" Get all model ids for easier access """</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot; Get all model ids for easier access &quot;&quot;&quot;</span>
     <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -808,27 +924,33 @@ get_ids<span class="p">(</span><span class="bp">self</span><span class="p">)</sp
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">None</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="polyfuzz.polyfuzz.PolyFuzz.get_matches">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-get_matches<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+  </div>
 
 
-      <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.get_matches" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>Get the matches from one or more models</p>
-<details class="quote">
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.get_matches" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#polyfuzz.polyfuzz.PolyFuzz.get_matches" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the matches from one or more models</p>
+
+        <details class="quote">
           <summary>Source code in <code>polyfuzz\polyfuzz.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                                                      <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]]:</span>
-    <span class="sd">""" Get the matches from one or more models"""</span>
+    <span class="sd">&quot;&quot;&quot; Get the matches from one or more models&quot;&quot;&quot;</span>
     <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -838,71 +960,71 @@ get_matches<span class="p">(</span><span class="bp">self</span><span class="p">,
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">model_id</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="polyfuzz.polyfuzz.PolyFuzz.group">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-group<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">group_all_strings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>        </code>
+  </div>
 
 
-      <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.group" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>From the matches, group the <code>To</code> matches together using single linkage</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.group" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">group_all_strings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a href="#polyfuzz.polyfuzz.PolyFuzz.group" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>From the matches, group the <code>To</code> matches together using single linkage</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>model</code></td>
-<td><code>Union[str, polyfuzz.models._base.BaseMatcher]</code></td>
-<td>
-<p>you can choose one of the models in <code>polyfuzz.models</code> to be used as a grouper</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>link_min_similarity</code></td>
-<td><code>float</code></td>
-<td>
-<p>the minimum similarity between strings before they are grouped
-                 in a single linkage fashion</p>
-</td>
-<td><code>0.75</code></td>
-</tr>
-<tr>
-<td><code>group_all_strings</code></td>
-<td><code>bool</code></td>
-<td>
-<p>if you want to compare a list of strings with itself and then cluster
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model</code></td>
+        <td><code>Union[str, polyfuzz.models._base.BaseMatcher]</code></td>
+        <td><p>you can choose one of the models in <code>polyfuzz.models</code> to be used as a grouper</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>link_min_similarity</code></td>
+        <td><code>float</code></td>
+        <td><p>the minimum similarity between strings before they are grouped
+                 in a single linkage fashion</p></td>
+        <td><code>0.75</code></td>
+      </tr>
+      <tr>
+        <td><code>group_all_strings</code></td>
+        <td><code>bool</code></td>
+        <td><p>if you want to compare a list of strings with itself and then cluster
                those strings, set this to True. Otherwise, only the strings that
-               were mapped To are clustered.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-</tbody>
-</table>
-<p>Updates:
+               were mapped To are clustered.</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>      <p>Updates:
    self.matches: Adds a column <code>Group</code> that is the grouped version of the <code>To</code> column</p>
-<details class="quote">
+
+        <details class="quote">
           <summary>Source code in <code>polyfuzz\polyfuzz.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
           <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BaseMatcher</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
           <span class="n">link_min_similarity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">,</span>
           <span class="n">group_all_strings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="sd">""" From the matches, group the `To` matches together using single linkage</span>
+    <span class="sd">&quot;&quot;&quot; From the matches, group the `To` matches together using single linkage</span>
 
 <span class="sd">     Arguments:</span>
 <span class="sd">         model: you can choose one of the models in `polyfuzz.models` to be used as a grouper</span>
@@ -914,25 +1036,25 @@ group<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 
 <span class="sd">     Updates:</span>
 <span class="sd">        self.matches: Adds a column `Group` that is the grouped version of the `To` column</span>
-<span class="sd">     """</span>
+<span class="sd">     &quot;&quot;&quot;</span>
     <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cluster_mappings</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># Standard models - quick access</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"TF-IDF"</span><span class="p">,</span> <span class="s2">"TFIDF"</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="s2">&quot;TFIDF&quot;</span><span class="p">]:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="n">link_min_similarity</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"EditDistance"</span><span class="p">,</span> <span class="s2">"Edit Distance"</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;EditDistance&quot;</span><span class="p">,</span> <span class="s2">&quot;Edit Distance&quot;</span><span class="p">]:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">RapidFuzz</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"Embeddings"</span><span class="p">,</span> <span class="s2">"Embedding"</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Embeddings&quot;</span><span class="p">,</span> <span class="s2">&quot;Embedding&quot;</span><span class="p">]:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">(</span><span class="n">min_similarity</span><span class="o">=</span><span class="n">link_min_similarity</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Please instantiate the model with one of the following methods: </span><span class="se">\n</span><span class="s2">"</span>
-                             <span class="s2">"* 'TF-IDF'</span><span class="se">\n</span><span class="s2">"</span>
-                             <span class="s2">"* 'EditDistance'</span><span class="se">\n</span><span class="s2">"</span>
-                             <span class="s2">"* 'Embeddings'</span><span class="se">\n</span><span class="s2">"</span>
-                             <span class="s2">"* Or None if you want to automatically use TF-IDF"</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please instantiate the model with one of the following methods: </span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;* &#39;TF-IDF&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;* &#39;EditDistance&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;* &#39;Embeddings&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;* Or None if you want to automatically use TF-IDF&quot;</span><span class="p">)</span>
 
     <span class="c1"># Use TF-IDF if no model is specified</span>
     <span class="k">elif</span> <span class="ow">not</span> <span class="n">model</span><span class="p">:</span>
@@ -941,86 +1063,92 @@ group<span class="p">(</span><span class="bp">self</span><span class="p">,</span
     <span class="c1"># Group per model</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_groups</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">link_min_similarity</span><span class="p">,</span> <span class="n">group_all_strings</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="polyfuzz.polyfuzz.PolyFuzz.match">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-match<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>        </code>
+  </div>
 
 
-      <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.match" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>Match the from_list of strings to the to_list of strings with whatever models
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.match" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+
+<a href="#polyfuzz.polyfuzz.PolyFuzz.match" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Match the from_list of strings to the to_list of strings with whatever models
 you have initialized</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>from_list</code></td>
-<td><code>List[str]</code></td>
-<td>
-<p>The list from which you want mappings</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>to_list</code></td>
-<td><code>List[str]</code></td>
-<td>
-<p>The list where you want to map to</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>top_n</code></td>
-<td><code>int</code></td>
-<td>
-<p>The number of matches you want returned. This is currently only implemented
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>from_list</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>The list from which you want mappings.
+       If you want to map items within a list, and not map the 
+       items to themselves, you can supply only the <code>from_list</code> and 
+       ignore the <code>to_list</code>. </p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>to_list</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>The list where you want to map to</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>top_n</code></td>
+        <td><code>int</code></td>
+        <td><p>The number of matches you want returned. This is currently only implemented
    for <code>polyfuzz.models.TFIDF</code> and <code>polyfuzz.models.Embeddings</code> as they
-   can computationally handle more comparisons.</p>
-</td>
-<td><code>1</code></td>
-</tr>
-</tbody>
-</table>
-<p>!!! updates
+   can computationally handle more comparisons.</p></td>
+        <td><code>1</code></td>
+      </tr>
+  </tbody>
+</table>      <p>!!! updates
     self.matches: A dictionary with the matches from all models, can
                   be accessed with <code>model.get_all_matches</code> or
                   <code>model.get_match("TF-IDF")</code></p>
 <p>Usage:</p>
 <p>After having initialized your models, you can pass through lists of strings:</p>
 <pre><code class="language-python">import polyfuzz as pf
-model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
-model.match(from_list = ["string_one", "string_two"],
-            to_list = ["string_three", "string_four"])
+model = pf.PolyFuzz(&quot;TF-IDF&quot;, model_id=&quot;TF-IDF&quot;)
+model.match(from_list = [&quot;string_one&quot;, &quot;string_two&quot;],
+            to_list = [&quot;string_three&quot;, &quot;string_four&quot;])
 </code></pre>
 <p>You can access the results matches with <code>model.get_all_matches</code> or a specific
 model with <code>model.get_match("TF-IDF")</code> based on their model_id.</p>
-<details class="quote">
+
+        <details class="quote">
           <summary>Source code in <code>polyfuzz\polyfuzz.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
           <span class="n">from_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-          <span class="n">to_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+          <span class="n">to_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
           <span class="n">top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="sd">""" Match the from_list of strings to the to_list of strings with whatever models</span>
+    <span class="sd">&quot;&quot;&quot; Match the from_list of strings to the to_list of strings with whatever models</span>
 <span class="sd">    you have initialized</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        from_list: The list from which you want mappings</span>
+<span class="sd">        from_list: The list from which you want mappings.</span>
+<span class="sd">                   If you want to map items within a list, and not map the </span>
+<span class="sd">                   items to themselves, you can supply only the `from_list` and </span>
+<span class="sd">                   ignore the `to_list`. </span>
 <span class="sd">        to_list: The list where you want to map to</span>
 <span class="sd">        top_n: The number of matches you want returned. This is currently only implemented</span>
 <span class="sd">               for `polyfuzz.models.TFIDF` and `polyfuzz.models.Embeddings` as they</span>
@@ -1029,7 +1157,7 @@ model with <code>model.get_match("TF-IDF")</code> based on their model_id.</p>
 <span class="sd">    Updates:</span>
 <span class="sd">        self.matches: A dictionary with the matches from all models, can</span>
 <span class="sd">                      be accessed with `model.get_all_matches` or</span>
-<span class="sd">                      `model.get_match("TF-IDF")`</span>
+<span class="sd">                      `model.get_match(&quot;TF-IDF&quot;)`</span>
 
 <span class="sd">    Usage:</span>
 
@@ -1037,33 +1165,33 @@ model with <code>model.get_match("TF-IDF")</code> based on their model_id.</p>
 
 <span class="sd">    ```python</span>
 <span class="sd">    import polyfuzz as pf</span>
-<span class="sd">    model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")</span>
-<span class="sd">    model.match(from_list = ["string_one", "string_two"],</span>
-<span class="sd">                to_list = ["string_three", "string_four"])</span>
+<span class="sd">    model = pf.PolyFuzz(&quot;TF-IDF&quot;, model_id=&quot;TF-IDF&quot;)</span>
+<span class="sd">    model.match(from_list = [&quot;string_one&quot;, &quot;string_two&quot;],</span>
+<span class="sd">                to_list = [&quot;string_three&quot;, &quot;string_four&quot;])</span>
 <span class="sd">    ```</span>
 
 <span class="sd">    You can access the results matches with `model.get_all_matches` or a specific</span>
-<span class="sd">    model with `model.get_match("TF-IDF")` based on their model_id.</span>
-<span class="sd">    """</span>
+<span class="sd">    model with `model.get_match(&quot;TF-IDF&quot;)` based on their model_id.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standard models - quick access</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"TF-IDF"</span><span class="p">,</span> <span class="s2">"TFIDF"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"TF-IDF"</span><span class="p">:</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"EditDistance"</span><span class="p">,</span> <span class="s2">"Edit Distance"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"EditDistance"</span><span class="p">:</span> <span class="n">RapidFuzz</span><span class="p">()</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"Embeddings"</span><span class="p">,</span> <span class="s2">"Embedding"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Embeddings"</span><span class="p">:</span> <span class="n">Embeddings</span><span class="p">(</span><span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="s2">&quot;TFIDF&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">:</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;EditDistance&quot;</span><span class="p">,</span> <span class="s2">&quot;Edit Distance&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;EditDistance&quot;</span><span class="p">:</span> <span class="n">RapidFuzz</span><span class="p">()</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Embeddings&quot;</span><span class="p">,</span> <span class="s2">&quot;Embedding&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Embeddings&quot;</span><span class="p">:</span> <span class="n">Embeddings</span><span class="p">(</span><span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Please instantiate the model with one of the following methods: </span><span class="se">\n</span><span class="s2">"</span>
-                             <span class="s2">"* 'TF-IDF'</span><span class="se">\n</span><span class="s2">"</span>
-                             <span class="s2">"* 'EditDistance'</span><span class="se">\n</span><span class="s2">"</span>
-                             <span class="s2">"* 'Embeddings'</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ran model with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please instantiate the model with one of the following methods: </span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;* &#39;TF-IDF&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;* &#39;EditDistance&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;* &#39;Embeddings&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Custom models</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">BaseMatcher</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">model_id</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)}</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ran model with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">model_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Multiple custom models</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
@@ -1071,24 +1199,30 @@ model with <code>model.get_match("TF-IDF")</code> based on their model_id.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ran model with model id = </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran model with model id = </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="bp">self</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="polyfuzz.polyfuzz.PolyFuzz.visualize_precision_recall">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-visualize_precision_recall<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+  </div>
 
 
-      <a class="headerlink" href="#polyfuzz.polyfuzz.PolyFuzz.visualize_precision_recall" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>Calculate and visualize precision-recall curves</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="polyfuzz.polyfuzz.PolyFuzz.visualize_precision_recall" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">visualize_precision_recall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#polyfuzz.polyfuzz.PolyFuzz.visualize_precision_recall" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate and visualize precision-recall curves</p>
 <p>A minimum similarity score might be used to identify
 when a match could be considered to be correct. For example,
 we can assume that if a similarity score pass 0.95 we are
@@ -1098,50 +1232,46 @@ you how precise we believe the matches are at a minimum.</p>
 <p><strong>Recall</strong> can then be defined as as the percentage of matches
 found at a certain minimum similarity score. A high recall means
 that for a certain minimum precision score, we find many matches.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>kde</code></td>
-<td><code>bool</code></td>
-<td>
-<p>whether to also visualize the kde plot</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>save_path</code></td>
-<td><code>str</code></td>
-<td>
-<p>the path to save the resulting image to</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
-</table>
-<p>Usage:</p>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>kde</code></td>
+        <td><code>bool</code></td>
+        <td><p>whether to also visualize the kde plot</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>save_path</code></td>
+        <td><code>str</code></td>
+        <td><p>the path to save the resulting image to</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>      <p>Usage:</p>
 <pre><code class="language-python">import polyfuzz as pf
-model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
-model.match(from_list = ["string_one", "string_two"],
-            to_list = ["string_three", "string_four"])
-model.visualize_precision_recall(save_path="results.png")
+model = pf.PolyFuzz(&quot;TF-IDF&quot;, model_id=&quot;TF-IDF&quot;)
+model.match(from_list = [&quot;string_one&quot;, &quot;string_two&quot;],
+            to_list = [&quot;string_three&quot;, &quot;string_four&quot;])
+model.visualize_precision_recall(save_path=&quot;results.png&quot;)
 </code></pre>
-<details class="quote">
+
+        <details class="quote">
           <summary>Source code in <code>polyfuzz\polyfuzz.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">visualize_precision_recall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">visualize_precision_recall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                <span class="n">kde</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                                <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
                                <span class="p">):</span>
-    <span class="sd">""" Calculate and visualize precision-recall curves</span>
+    <span class="sd">&quot;&quot;&quot; Calculate and visualize precision-recall curves</span>
 
 <span class="sd">    A minimum similarity score might be used to identify</span>
 <span class="sd">    when a match could be considered to be correct. For example,</span>
@@ -1162,12 +1292,12 @@ model.visualize_precision_recall(save_path="results.png")
 
 <span class="sd">    ```python</span>
 <span class="sd">    import polyfuzz as pf</span>
-<span class="sd">    model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")</span>
-<span class="sd">    model.match(from_list = ["string_one", "string_two"],</span>
-<span class="sd">                to_list = ["string_three", "string_four"])</span>
-<span class="sd">    model.visualize_precision_recall(save_path="results.png")</span>
+<span class="sd">    model = pf.PolyFuzz(&quot;TF-IDF&quot;, model_id=&quot;TF-IDF&quot;)</span>
+<span class="sd">    model.match(from_list = [&quot;string_one&quot;, &quot;string_two&quot;],</span>
+<span class="sd">                to_list = [&quot;string_three&quot;, &quot;string_four&quot;])</span>
+<span class="sd">    model.visualize_precision_recall(save_path=&quot;results.png&quot;)</span>
 <span class="sd">    ```</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">min_precisions</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1181,14 +1311,21 @@ model.visualize_precision_recall(save_path="results.png")
         <span class="bp">self</span><span class="o">.</span><span class="n">average_precisions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">average_precision</span>
 
     <span class="n">visualize_precision_recall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_precisions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">recalls</span><span class="p">,</span> <span class="n">kde</span><span class="p">,</span> <span class="n">save_path</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               
@@ -1199,45 +1336,46 @@ model.visualize_precision_recall(save_path="results.png")
             </article>
           </div>
         </div>
+        
       </main>
       
         
 <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
         
-          <a href="../../tutorial/datasets/datasets/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <a href="../../tutorial/datasets/datasets/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Datasets" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Datasets
             </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Datasets
-              </div>
-            </div>
-          </a>
+          </div>
+        </a>
+      
+      
         
-        
-          <a href="../linkage/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Linkage
-              </div>
+        <a href="../linkage/" class="md-footer__link md-footer__link--next" aria-label="Next: Linkage" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Linkage
             </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1247,10 +1385,13 @@ model.visualize_precision_recall(save_path="results.png")
             Copyright &copy; 2020 , Maintained by <a href="https://github.com/MaartenGr/">Maarten Grootendorst</a>.
           </div>
         
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
       </div>
       
     </div>
@@ -1258,19 +1399,13 @@ model.visualize_precision_recall(save_path="results.png")
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
     
-      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: "../..",
-          features: [],
-          search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    
+      <script src="../../assets/javascripts/bundle.f89c2efe.min.js"></script>
       
     
   </body>
