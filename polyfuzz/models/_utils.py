@@ -51,13 +51,14 @@ def cosine_similarity(from_vector: np.ndarray,
     indices, similarity = extract_best_matches(from_vector, to_vector, method="sparse")
     ```
     """
-    if top_n > len(set(to_list)):
-        top_n = len(set(to_list))
-
+    if to_list is not None:
+        if top_n > len(set(to_list)):
+            top_n = len(set(to_list))
+    
     # Slower but uses less memory
     if method == "knn":
 
-        if from_list == to_list:
+        if to_list is None:
             knn = NearestNeighbors(n_neighbors=top_n+1, n_jobs=-1, metric='cosine').fit(to_vector)
             distances, indices = knn.kneighbors(from_vector)
             distances = distances[:, 1:]
@@ -80,7 +81,7 @@ def cosine_similarity(from_vector: np.ndarray,
         # to it at least to 2 for it to work
         similarity_matrix = awesome_cossim_topn(from_vector, to_vector.T, top_n+1, min_similarity)
 
-        if from_list == to_list:
+        if to_list is None:
             similarity_matrix = similarity_matrix.tolil()
             similarity_matrix.setdiag(0.)
             similarity_matrix = similarity_matrix.tocsr()
@@ -93,7 +94,7 @@ def cosine_similarity(from_vector: np.ndarray,
     else:
         similarity_matrix = scikit_cosine_similarity(from_vector, to_vector)
 
-        if from_list == to_list:
+        if to_list is None:
             np.fill_diagonal(similarity_matrix, 0)
 
         indices = np.flip(np.argsort(similarity_matrix, axis=-1), axis=1)[:, :top_n]
@@ -101,6 +102,9 @@ def cosine_similarity(from_vector: np.ndarray,
         similarities = [np.round(similarities[:, i], 3) for i in range(similarities.shape[1])]
 
     # Convert results to df
+    if to_list is None:
+        to_list = from_list.copy()
+        
     columns = (["From"] +
                ["To" if i == 0 else f"To_{i+1}" for i in range(top_n)] +
                ["Similarity" if i ==0 else f"Similarity_{i+1}" for i in range(top_n)])

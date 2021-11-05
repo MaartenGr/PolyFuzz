@@ -98,7 +98,9 @@ The resulting matches can be accessed through `model.get_matches()`:
 
 ``` 
 
-**NOTE**: When instantiating `PolyFuzz` we also could have used "EditDistance" or "Embeddings" to quickly 
+**NOTE 1**: If you want to compare distances within a single list, you can simply pass that list as such: `model.match(from_list)`
+
+**NOTE 2**: When instantiating `PolyFuzz` we also could have used "EditDistance" or "Embeddings" to quickly 
 access Levenshtein and FastText (English) respectively. 
 
 ### Group Matches

@@ -62,7 +62,7 @@ class TFIDF(BaseMatcher):
 
     def match(self,
               from_list: List[str],
-              to_list: List[str]) -> pd.DataFrame:
+              to_list: List[str] = None) -> pd.DataFrame:
         """ Match two lists of strings to each other and return the most similar strings
 
         Arguments:
@@ -101,7 +101,7 @@ class TFIDF(BaseMatcher):
             tf_idf_from = vectorizer.transform(from_list)
         else:
             tf_idf_to = TfidfVectorizer(min_df=1, analyzer=self._create_ngrams).fit_transform(from_list)
-            tf_idf_from = None
+            tf_idf_from = tf_idf_to
 
         return tf_idf_from, tf_idf_to
 

@@ -85,13 +85,16 @@ class PolyFuzz:
 
     def match(self,
               from_list: List[str],
-              to_list: List[str],
+              to_list: List[str] = None,
               top_n: int = 1):
         """ Match the from_list of strings to the to_list of strings with whatever models
         you have initialized
 
         Arguments:
-            from_list: The list from which you want mappings
+            from_list: The list from which you want mappings.
+                       If you want to map items within a list, and not map the 
+                       items to themselves, you can supply only the `from_list` and 
+                       ignore the `to_list`. 
             to_list: The list where you want to map to
             top_n: The number of matches you want returned. This is currently only implemented
                    for `polyfuzz.models.TFIDF` and `polyfuzz.models.Embeddings` as they
@@ -304,7 +307,7 @@ class PolyFuzz:
             strings = list(self.matches[name].To.dropna().unique())
 
         # Create clusters
-        matches = model.match(strings, strings)
+        matches = model.match(strings)
         clusters, cluster_id_map, cluster_name_map = single_linkage(matches, link_min_similarity)
 
         # Map the `to` list to groups
