@@ -60,7 +60,7 @@ class RapidFuzz(BaseMatcher):
 
     def match(self,
               from_list: List[str],
-              to_list: List[str]) -> pd.DataFrame:
+              to_list: List[str] = None) -> pd.DataFrame:
         """ Calculate the edit distances between two list of strings
         by parallelizing the calculation and passing the lists in
         batches.
@@ -81,9 +81,10 @@ class RapidFuzz(BaseMatcher):
                               ["string_three", "string_four"])
         ```
         """
-        if from_list == to_list:
+        if to_list is None:
             self.equal_lists = True
             expected_iterations = int(len(from_list)/2)
+            to_list = from_list.copy()
         else:
             expected_iterations = len(from_list)
 

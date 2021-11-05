@@ -84,7 +84,7 @@ class Embeddings(BaseMatcher):
 
     def match(self,
               from_list: List[str],
-              to_list: List[str],
+              to_list: List[str] = None,
               embeddings_from: np.ndarray = None,
               embeddings_to: np.ndarray = None) -> pd.DataFrame:
         """ Matches the two lists of strings to each other and returns the best mapping
@@ -109,7 +109,10 @@ class Embeddings(BaseMatcher):
         if not isinstance(embeddings_from, np.ndarray):
             embeddings_from = self._embed(from_list)
         if not isinstance(embeddings_to, np.ndarray):
-            embeddings_to = self._embed(to_list)
+            if to_list is None:
+                embeddings_to = self._embed(from_list)
+            else:
+                embeddings_to = self._embed(to_list)
 
         matches = cosine_similarity(embeddings_from, embeddings_to,
                                     from_list, to_list,
