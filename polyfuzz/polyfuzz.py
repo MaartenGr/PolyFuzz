@@ -91,8 +91,10 @@ class PolyFuzz:
         you have initialized
 
         Arguments:
-            from_list: The list from which you want mappings, you can also use only this list 
-                       to map the items to themselves 
+            from_list: The list from which you want mappings.
+                       If you want to map items within a list, and not map the 
+                       items to themselves, you can supply only the `from_list` and 
+                       ignore the `to_list`. 
             to_list: The list where you want to map to
             top_n: The number of matches you want returned. This is currently only implemented
                    for `polyfuzz.models.TFIDF` and `polyfuzz.models.Embeddings` as they
