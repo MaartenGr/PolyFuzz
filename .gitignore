@@ -75,3 +75,6 @@ venv.bak/
 
 .idea
 .idea/
+
+# For quick testing
+/Untitled.ipynb
