@@ -1,3 +1,4 @@
+import joblib
 import logging
 import pandas as pd
 from typing import List, Mapping, Union, Iterable
@@ -424,6 +425,36 @@ class PolyFuzz:
             return self.cluster_mappings[name]
 
         return self.cluster_mappings
+
+    def save(self, path: str) -> None:
+        """ Saves the model to the specified path
+
+        Arguments:
+            path: the location and name of the file you want to save
+        
+        Usage:
+        ```python
+        model.save("my_model")
+        ```
+        """
+        with open(path, 'wb') as file:
+            joblib.dump(self, file)
+
+    @classmethod
+    def load(cls, path: str):
+        """ Loads the model from the specified path
+
+        Arguments:
+            path: the location and name of the PolyFuzz file you want to load
+        
+        Usage:
+        ```python
+        PolyFuzz.load("my_model")
+        ```
+        """
+        with open(path, 'rb') as file:
+            model = joblib.load(file)
+        return model
 
     def _create_groups(self,
                        name: str,
