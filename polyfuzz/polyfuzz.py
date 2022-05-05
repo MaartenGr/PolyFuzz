@@ -50,7 +50,7 @@ class PolyFuzz:
     model = pf.PolyFuzz([tfidf, edit])
     ```
 
-    To use embedding models, please use Flair word embeddings:
+    You can use embedding model, like Flair:
 
     ```python
     from flair.embeddings import WordEmbeddings, TransformerWordEmbeddings

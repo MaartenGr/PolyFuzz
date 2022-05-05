@@ -4,10 +4,13 @@ Currently, the following models are implemented in PolyFuzz:
 2. EditDistance with RapidFuzz  
 3. FastText and GloVe  
 4. 🤗 Transformers  
+5. SentenceTransformers  
+6. Gensim
+7. Spacy
 
 With `Flair`, we can use all 🤗 Transformers that are 
 [publicly available](https://huggingface.co/transformers/pretrained_models.html). 
-We simply have to instantiate any Flair WordEmbedding method and pass it through PolyFuzzy.
+We simply have to instantiate any Flair WordEmbedding method and pass it through PolyFuzz.
 
 All models listed above can be found in `polyfuzz.models` and can be used to create and compare different matchers.
 
@@ -78,7 +81,7 @@ With `Flair`, we can use all 🤗 Transformers that are
 The embeddings that are created are compared with cosine similarity in order to understand how similar the created 
 embeddings are to each other.
 
-We simply have to instantiate any Flair WordEmbedding method and pass it through PolyFuzzy: 
+We simply have to instantiate any Flair WordEmbedding method and pass it through PolyFuzz: 
 
 ```python
 from polyfuzz import PolyFuzz
@@ -115,6 +118,142 @@ fasttext_matcher = Embeddings(fasttext, min_similarity=0)
 matchers = [bert_matcher, fasttext_matcher]
 
 models = PolyFuzz(matchers).match(from_list, to_list)
+```
+
+## SentenceTransformers
+We can use `sentence-transformers` to generate embeddings from our input list and find the closest matching 
+entities using cosine similarity. We simply have to instantiate our `SentenceEmbeddings` class and pass it to PolyFuzz:
+
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import SentenceEmbeddings
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+distance_model = SentenceEmbeddings("all-MiniLM-L6-v2")
+model = PolyFuzz(distance_model).match(from_list, to_list)
+```
+
+For a full list of possible models, click [this](https://www.sbert.net/docs/pretrained_models.html) link. 
+
+You can also use a custom SentenceTransformer model:
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import SentenceEmbeddings
+from sentence_transformers import SentenceTransformer
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+distance_model = SentenceEmbeddings(embedding_model)
+model = PolyFuzz(distance_model).match(from_list, to_list)
+```
+
+## Gensim
+We can use `gensim` to load in a word embedding model to generate embeddings from our input list and find the closest matching 
+entities using cosine similarity. We simply have to instantiate our `GensimEmbeddings` class and pass it to PolyFuzz:
+
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import GensimEmbeddings
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+distance_model = GensimEmbeddings("glove-twitter-25")
+model = PolyFuzz(distance_model).match(from_list, to_list)
+```
+
+For a full list of possible models, click [this](https://github.com/RaRe-Technologies/gensim-data#models) link. 
+
+You can also use a custom Gensim model:
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import GensimEmbeddings
+import gensim.downloader as api
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+embedding_model = api.load("glove-twitter-25")
+distance_model = GensimEmbeddings(embedding_model)
+model = PolyFuzz(distance_model).match(from_list, to_list)
+```
+
+## Spacy
+We can use `spacy` to load in an embedding model to generate embeddings from our input list and find the closest matching 
+entities using cosine similarity. We simply have to instantiate our `SpacyEmbeddings` class and pass it to PolyFuzz:
+
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import SpacyEmbeddings
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+distance_model = SpacyEmbeddings("en_core_web_md")
+model = PolyFuzz(distance_model).match(from_list, to_list)
+```
+
+For a full list of possible models, click [this](https://spacy.io/usage/models) link. 
+
+You can also use a custom Spacy model:
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import SpacyEmbeddings
+import spacy
+
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+embedding_model = spacy.load("en_core_web_md", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])
+distance_model = SpacyEmbeddings(embedding_model)
+model = PolyFuzz(distance_model).match(from_list, to_list)
+```
+
+## Universal Sentence Encoder (USE)
+
+The Universal Sentence Encoder encodes text into high-dimensional vectors that are used here for embedding the strings. 
+The model is trained and optimized for greater-than-word length text, such as sentences, phrases, or short paragraphs.
+
+We simply have to instantiate our `USEEmbeddings` class and pass it to PolyFuzz:
+
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import USEEmbeddings
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+distance_model = USEEmbeddings("https://tfhub.dev/google/universal-sentence-encoder/4")
+model = PolyFuzz(distance_model).match(from_list, to_list)
+```
+
+For a full list of possible models, click [this](https://spacy.io/usage/models) link. 
+
+You can also use a custom USE model:
+
+```python
+from polyfuzz import PolyFuzz
+from polyfuzz.models import USEEmbeddings
+import tensorflow_hub
+
+from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
+to_list = ["apple", "apples", "mouse"]
+
+embedding_model = tensorflow_hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
+distance_model = USEEmbeddings(embedding_model)
+model = PolyFuzz(distance_model).match(from_list, to_list)
 ```
 
 

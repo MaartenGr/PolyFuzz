@@ -5,12 +5,21 @@ You can install **`PolyFuzz`** via pip:
 pip install polyfuzz
 ```
 
-This will install the base dependencies and excludes any deep learning/embedding models. 
+You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:
 
-If you want to be making use of 🤗 Transformers, install the additional additional `Flair` dependency:
+```python
+pip install bertopic[sbert]
+pip install bertopic[flair]
+pip install bertopic[gensim]
+pip install bertopic[spacy]
+pip install bertopic[use]
+```
+
+If you want to speed up the cosine similarity comparison and decrease memory usage when using embedding models, 
+you can use `sparse_dot_topn` which is installed via:
 
 ```bash
-pip install polyfuzz[flair]
+pip install polyfuzz[fast]
 ```
 
 ## Getting Started

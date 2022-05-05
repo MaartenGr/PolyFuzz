@@ -4,11 +4,12 @@ import pandas as pd
 from rapidfuzz import fuzz
 
 from polyfuzz import PolyFuzz
-from polyfuzz.models import EditDistance, TFIDF, RapidFuzz, BaseMatcher
+from polyfuzz.models import EditDistance, TFIDF, RapidFuzz, BaseMatcher, SentenceEmbeddings
 
 from tests.utils import get_test_strings
 
 from_list, to_list = get_test_strings()
+sentence_model = SentenceEmbeddings("all-MiniLM-L6-v2")
 
 
 class MyModel(BaseMatcher):
@@ -25,7 +26,7 @@ class MyModel(BaseMatcher):
         return matches
 
 
-@pytest.mark.parametrize("method", ["EditDistance", "TF-IDF"])
+@pytest.mark.parametrize("method", ["EditDistance", "TF-IDF", sentence_model])
 def test_base_model(method):
     model = PolyFuzz(method).match(from_list, to_list)
     matches = model.get_matches()
@@ -36,7 +37,7 @@ def test_base_model(method):
     assert list(matches.columns) == ['From', 'To', 'Similarity']
 
 
-@pytest.mark.parametrize("method", ["EditDistance", "TF-IDF"])
+@pytest.mark.parametrize("method", ["EditDistance", "TF-IDF", sentence_model])
 def test_grouper(method):
     model = PolyFuzz(method).match(from_list, to_list)
     model.group(link_min_similarity=0.75)
