@@ -211,7 +211,7 @@ from polyfuzz.models import BaseMatcher
 
 
 class MyModel(BaseMatcher):
-    def match(self, from_list, to_list):
+    def match(self, from_list, to_list, **kwargs):
         # Calculate distances
         matches = [[fuzz.ratio(from_string, to_string) / 100 for to_string in to_list] 
                     for from_string in from_list]
