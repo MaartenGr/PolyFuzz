@@ -56,6 +56,50 @@ The resulting matches can be accessed through `model.get_matches()`:
 **NOTE**: When instantiating `PolyFuzz` we also could have used "EditDistance" or "Embeddings" to quickly 
 access Levenshtein and FastText (English) respectively. 
 
+### Fit / Transform
+The `.match` function allows you to quickly extract similar strings. However, after selecting the right models to be used, you may want to use PolyFuzz 
+in production to match incoming strings. To do so, we can make use of the familiar `fit`, `transform`, and `fit_transform` functions. 
+
+Let's say that we have a list of words that we know to be correct called `train_words`. We want to any incoming word to mapped to one of the words in `train_words`. 
+In other words, we `fit` on `train_words` and we use `transform` on any incoming words:
+
+```python
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.feature_extraction.text import CountVectorizer
+from polyfuzz import PolyFuzz
+
+# Prepare training data
+docs = fetch_20newsgroups(subset='all',  remove=('headers', 'footers', 'quotes'))['data']
+vectorizer = CountVectorizer(min_df=10).fit(docs)
+vocab = vectorizer.get_feature_names_out()
+
+# Extract lists to fit and transform on 
+train_words = list(vocab[:int(len(vocab)/2)])
+unseen_words = list(vocab[int(len(vocab)/2):])
+
+# Fit
+model = PolyFuzz("TF-IDF")
+model.fit(train_words)
+
+# Transform
+results = model.transform(unseen_words)
+```
+
+In the above example, we are using `fit` on `train_words` to calculate the TF-IDF representation of those words which are saved to be used again in `transform`. 
+This speeds up `transform` quite a bit since all TF-IDF representations are stored when applying `fit`. 
+
+### Save / Load
+
+We can save and load the model as follows to be used in production:
+
+```python
+# Save the model
+model.save("my_model")
+
+# Load the model
+loaded_model = PolyFuzz.load("my_model")
+```
+
 ### Group Matches
 We can group the matches `To` as there might be significant overlap in strings in our to_list. 
 To do this, we calculate the similarity within strings in to_list and use `single linkage` to then 
