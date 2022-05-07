@@ -1,3 +1,76 @@
+## **v0.4.0**
+
+
+* Added new models (SentenceTransformers, Gensim, USE, Spacy)
+* Added `.fit`, `.transform`, and `.fit_transform` methods
+* Added `.save` and `PolyFuzz.load()`
+
+
+**SentenceTransformers**  
+```python
+from polyfuzz.models import SentenceEmbeddings
+distance_model = SentenceEmbeddings("all-MiniLM-L6-v2")
+model = PolyFuzz(distance_model)
+```
+
+**Gensim**  
+```python
+from polyfuzz.models import GensimEmbeddings
+distance_model = GensimEmbeddings("glove-twitter-25")
+model = PolyFuzz(distance_model)
+```
+
+**USE**  
+```python
+from polyfuzz.models import USEEmbeddings
+distance_model = USEEmbeddings("https://tfhub.dev/google/universal-sentence-encoder/4")
+model = PolyFuzz(distance_model)
+```
+
+**Spacy**  
+```python
+from polyfuzz.models import SpacyEmbeddings
+distance_model = SpacyEmbeddings("en_core_web_md")
+model = PolyFuzz(distance_model)
+```
+
+
+**fit, transform, fit_transform**  
+Add `fit`, `transform`, and `fit_transform` in order to use PolyFuzz in production [#34](https://github.com/MaartenGr/PolyFuzz/issues/34)
+
+```python
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.feature_extraction.text import CountVectorizer
+from polyfuzz import PolyFuzz
+
+train_words = ["apple", "apples", "appl", "recal", "house", "similarity"]
+unseen_words = ["apple", "apples", "mouse"]
+
+# Fit
+model = PolyFuzz("TF-IDF")
+model.fit(train_words)
+
+# Transform
+results = model.transform(unseen_words)
+```
+
+In the code above, we fit our TF-IDF model on `train_words` and use `.transform()` to match the words in `unseen_words` to the words that we trained on in `train_words`. 
+
+After fitting our model, we can save it as follows:
+
+```python
+model.save("my_model")
+```
+
+Then, we can load our model to be used elsewhere:
+
+```python
+from polyfuzz import PolyFuzz
+
+model = PolyFuzz.load("my_model")
+```
+
+
 ## **v0.3.4**
 
 - Make sure that when you use two lists that are exactly the same, it will return 1 for identical terms:
