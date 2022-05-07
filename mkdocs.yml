@@ -23,6 +23,10 @@ nav:
       - RapidFuzzy: api/models/rapidfuzz.md
       - TFIDF: api/models/tfidf.md
       - Embeddings: api/models/embeddings.md
+      - Spacy: api/models/spacy.md
+      - SBERT: api/models/sbert.md
+      - Gensim: api/models/gensim.md
+      - USE: api/models/use.md
       - CosineSimilarity: api/models/matches.md
   - Releases: releases.md
 plugins:

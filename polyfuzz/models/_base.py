@@ -13,7 +13,8 @@ class BaseMatcher(ABC):
     @abstractmethod
     def match(self,
               from_list: List[str],
-              to_list: List[str] = None) -> pd.DataFrame:
+              to_list: List[str] = None,
+              **kwargs) -> pd.DataFrame:
         """ Make sure you follow the same argument structure:
 
         Arguments:
@@ -28,4 +29,3 @@ class BaseMatcher(ABC):
                         * "Similarity"
         """
         raise NotImplementedError()
-

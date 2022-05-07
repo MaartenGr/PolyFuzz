@@ -1,24 +1,19 @@
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
 import numpy as np
 import pandas as pd
-from typing import List, Union
-from sklearn.preprocessing import normalize
-from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
-from flair.data import Sentence
+from typing import List
+import tensorflow_hub
 
 from ._utils import cosine_similarity
 from ._base import BaseMatcher
 
 
-class Embeddings(BaseMatcher):
+class USEEmbeddings(BaseMatcher):
     """
     Embed words into vectors and use cosine similarity to find
     the best matches between two lists of strings
 
     Arguments:
-        embedding_method: list of Flair embeddings to use
+        embedding_model: The USE model to use, this can be either a string or the model directly
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
         top_n: The number of best matches you want returned
         cosine_method: The method/package for calculating the cosine similarity.
@@ -34,31 +29,19 @@ class Embeddings(BaseMatcher):
     Usage:
 
     ```python
-    model = Embeddings(min_similarity=0.5)
+    distance_model = USEEmbeddings("https://tfhub.dev/google/universal-sentence-encoder/4", min_similarity=0.5)
     ```
 
-    Or if you want a custom model to be used and it is a word embedding model,
-    pass it in as a list:
+    Or if you want to directly pass a USE model:
 
     ```python
-    embedding_model = WordEmbeddings('news')
-    model = Embeddings([embeddings_model], min_similarity=0.5)
-    ```
-
-    As you might have guessed, you can pass along multiple word embedding models and the
-    results will be averaged:
-
-    ```python
-    fasttext_embedding = WordEmbeddings('news')
-    glove_embedding = WordEmbeddings('glove')
-    bert_embedding = TransformerWordEmbeddings('bert-base-multilingual-cased')
-    model = Embeddings([glove_embedding,
-                        fasttext_embedding,
-                        bert_embedding ], min_similarity=0.5)
+    import tensorflow_hub
+    embedding_model = tensorflow_hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
+    distance_model = UseEmbeddings(embedding_model, min_similarity=0.5)
     ```
     """
     def __init__(self,
-                 embedding_method: Union[List, None] = None,
+                 embedding_model = "https://tfhub.dev/google/universal-sentence-encoder/4",
                  min_similarity: float = 0.75,
                  top_n: int = 1,
                  cosine_method: str = "sparse",
@@ -66,17 +49,16 @@ class Embeddings(BaseMatcher):
         super().__init__(model_id)
         self.type = "Embeddings"
 
-        if not embedding_method:
-            self.document_embeddings = DocumentPoolEmbeddings([WordEmbeddings('news')])
-
-        elif isinstance(embedding_method, list):
-            self.document_embeddings = DocumentPoolEmbeddings(embedding_method)
-
-        elif isinstance(embedding_method, TokenEmbeddings):
-            self.document_embeddings = DocumentPoolEmbeddings([embedding_method])
-
+        if isinstance(embedding_model, str):
+            embedding_model = tensorflow_hub.load(embedding_model)
         else:
-            self.document_embeddings = embedding_method
+            try:
+                embedding_model(["test sentence"])
+                self.embedding_model = embedding_model
+            except TypeError:
+                raise ValueError("Please select a correct USE model: \n"
+                                "`import tensorflow_hub` \n"
+                                "`embedding_model = tensorflow_hub.load(path_to_model)`")
 
         self.min_similarity = min_similarity
         self.top_n = top_n
@@ -134,12 +116,7 @@ class Embeddings(BaseMatcher):
 
         return matches
 
-    def _embed(self, strings: List[str]) -> np.ndarray:
+    def _embed(self,strings: List[str]) -> np.ndarray:
         """ Create embeddings from a list of strings """
-        embeddings = []
-        for name in strings:
-            sentence = Sentence(name)
-            self.document_embeddings.embed(sentence)
-            embeddings.append(sentence.embedding.cpu().numpy())
-
-        return np.array(normalize(embeddings), dtype="double")
+        embeddings = np.array([self.embedding_model([doc]).cpu().numpy()[0] for doc in strings])
+        return embeddings

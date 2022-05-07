@@ -59,15 +59,20 @@ class TFIDF(BaseMatcher):
         self.min_similarity = min_similarity
         self.cosine_method = cosine_method
         self.top_n = top_n
+        self.vectorizer = None
+        self.tf_idf_to = None
 
     def match(self,
               from_list: List[str],
-              to_list: List[str] = None) -> pd.DataFrame:
+              to_list: List[str] = None,
+              re_train: bool = True) -> pd.DataFrame:
         """ Match two lists of strings to each other and return the most similar strings
 
         Arguments:
             from_list: The list from which you want mappings
             to_list: The list where you want to map to
+            re_train: Whether to re-train the model with new embeddings
+                      Set this to False if you want to use this model in production
 
         Returns:
             matches: The best matches between the lists of strings
@@ -82,7 +87,7 @@ class TFIDF(BaseMatcher):
         ```
         """
 
-        tf_idf_from, tf_idf_to = self._extract_tf_idf(from_list, to_list)
+        tf_idf_from, tf_idf_to = self._extract_tf_idf(from_list, to_list, re_train)
         matches = cosine_similarity(tf_idf_from, tf_idf_to,
                                     from_list, to_list,
                                     self.min_similarity,
@@ -93,17 +98,21 @@ class TFIDF(BaseMatcher):
 
     def _extract_tf_idf(self,
                         from_list: List[str],
-                        to_list: List[str] = None) -> Tuple[np.ndarray, np.ndarray]:
+                        to_list: List[str] = None, 
+                        re_train: bool = True) -> Tuple[np.ndarray, np.ndarray]:
         """ Calculate distances between TF-IDF vectors of from_list and to_list """
         if to_list:
-            vectorizer = TfidfVectorizer(min_df=1, analyzer=self._create_ngrams).fit(to_list + from_list)
-            tf_idf_to = vectorizer.transform(to_list)
-            tf_idf_from = vectorizer.transform(from_list)
+            if re_train:
+                self.vectorizer = TfidfVectorizer(min_df=1, analyzer=self._create_ngrams).fit(to_list + from_list)
+                self.tf_idf_to = self.vectorizer.transform(to_list)
+            tf_idf_from = self.vectorizer.transform(from_list)
         else:
-            tf_idf_to = TfidfVectorizer(min_df=1, analyzer=self._create_ngrams).fit_transform(from_list)
-            tf_idf_from = tf_idf_to
+            if re_train:
+                self.vectorizer = TfidfVectorizer(min_df=1, analyzer=self._create_ngrams).fit(from_list)
+                self.tf_idf_to = self.vectorizer.transform(from_list)
+            tf_idf_from = self.tf_idf_to
 
-        return tf_idf_from, tf_idf_to
+        return tf_idf_from, self.tf_idf_to
 
     def _create_ngrams(self, string: str) -> List[str]:
         """ Create n_grams from a string

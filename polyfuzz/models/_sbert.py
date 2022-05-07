@@ -1,24 +1,19 @@
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
 import numpy as np
 import pandas as pd
 from typing import List, Union
-from sklearn.preprocessing import normalize
-from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
-from flair.data import Sentence
+from sentence_transformers import SentenceTransformer
 
 from ._utils import cosine_similarity
 from ._base import BaseMatcher
 
 
-class Embeddings(BaseMatcher):
+class SentenceEmbeddings(BaseMatcher):
     """
     Embed words into vectors and use cosine similarity to find
     the best matches between two lists of strings
 
     Arguments:
-        embedding_method: list of Flair embeddings to use
+        embedding_model: The sbert model to use, this can be either a string or the model directly
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
         top_n: The number of best matches you want returned
         cosine_method: The method/package for calculating the cosine similarity.
@@ -34,31 +29,19 @@ class Embeddings(BaseMatcher):
     Usage:
 
     ```python
-    model = Embeddings(min_similarity=0.5)
+    distance_model = SentenceEmbeddings("all-MiniLM-L6-v2", min_similarity=0.5)
     ```
 
-    Or if you want a custom model to be used and it is a word embedding model,
-    pass it in as a list:
+    Or if you want to directly pass a sbert model:
 
     ```python
-    embedding_model = WordEmbeddings('news')
-    model = Embeddings([embeddings_model], min_similarity=0.5)
-    ```
-
-    As you might have guessed, you can pass along multiple word embedding models and the
-    results will be averaged:
-
-    ```python
-    fasttext_embedding = WordEmbeddings('news')
-    glove_embedding = WordEmbeddings('glove')
-    bert_embedding = TransformerWordEmbeddings('bert-base-multilingual-cased')
-    model = Embeddings([glove_embedding,
-                        fasttext_embedding,
-                        bert_embedding ], min_similarity=0.5)
+    from sentence_transformers import SentenceTransformer
+    embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+    distance_model = SentenceEmbeddings(embedding_model, min_similarity=0.5)
     ```
     """
     def __init__(self,
-                 embedding_method: Union[List, None] = None,
+                 embedding_model: Union[str, SentenceTransformer] = "all-MiniLM-L6-v2",
                  min_similarity: float = 0.75,
                  top_n: int = 1,
                  cosine_method: str = "sparse",
@@ -66,17 +49,14 @@ class Embeddings(BaseMatcher):
         super().__init__(model_id)
         self.type = "Embeddings"
 
-        if not embedding_method:
-            self.document_embeddings = DocumentPoolEmbeddings([WordEmbeddings('news')])
-
-        elif isinstance(embedding_method, list):
-            self.document_embeddings = DocumentPoolEmbeddings(embedding_method)
-
-        elif isinstance(embedding_method, TokenEmbeddings):
-            self.document_embeddings = DocumentPoolEmbeddings([embedding_method])
-
+        if isinstance(embedding_model, SentenceTransformer):
+            self.embedding_model = embedding_model
+        elif isinstance(embedding_model, str):
+            self.embedding_model = SentenceTransformer(embedding_model)
         else:
-            self.document_embeddings = embedding_method
+            raise ValueError("Please select a correct SentenceTransformers model: \n"
+                             "`from sentence_transformers import SentenceTransformer` \n"
+                             "`embedding_model = SentenceTransformer('all-MiniLM-L6-v2')`")
 
         self.min_similarity = min_similarity
         self.top_n = top_n
@@ -112,17 +92,16 @@ class Embeddings(BaseMatcher):
         ```
         """
         # Extract embeddings from the `from_list`
-        if not isinstance(embeddings_from, np.ndarray):
-            embeddings_from = self._embed(from_list)
+        embeddings_from = self.embedding_model.encode(from_list, show_progress_bar=False)
 
         # Extract embeddings from the `to_list` if it exists
         if not isinstance(embeddings_to, np.ndarray):
             if not re_train:
                 embeddings_to = self.embeddings_to
             elif to_list is None:
-                embeddings_to = self._embed(from_list)
+                embeddings_to = self.embedding_model.encode(from_list, show_progress_bar=False)
             else:
-                embeddings_to = self._embed(to_list)
+                embeddings_to = self.embedding_model.encode(to_list, show_progress_bar=False)
 
         matches = cosine_similarity(embeddings_from, embeddings_to,
                                     from_list, to_list,
@@ -133,13 +112,3 @@ class Embeddings(BaseMatcher):
         self.embeddings_to = embeddings_to
 
         return matches
-
-    def _embed(self, strings: List[str]) -> np.ndarray:
-        """ Create embeddings from a list of strings """
-        embeddings = []
-        for name in strings:
-            sentence = Sentence(name)
-            self.document_embeddings.embed(sentence)
-            embeddings.append(sentence.embedding.cpu().numpy())
-
-        return np.array(normalize(embeddings), dtype="double")

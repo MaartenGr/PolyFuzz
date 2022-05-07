@@ -22,24 +22,21 @@ You can install **`PolyFuzz`** via pip:
 pip install polyfuzz
 ```
 
-This will install the base dependencies. If you want to speed 
-up the cosine similarity comparison and decrease memory usage, 
+You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:
+
+```python
+pip install bertopic[sbert]
+pip install bertopic[flair]
+pip install bertopic[gensim]
+pip install bertopic[spacy]
+pip install bertopic[use]
+```
+
+If you want to speed up the cosine similarity comparison and decrease memory usage when using embedding models, 
 you can use `sparse_dot_topn` which is installed via:
 
 ```bash
 pip install polyfuzz[fast]
-```
-
-If you want to be making use of 🤗 Transformers, install the additional additional `Flair` dependency:
-
-```bash
-pip install polyfuzz[flair]
-```
-
-To install all the additional dependencies:
-
-```bash
-pip install polyfuzz[all]
 ```
 
 <details>
@@ -102,6 +99,42 @@ The resulting matches can be accessed through `model.get_matches()`:
 
 **NOTE 2**: When instantiating `PolyFuzz` we also could have used "EditDistance" or "Embeddings" to quickly 
 access Levenshtein and FastText (English) respectively. 
+
+### Production
+The `.match` function allows you to quickly extract similar strings. However, after selecting the right models to be used, you may want to use PolyFuzz 
+in production to match incoming strings. To do so, we can make use of the familiar `fit`, `transform`, and `fit_transform` functions. 
+
+Let's say that we have a list of words that we know to be correct called `train_words`. We want to any incoming word to mapped to one of the words in `train_words`. 
+In other words, we `fit` on `train_words` and we use `transform` on any incoming words:
+
+```python
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.feature_extraction.text import CountVectorizer
+from polyfuzz import PolyFuzz
+
+train_words = ["apple", "apples", "appl", "recal", "house", "similarity"]
+unseen_words = ["apple", "apples", "mouse"]
+
+# Fit
+model = PolyFuzz("TF-IDF")
+model.fit(train_words)
+
+# Transform
+results = model.transform(unseen_words)
+```
+
+In the above example, we are using `fit` on `train_words` to calculate the TF-IDF representation of those words which are saved to be used again in `transform`. 
+This speeds up `transform` quite a bit since all TF-IDF representations are stored when applying `fit`. 
+
+Then, we apply save and load the model as follows to be used in production:
+
+```python
+# Save the model
+model.save("my_model")
+
+# Load the model
+loaded_model = PolyFuzz.load("my_model")
+```
 
 ### Group Matches
 We can group the matches `To` as there might be significant overlap in strings in our to_list. 
@@ -214,7 +247,7 @@ from polyfuzz.models import BaseMatcher
 
 
 class MyModel(BaseMatcher):
-    def match(self, from_list, to_list):
+    def match(self, from_list, to_list, **kwargs):
         # Calculate distances
         matches = [[fuzz.ratio(from_string, to_string) / 100 for to_string in to_list] 
                     for from_string in from_list]

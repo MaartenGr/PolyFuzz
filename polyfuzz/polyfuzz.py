@@ -1,3 +1,4 @@
+import joblib
 import logging
 import pandas as pd
 from typing import List, Mapping, Union, Iterable
@@ -49,7 +50,7 @@ class PolyFuzz:
     model = pf.PolyFuzz([tfidf, edit])
     ```
 
-    To use embedding models, please use Flair word embeddings:
+    You can use embedding model, like Flair:
 
     ```python
     from flair.embeddings import WordEmbeddings, TransformerWordEmbeddings
@@ -122,11 +123,14 @@ class PolyFuzz:
         # Standard models - quick access
         if isinstance(self.method, str):
             if self.method in ["TF-IDF", "TFIDF"]:
-                self.matches = {"TF-IDF": TFIDF(min_similarity=0, top_n=top_n).match(from_list, to_list)}
+                self.method = TFIDF(min_similarity=0, top_n=top_n)
+                self.matches = {"TF-IDF": self.method.match(from_list, to_list)}
             elif self.method in ["EditDistance", "Edit Distance"]:
-                self.matches = {"EditDistance": RapidFuzz().match(from_list, to_list)}
+                self.method = RapidFuzz()
+                self.matches = {"EditDistance": self.method.match(from_list, to_list)}
             elif self.method in ["Embeddings", "Embedding"]:
-                self.matches = {"Embeddings": Embeddings(min_similarity=0, top_n=top_n).match(from_list, to_list)}
+                self.method = Embeddings(min_similarity=0, top_n=top_n)
+                self.matches = {"Embeddings": self.method.match(from_list, to_list)}
             else:
                 raise ValueError("Please instantiate the model with one of the following methods: \n"
                                  "* 'TF-IDF'\n"
@@ -148,6 +152,136 @@ class PolyFuzz:
                 logging.info(f"Ran model with model id = {model.model_id}")
 
         return self
+
+    def fit(self, 
+            from_list: List[str],
+            to_list: List[str] = None):
+        """ Fit one or model distance models on `from_list` if no `to_list` is given 
+        or fit them on `to_list` if both `from_list` and `to_list` are given. 
+        
+        Typically, the `to_list` will be tracked as the list that we want to transform
+        our `from_list` to. In other words, it is the golden list of words that we 
+        want the words in the `from_list` mapped to. 
+
+        However, you can also choose a single `from_list` and leave `to_list` empty
+        to map all words from within `from_list` to each other. Then, `from_list` 
+        will be tracked instead as the golden list of words. 
+
+        Thus, if you want to train on a single list instead, use only `from_list` 
+        and keep `to_list` empty. 
+        
+        Arguments:
+            from_list: The list from which you want mappings.
+                       If you want to map items within a list, and not map the 
+                       items to themselves, you can supply only the `from_list` and 
+                       ignore the `to_list`. 
+            to_list: The list where you want to map to
+
+        Usage:
+
+        After having initialized your models, you can pass through lists of strings:
+
+        ```python
+        import polyfuzz as pf
+        model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
+        model.fit(from_list = ["string_one", "string_two"],
+                  to_list = ["string_three", "string_four"])
+        ```
+
+        Now, whenever you apply `.transform(new_list)`, the `new_list` will be mapped 
+        to the words in `to_list`.
+
+        You can also fit on a single list of words:
+
+        ```python
+        import polyfuzz as pf
+        model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
+        model.fit(["string_three", "string_four"])
+        ```
+        """
+        self.match(from_list, to_list)
+        if to_list is not None:
+            self.to_list = to_list
+        else:
+            self.to_list = from_list
+        return self
+
+    def transform(self, from_list: List[str]) -> Mapping[str, pd.DataFrame]:
+        """ After fitting your model, match all words in `from_list` 
+        to the words that were fitted on previously. 
+        
+        Arguments:
+            from_list: The list from which you want mappings.
+        
+        Usage:
+
+        After having initialized your models, you can pass through lists of strings:
+
+        ```python
+        import polyfuzz as pf
+        model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
+        model.fit(["input_string_1", "input_string2"])
+        ```
+
+        Then, you can transform and normalize new strings:
+
+        ```python
+        results = model.transform(["input_string_1", "input_string2"])
+        ```
+        """
+        all_matches = {}
+
+        if isinstance(self.method, BaseMatcher): 
+            matches = self.method.match(from_list, self.to_list, re_train=False)
+            all_matches[self.method.type] = matches
+
+        elif isinstance(self.method, Iterable):
+            for model in self.method:
+                all_matches[model.type] = model.match(from_list, self.to_list, re_train=False)
+
+        return all_matches
+
+    def fit_transform(self, 
+                      from_list: List[str], 
+                      to_list: List[str] = None) -> Mapping[str, pd.DataFrame]:
+        """ Fit and transform lists of words on one or more distance models.
+        
+        Typically, the `to_list` will be tracked as the list that we want to transform
+        our `from_list` to. In other words, it is the golden list of words that we 
+        want the words in the `from_list` mapped to. 
+
+        However, you can also choose a single `from_list` and leave `to_list` empty
+        to map all words from within `from_list` to each other. Then, `from_list` 
+        will be tracked instead as the golden list of words. 
+         
+        Arguments:
+            from_list: The list from which you want mappings.
+                       If you want to map items within a list, and not map the 
+                       items to themselves, you can supply only the `from_list` and 
+                       ignore the `to_list`. 
+            to_list: The list where you want to map to
+
+        Usage:
+
+        After having initialized your models, you can pass through lists of strings:
+
+        ```python
+        import polyfuzz as pf
+        model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
+        results = model.fit_transform(from_list = ["string_one", "string_two"],
+                                      to_list = ["string_three", "string_four"])
+        ```
+
+        You can also fit and transform a single list of words:
+
+        ```python
+        import polyfuzz as pf
+        model = pf.PolyFuzz("TF-IDF", model_id="TF-IDF")
+        results = model.fit_transform(["string_three", "string_four"])
+        ```
+        """
+        self.fit(from_list, to_list)
+        return self.transform(from_list)
 
     def visualize_precision_recall(self,
                                    kde: bool = False,
@@ -291,6 +425,36 @@ class PolyFuzz:
             return self.cluster_mappings[name]
 
         return self.cluster_mappings
+
+    def save(self, path: str) -> None:
+        """ Saves the model to the specified path
+
+        Arguments:
+            path: the location and name of the file you want to save
+        
+        Usage:
+        ```python
+        model.save("my_model")
+        ```
+        """
+        with open(path, 'wb') as file:
+            joblib.dump(self, file)
+
+    @classmethod
+    def load(cls, path: str):
+        """ Loads the model from the specified path
+
+        Arguments:
+            path: the location and name of the PolyFuzz file you want to load
+        
+        Usage:
+        ```python
+        PolyFuzz.load("my_model")
+        ```
+        """
+        with open(path, 'rb') as file:
+            model = joblib.load(file)
+        return model
 
     def _create_groups(self,
                        name: str,

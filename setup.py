@@ -24,10 +24,35 @@ base_packages = [
     "scikit_learn>= 0.22.2.post1"
 ]
 
-fast_cosine = ["sparse_dot_topn>=0.2.9"]
-embeddings_packages = ["torch>=1.4.0,<1.7.1", "flair>= 0.7"]
+gensim_packages = [
+    "gensim>=4.0.0"
+]
 
-extra_packages = embeddings_packages + fast_cosine
+sbert_packages = [
+    "sentence-transformers>=0.4.1"
+]
+
+fast_cosine = [
+    "sparse_dot_topn>=0.2.9"
+]
+
+embeddings_packages = [
+    "torch>=1.4.0,<1.7.1", 
+    "flair>= 0.7"
+]
+
+spacy_packages = [
+    "spacy>=3.0.1"
+]
+
+use_packages = [
+    "tensorflow",
+    "tensorflow_hub",
+    "tensorflow_text"
+]
+
+
+extra_packages = embeddings_packages + fast_cosine + sbert_packages + spacy_packages + use_packages
 
 dev_packages = docs_packages + test_packages + extra_packages
 
@@ -37,7 +62,7 @@ with open("README.md", "r") as fh:
 setup(
     name="polyfuzz",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.3.4",
+    version="0.4.0",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="PolyFuzz performs fuzzy string matching, grouping, and evaluation.",
@@ -72,7 +97,9 @@ setup(
         "dev": dev_packages,
         "flair": embeddings_packages,
         "fast": fast_cosine,
-        "all": extra_packages
+        "sbert": sbert_packages,
+        "use": use_packages,
+        "gensim": gensim_packages,
     },
     python_requires='>=3.6',
 )

@@ -1,24 +1,19 @@
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
 import numpy as np
 import pandas as pd
 from typing import List, Union
-from sklearn.preprocessing import normalize
-from flair.embeddings import DocumentPoolEmbeddings, WordEmbeddings, TokenEmbeddings
-from flair.data import Sentence
+from gensim.models.keyedvectors import Word2VecKeyedVectors
 
 from ._utils import cosine_similarity
 from ._base import BaseMatcher
 
 
-class Embeddings(BaseMatcher):
+class GensimEmbeddings(BaseMatcher):
     """
     Embed words into vectors and use cosine similarity to find
     the best matches between two lists of strings
 
     Arguments:
-        embedding_method: list of Flair embeddings to use
+        embedding_model: The Gensim model to use, this can be either a string or the model directly
         min_similarity: The minimum similarity between strings, otherwise return 0 similarity
         top_n: The number of best matches you want returned
         cosine_method: The method/package for calculating the cosine similarity.
@@ -34,31 +29,19 @@ class Embeddings(BaseMatcher):
     Usage:
 
     ```python
-    model = Embeddings(min_similarity=0.5)
+    distance_model = GensimEmbeddings("fasttext-wiki-news-subwords-300", min_similarity=0.5)
     ```
 
-    Or if you want a custom model to be used and it is a word embedding model,
-    pass it in as a list:
+    Or if you want to directly pass a Gensim model:
 
     ```python
-    embedding_model = WordEmbeddings('news')
-    model = Embeddings([embeddings_model], min_similarity=0.5)
-    ```
-
-    As you might have guessed, you can pass along multiple word embedding models and the
-    results will be averaged:
-
-    ```python
-    fasttext_embedding = WordEmbeddings('news')
-    glove_embedding = WordEmbeddings('glove')
-    bert_embedding = TransformerWordEmbeddings('bert-base-multilingual-cased')
-    model = Embeddings([glove_embedding,
-                        fasttext_embedding,
-                        bert_embedding ], min_similarity=0.5)
+    import gensim.downloader as api
+    embedding_model = api.load("fasttext-wiki-news-subwords-300")
+    distance_model = GensimEmbeddings(embedding_model, min_similarity=0.5)
     ```
     """
     def __init__(self,
-                 embedding_method: Union[List, None] = None,
+                 embedding_model: Union[str, Word2VecKeyedVectors] = "fasttext-wiki-news-subwords-300",
                  min_similarity: float = 0.75,
                  top_n: int = 1,
                  cosine_method: str = "sparse",
@@ -66,17 +49,15 @@ class Embeddings(BaseMatcher):
         super().__init__(model_id)
         self.type = "Embeddings"
 
-        if not embedding_method:
-            self.document_embeddings = DocumentPoolEmbeddings([WordEmbeddings('news')])
-
-        elif isinstance(embedding_method, list):
-            self.document_embeddings = DocumentPoolEmbeddings(embedding_method)
-
-        elif isinstance(embedding_method, TokenEmbeddings):
-            self.document_embeddings = DocumentPoolEmbeddings([embedding_method])
-
+        if isinstance(embedding_model, Word2VecKeyedVectors):
+            self.embedding_model = embedding_model
+        elif isinstance(embedding_model, str):
+            import gensim.downloader as api
+            self.embedding_model = api.load(embedding_model)
         else:
-            self.document_embeddings = embedding_method
+            raise ValueError("Please select a correct Gensim model: \n"
+                             "`import gensim.downloader as api` \n"
+                             "`ft = api.load('fasttext-wiki-news-subwords-300')`")
 
         self.min_similarity = min_similarity
         self.top_n = top_n
@@ -136,10 +117,24 @@ class Embeddings(BaseMatcher):
 
     def _embed(self, strings: List[str]) -> np.ndarray:
         """ Create embeddings from a list of strings """
-        embeddings = []
-        for name in strings:
-            sentence = Sentence(name)
-            self.document_embeddings.embed(sentence)
-            embeddings.append(sentence.embedding.cpu().numpy())
+        vector_shape = self.embedding_model.get_vector(list(self.embedding_model.index_to_key)[0]).shape[0]
+        empty_vector = np.zeros(vector_shape)
 
-        return np.array(normalize(embeddings), dtype="double")
+        embeddings = []
+        for doc in strings:
+            doc_embedding = []
+
+            # Extract word embeddings
+            for word in doc.split(" "):
+                try:
+                    word_embedding = self.embedding_model.get_vector(word)
+                    doc_embedding.append(word_embedding)
+                except KeyError:
+                    doc_embedding.append(empty_vector)
+
+            # Pool word embeddings
+            doc_embedding = np.mean(doc_embedding, axis=0)
+            embeddings.append(doc_embedding)
+
+        embeddings = np.array(embeddings)
+        return embeddings
