@@ -1,22 +1,44 @@
 
+
+
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="PolyFuzz performs string matching, grouping, and evaluation.">
       
+      
+        <link rel="canonical" href="https://maartengr.github.io/PolyFuzz/api/models/rapidfuzz/">
       
       
         <meta name="author" content="Maarten P. Grootendorst">
       
       
-        <link rel="canonical" href="https://maartengr.github.io/PolyFuzz/api/models/rapidfuzz/">
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
       
-      <link rel="icon" href="../../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
     
     
       
@@ -24,123 +46,104 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.5143246d.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
         
-          
-          
-          <meta name="theme-color" content="#ffffff">
-        
+        <meta name="theme-color" content="">
       
     
     
+      <script src="../../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
     
       
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
     
-    
-      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
     
       <link rel="stylesheet" href="../../../style.css">
     
     
       
-
-
     
     
   </head>
   
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="blue">
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="blue">
-  
-    
-    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
-    
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#polyfuzzmodelsrapidfuzz" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="PolyFuzz" class="md-header__button md-logo" aria-label="PolyFuzz" data-md-component="logo">
-      
-  <img src="../../../images/logo.png" alt="logo">
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            PolyFuzz
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              RapidFuzzy
-            
-          </span>
+      <a href="#polyfuzzmodelsrapidfuzz" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://maartengr.github.io/PolyFuzz/" title="PolyFuzz" aria-label="PolyFuzz" class="md-header-nav__button md-logo">
+          
+            <img alt="logo" src="../../../images/logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              PolyFuzz
+            </span>
+            <span class="md-header-nav__topic">
+              
+                RapidFuzzy
+              
+            </span>
+          
         </div>
       </div>
-    </div>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-        </button>
-      </nav>
-      
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
+        <div class="md-search-result" data-md-component="result">
           <div class="md-search-result__meta">
-            Initializing search
+            Type to start searching
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -148,60 +151,121 @@
     </div>
   </div>
 </div>
-    
-    
-      <div class="md-header__source">
         
-<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
-  </div>
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
   <div class="md-source__repository">
     GitHub
   </div>
 </a>
-      </div>
-    
+          </div>
+        </div>
+      
+    </div>
   </nav>
-  
 </header>
     
-    <div class="md-container" data-md-component="container">
+    <div class="md-container">
+      
+        
       
       
         
-          
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../tutorial/quickstart/quickstart/" class="md-tabs__link">
+          Getting Started
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../polyfuzz/" class="md-tabs__link md-tabs__link--active">
+          API
+        </a>
+      
+    </li>
+  
+
+      
         
       
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
           
             
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    
-
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="PolyFuzz" class="md-nav__button md-logo" aria-label="PolyFuzz" data-md-component="logo">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://maartengr.github.io/PolyFuzz/" title="PolyFuzz" class="md-nav__button md-logo">
       
-  <img src="../../../images/logo.png" alt="logo">
-
+        <img alt="logo" src="../../../images/logo.png" width="48" height="48">
+      
     </a>
     PolyFuzz
   </label>
   
     <div class="md-nav__source">
       
-<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
-  </div>
+
+
+  
+
+<a href="https://github.com/MaartenGr/PolyFuzz/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
   <div class="md-source__repository">
     GitHub
   </div>
@@ -214,293 +278,231 @@
       
       
 
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
-        Home
-      </a>
-    </li>
-  
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
 
     
       
       
       
 
-  
-  
-  
+
+  <li class="md-nav__item md-nav__item--nested">
     
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2">
-          Getting Started
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
-        <label class="md-nav__title" for="__nav_2">
-          <span class="md-nav__icon md-icon"></span>
-          Getting Started
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorial/quickstart/quickstart/" class="md-nav__link">
-        Quickstart
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorial/models/models/" class="md-nav__link">
-        Models
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorial/basematcher/basematcher/" class="md-nav__link">
-        Custom Models
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorial/grouper/grouper/" class="md-nav__link">
-        Custom Grouper
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorial/datasets/datasets/" class="md-nav__link">
-        Datasets
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
-      
-      
-      
-
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3">
-          API
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="API" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          API
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../polyfuzz/" class="md-nav__link">
-        PolyFuzz
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../linkage/" class="md-nav__link">
-        Linkage
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../metrics/" class="md-nav__link">
-        Metrics
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_4">
-          Models
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Models" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_4">
-          <span class="md-nav__icon md-icon"></span>
-          Models
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../base/" class="md-nav__link">
-        BaseMatcher
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../distance/" class="md-nav__link">
-        EditDistance
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          RapidFuzzy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        RapidFuzzy
-      </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorial/quickstart/quickstart/" title="Quickstart" class="md-nav__link">
+      Quickstart
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorial/models/models/" title="Models" class="md-nav__link">
+      Models
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorial/basematcher/basematcher/" title="Custom Models" class="md-nav__link">
+      Custom Models
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorial/grouper/grouper/" title="Custom Grouper" class="md-nav__link">
+      Custom Grouper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorial/datasets/datasets/" title="Datasets" class="md-nav__link">
+      Datasets
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
       
-        <li class="md-nav__item">
-  <a href="#polyfuzz.models._rapidfuzz.RapidFuzz" class="md-nav__link">
-    polyfuzz.models._rapidfuzz.RapidFuzz
-  </a>
+      
+      
+
   
-</li>
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../polyfuzz/" title="PolyFuzz" class="md-nav__link">
+      PolyFuzz
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linkage/" title="Linkage" class="md-nav__link">
+      Linkage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" checked>
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Models
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Models
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../base/" title="BaseMatcher" class="md-nav__link">
+      BaseMatcher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../distance/" title="EditDistance" class="md-nav__link">
+      EditDistance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        RapidFuzzy
+      </label>
+    
+    <a href="./" title="RapidFuzzy" class="md-nav__link md-nav__link--active">
+      RapidFuzzy
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#polyfuzz.models._rapidfuzz.RapidFuzz.match" class="md-nav__link">
@@ -509,83 +511,121 @@
   
 </li>
       
+      
+      
+      
+      
     </ul>
   
 </nav>
-      
-    </li>
-  
+    
+  </li>
 
-            
+        
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tfidf/" class="md-nav__link">
-        TFIDF
-      </a>
-    </li>
-  
+          
+          
 
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../embeddings/" class="md-nav__link">
-        Embeddings
-      </a>
-    </li>
-  
 
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../matches/" class="md-nav__link">
-        CosineSimilarity
-      </a>
-    </li>
-  
+  <li class="md-nav__item">
+    <a href="../tfidf/" title="TFIDF" class="md-nav__link">
+      TFIDF
+    </a>
+  </li>
 
-            
+        
           
-        </ul>
-      </nav>
-    </li>
-  
+          
+          
 
-            
+
+  <li class="md-nav__item">
+    <a href="../embeddings/" title="Embeddings" class="md-nav__link">
+      Embeddings
+    </a>
+  </li>
+
+        
           
-        </ul>
-      </nav>
-    </li>
-  
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../spacy/" title="Spacy" class="md-nav__link">
+      Spacy
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sbert/" title="SBERT" class="md-nav__link">
+      SBERT
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gensim/" title="Gensim" class="md-nav__link">
+      Gensim
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../use/" title="USE" class="md-nav__link">
+      USE
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../matches/" title="CosineSimilarity" class="md-nav__link">
+      CosineSimilarity
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
 
     
       
       
       
 
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../releases/" class="md-nav__link">
-        Releases
-      </a>
-    </li>
-  
+
+  <li class="md-nav__item">
+    <a href="../../../releases/" title="Releases" class="md-nav__link">
+      Releases
+    </a>
+  </li>
 
     
   </ul>
@@ -595,30 +635,18 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
+<nav class="md-nav md-nav--secondary">
   
   
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#polyfuzz.models._rapidfuzz.RapidFuzz" class="md-nav__link">
-    polyfuzz.models._rapidfuzz.RapidFuzz
-  </a>
-  
-</li>
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#polyfuzz.models._rapidfuzz.RapidFuzz.match" class="md-nav__link">
@@ -626,6 +654,10 @@
   </a>
   
 </li>
+      
+      
+      
+      
       
     </ul>
   
@@ -635,211 +667,188 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
+          <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/MaartenGr/PolyFuzz/edit/master/docs/api/models/rapidfuzz.md" title="Edit this page" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
+                  <a href="https://github.com/MaartenGr/PolyFuzz/edit/master/docs/api/models/rapidfuzz.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <h1 id="polyfuzzmodelsrapidfuzz"><code>polyfuzz.models.RapidFuzz</code><a class="headerlink" href="#polyfuzzmodelsrapidfuzz" title="Permanent link">&para;</a></h1>
-
-
-  <div class="doc doc-object doc-class">
-
-<a id="polyfuzz.models._rapidfuzz.RapidFuzz"></a>
-    <div class="doc doc-contents first">
-
-      <p>Calculate the Edit Distance between lists of strings using RapidFuzz's process function</p>
+<p>Calculate the Edit Distance between lists of strings using RapidFuzz's process function</p>
 <p>We are using RapidFuzz instead of FuzzyWuzzy since it is much faster
 and does not require the more restrictive GPL license</p>
-
-<p><strong>Parameters:</strong></p>
+<p><strong>Parameters</strong></p>
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>n_jobs</code></td>
-        <td></td>
-        <td><p>Nr of parallel processes, use -1 to use all cores</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>score_cutoff</code></td>
-        <td></td>
-        <td><p>The minimum similarity for which to return a good match.
-          Should be between 0 and 1.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>scorer</code></td>
-        <td></td>
-        <td><p>The scorer function to be used to calculate the edit distance
-    Options:
-        * fuzz.ratio
-        * fuzz.partial_ratio
-        * fuzz.token_sort_ratio
-        * fuzz.partial_token_sort_ratio
-        * fuzz.token_set_ratio
-        * fuzz.partial_token_set_ratio
-        * fuzz.token_ratio
-        * fuzz.partial_token_ratio
-        * fuzz.WRation
-        * fuzz.QRatio
-    See https://maxbachmann.github.io/rapidfuzz/usage/fuzz/ for an extensive
-    description of the scoring methods.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>model_id</code></td>
-        <td></td>
-        <td><p>The name of the particular instance, used when comparing models</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>      <p>Usage:</p>
-<pre><code class="language-python">from rapidfuzz import fuzz
-model = RapidFuzz(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)
-</code></pre>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n_jobs</code></td>
+<td><code>int</code></td>
+<td>Nr of parallel processes, use -1 to use all cores</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>score_cutoff</code></td>
+<td><code>float</code></td>
+<td>The minimum similarity for which to return a good match. Should be between 0 and 1.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>scorer</code></td>
+<td><code>Callable</code></td>
+<td>The scorer function to be used to calculate the edit distance Options: * fuzz.ratio * fuzz.partial_ratio * fuzz.token_sort_ratio * fuzz.partial_token_sort_ratio * fuzz.token_set_ratio * fuzz.partial_token_set_ratio * fuzz.token_ratio * fuzz.partial_token_ratio * fuzz.WRation * fuzz.QRatio See https://maxbachmann.github.io/rapidfuzz/usage/fuzz/ for an extensive description of the scoring methods.</td>
+<td><code>&lt;cyfunction WRatio at 0x00000237A334D2B0&gt;</code></td>
+</tr>
+<tr>
+<td><code>model_id</code></td>
+<td><code>str</code></td>
+<td>The name of the particular instance, used when comparing models</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rapidfuzz</span> <span class="kn">import</span> <span class="n">fuzz</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">RapidFuzz</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">score_cutoff</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scorer</span><span class="o">=</span><span class="n">fuzz</span><span class="o">.</span><span class="n">WRatio</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="polyfuzz.models._rapidfuzz.RapidFuzz.match"><code class="highlight"><span class="k">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code><a class="headerlink" href="#polyfuzz.models._rapidfuzz.RapidFuzz.match" title="Permanent link">&para;</a></h2>
+<details class="note">
+<summary>Show source code in <code>models\_rapidfuzz.py</code></summary>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+              <span class="n">from_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+              <span class="n">to_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Calculate the edit distances between two list of strings</span>
+<span class="sd">        by parallelizing the calculation and passing the lists in</span>
+<span class="sd">        batches.</span>
 
+<span class="sd">        Arguments:</span>
+<span class="sd">            from_list: The list from which you want mappings</span>
+<span class="sd">            to_list: The list where you want to map to</span>
 
+<span class="sd">        Returns:</span>
+<span class="sd">            matches: The best matches between the lists of strings</span>
 
+<span class="sd">        Usage:</span>
 
-  <div class="doc doc-children">
+<span class="sd">        ```python</span>
+<span class="sd">        from rapidfuzz import fuzz</span>
+<span class="sd">        model = RapidFuzz(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)</span>
+<span class="sd">        matches = model.match([&quot;string_one&quot;, &quot;string_two&quot;],</span>
+<span class="sd">                              [&quot;string_three&quot;, &quot;string_four&quot;])</span>
+<span class="sd">        ```</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">to_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">equal_lists</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">expected_iterations</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">from_list</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">to_list</span> <span class="o">=</span> <span class="n">from_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">expected_iterations</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">from_list</span><span class="p">)</span>
 
-
-
-
-
-
-
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h2 id="polyfuzz.models._rapidfuzz.RapidFuzz.match" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-
-<a href="#polyfuzz.models._rapidfuzz.RapidFuzz.match" class="headerlink" title="Permanent link">&para;</a></h2>
-
-    <div class="doc doc-contents ">
-
-      <p>Calculate the edit distances between two list of strings
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calculate_edit_distance</span><span class="p">)</span>
+                                               <span class="p">(</span><span class="n">from_string</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
+                                               <span class="k">for</span> <span class="n">from_string</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">expected_iterations</span><span class="p">,</span>
+                                                                       <span class="n">disable</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">,</span> <span class="s2">&quot;To&quot;</span><span class="p">,</span> <span class="s2">&quot;Similarity&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">matches</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<p>Calculate the edit distances between two list of strings
 by parallelizing the calculation and passing the lists in
 batches.</p>
-
-<p><strong>Parameters:</strong></p>
+<p><strong>Parameters</strong></p>
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>from_list</code></td>
-        <td><code>List[str]</code></td>
-        <td><p>The list from which you want mappings</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>to_list</code></td>
-        <td><code>List[str]</code></td>
-        <td><p>The list where you want to map to</p></td>
-        <td><code>None</code></td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>from_list</code></td>
+<td><code>List[str]</code></td>
+<td>The list from which you want mappings</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>to_list</code></td>
+<td><code>List[str]</code></td>
+<td>The list where you want to map to</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
 </table>
-<p><strong>Returns:</strong></p>
+<p><strong>Returns</strong></p>
 <table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>matches</code></td>
-      <td><p>The best matches between the lists of strings</p></td>
-    </tr>
-  </tbody>
-</table>      <p>Usage:</p>
-<pre><code class="language-python">from rapidfuzz import fuzz
-model = RapidFuzz(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)
-matches = model.match([&quot;string_one&quot;, &quot;string_two&quot;],
-                      [&quot;string_three&quot;, &quot;string_four&quot;])
-</code></pre>
-
-        <details class="quote">
-          <summary>Source code in <code>polyfuzz\models\_rapidfuzz.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-          <span class="n">from_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-          <span class="n">to_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot; Calculate the edit distances between two list of strings</span>
-<span class="sd">    by parallelizing the calculation and passing the lists in</span>
-<span class="sd">    batches.</span>
-
-<span class="sd">    Arguments:</span>
-<span class="sd">        from_list: The list from which you want mappings</span>
-<span class="sd">        to_list: The list where you want to map to</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        matches: The best matches between the lists of strings</span>
-
-<span class="sd">    Usage:</span>
-
-<span class="sd">    ```python</span>
-<span class="sd">    from rapidfuzz import fuzz</span>
-<span class="sd">    model = RapidFuzz(n_jobs=-1, score_cutoff=0.5, scorer=fuzz.WRatio)</span>
-<span class="sd">    matches = model.match([&quot;string_one&quot;, &quot;string_two&quot;],</span>
-<span class="sd">                          [&quot;string_three&quot;, &quot;string_four&quot;])</span>
-<span class="sd">    ```</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">to_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">equal_lists</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">expected_iterations</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">from_list</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">to_list</span> <span class="o">=</span> <span class="n">from_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">expected_iterations</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">from_list</span><span class="p">)</span>
-
-    <span class="n">matches</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calculate_edit_distance</span><span class="p">)</span>
-                                           <span class="p">(</span><span class="n">from_string</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
-                                           <span class="k">for</span> <span class="n">from_string</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">expected_iterations</span><span class="p">,</span>
-                                                                   <span class="n">disable</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-    <span class="n">matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">,</span> <span class="s2">&quot;To&quot;</span><span class="p">,</span> <span class="s2">&quot;Similarity&quot;</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">matches</span>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataFrame</code></td>
+<td>matches: The best matches between the lists of strings</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rapidfuzz</span> <span class="kn">import</span> <span class="n">fuzz</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">RapidFuzz</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">score_cutoff</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scorer</span><span class="o">=</span><span class="n">fuzz</span><span class="o">.</span><span class="n">WRatio</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">match</span><span class="p">([</span><span class="s2">&quot;string_one&quot;</span><span class="p">,</span> <span class="s2">&quot;string_two&quot;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="s2">&quot;string_three&quot;</span><span class="p">,</span> <span class="s2">&quot;string_four&quot;</span><span class="p">])</span>
 </code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-
-
-  </div>
-
-    </div>
-
-  </div>
+                
+                  
+                
                 
               
               
@@ -850,46 +859,45 @@ matches = model.match([&quot;string_one&quot;, &quot;string_two&quot;],
             </article>
           </div>
         </div>
-        
       </main>
       
         
 <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
         
-        <a href="../distance/" class="md-footer__link md-footer__link--prev" aria-label="Previous: EditDistance" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              EditDistance
+          <a href="../distance/" title="EditDistance" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
-          </div>
-        </a>
-      
-      
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                EditDistance
+              </span>
+            </div>
+          </a>
         
-        <a href="../tfidf/" class="md-footer__link md-footer__link--next" aria-label="Next: TFIDF" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
+        
+          <a href="../tfidf/" title="TFIDF" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                TFIDF
               </span>
-              TFIDF
             </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -899,13 +907,11 @@ matches = model.match([&quot;string_one&quot;, &quot;string_two&quot;],
             Copyright &copy; 2020 , Maintained by <a href="https://github.com/MaartenGr/">Maarten Grootendorst</a>.
           </div>
         
-        
-          Made with
-          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-            Material for MkDocs
-          </a>
-        
-        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
       </div>
       
     </div>
@@ -913,13 +919,10 @@ matches = model.match([&quot;string_one&quot;, &quot;string_two&quot;],
 </footer>
       
     </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
     
-    
-      <script src="../../../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      <script src="../../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.1",url:{base:"../../.."}})</script>
       
     
   </body>
