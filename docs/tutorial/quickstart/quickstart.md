@@ -68,14 +68,8 @@ from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import CountVectorizer
 from polyfuzz import PolyFuzz
 
-# Prepare training data
-docs = fetch_20newsgroups(subset='all',  remove=('headers', 'footers', 'quotes'))['data']
-vectorizer = CountVectorizer(min_df=10).fit(docs)
-vocab = vectorizer.get_feature_names_out()
-
-# Extract lists to fit and transform on 
-train_words = list(vocab[:int(len(vocab)/2)])
-unseen_words = list(vocab[int(len(vocab)/2):])
+train_words = ["apple", "apples", "appl", "recal", "house", "similarity"]
+unseen_words = ["apple", "apples", "mouse"]
 
 # Fit
 model = PolyFuzz("TF-IDF")
