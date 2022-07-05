@@ -20,7 +20,7 @@ nav:
     - Models:
       - BaseMatcher: api/models/base.md
       - EditDistance: api/models/distance.md
-      - RapidFuzzy: api/models/rapidfuzz.md
+      - RapidFuzz: api/models/rapidfuzz.md
       - TFIDF: api/models/tfidf.md
       - Embeddings: api/models/embeddings.md
       - Spacy: api/models/spacy.md
