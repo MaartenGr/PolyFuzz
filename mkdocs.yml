@@ -32,7 +32,7 @@ nav:
 plugins:
   - mkdocstrings
   - search
-copyright: Copyright &copy; 2020 , Maintained by <a href="https://github.com/MaartenGr/">Maarten Grootendorst</a>.
+copyright: Copyright &copy; 2022 , Maintained by <a href="https://github.com/MaartenGr/">Maarten Grootendorst</a>.
 theme:
   name: material
   favicon: images/favicon.png
@@ -43,6 +43,10 @@ theme:
     primary: white
     accent: blue
 markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
   - toc:
       permalink: true
   - pymdownx.arithmatex:

@@ -31,7 +31,7 @@ from polyfuzz import PolyFuzz
 from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
 to_list = ["apple", "apples", "mouse"]
 
-tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, matcher_id="TF-IDF")
+tfidf = TFIDF(n_gram_range=(3, 3), min_similarity=0, model_id="TF-IDF")
 model = PolyFuzz(tfidf).match(from_list, to_list)
 ``` 
 
@@ -267,7 +267,7 @@ from_list = ["apple", "apples", "appl", "recal", "house", "similarity"]
 to_list = ["apple", "apples", "mouse"]
 
 bert = TransformerWordEmbeddings('bert-base-multilingual-cased')
-bert_matcher = Embeddings(bert, min_similarity=0, matcher_id="BERT")
+bert_matcher = Embeddings(bert, min_similarity=0, model_id="BERT")
 tfidf_matcher = TFIDF(min_similarity=0)
 edit_matcher = EditDistance()
 
