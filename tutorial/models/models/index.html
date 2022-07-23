@@ -821,7 +821,7 @@ the generated TF-IDF vectors against each other. </p>
 <span class="n">from_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;apples&quot;</span><span class="p">,</span> <span class="s2">&quot;appl&quot;</span><span class="p">,</span> <span class="s2">&quot;recal&quot;</span><span class="p">,</span> <span class="s2">&quot;house&quot;</span><span class="p">,</span> <span class="s2">&quot;similarity&quot;</span><span class="p">]</span>
 <span class="n">to_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;apples&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">]</span>
 
-<span class="n">tfidf</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">)</span>
+<span class="n">tfidf</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">n_gram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">PolyFuzz</span><span class="p">(</span><span class="n">tfidf</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">from_list</span><span class="p">,</span> <span class="n">to_list</span><span class="p">)</span>
 </code></pre></div>
 <p>and that's it! You can play around with the <code>TFIDF</code> matcher until you get the results you are looking for. 
@@ -1004,7 +1004,7 @@ The model is trained and optimized for greater-than-word length text, such as se
 <span class="n">to_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;apples&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">]</span>
 
 <span class="n">bert</span> <span class="o">=</span> <span class="n">TransformerWordEmbeddings</span><span class="p">(</span><span class="s1">&#39;bert-base-multilingual-cased&#39;</span><span class="p">)</span>
-<span class="n">bert_matcher</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">(</span><span class="n">bert</span><span class="p">,</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">matcher_id</span><span class="o">=</span><span class="s2">&quot;BERT&quot;</span><span class="p">)</span>
+<span class="n">bert_matcher</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">(</span><span class="n">bert</span><span class="p">,</span> <span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="s2">&quot;BERT&quot;</span><span class="p">)</span>
 <span class="n">tfidf_matcher</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">(</span><span class="n">min_similarity</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">edit_matcher</span> <span class="o">=</span> <span class="n">EditDistance</span><span class="p">()</span>
 
@@ -1077,7 +1077,7 @@ of dataframes back. </p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2020 , Maintained by <a href="https://github.com/MaartenGr/">Maarten Grootendorst</a>.
+      Copyright &copy; 2022 , Maintained by <a href="https://github.com/MaartenGr/">Maarten Grootendorst</a>.
     </div>
   
   
