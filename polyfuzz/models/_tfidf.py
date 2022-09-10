@@ -129,9 +129,10 @@ class TFIDF(BaseMatcher):
         result = []
         if self.use_word_grams:
             tokens = [token for token in string.split(" ") if token != ""]
-            ngrams = zip(*[tokens[i:] for i in range(n)])
-            ngrams = [''.join(ngram) for ngram in ngrams if ' ' not in ngram]
-            result.extend(ngrams)
+            for n in range(self.n_gram_range[0], self.n_gram_range[1]+1):
+                ngrams = zip(*[tokens[i:] for i in range(n)])
+                ngrams = [''.join(ngram) for ngram in ngrams if ' ' not in ngram]
+                result.extend(ngrams)
         else:
             for n in range(self.n_gram_range[0], self.n_gram_range[1]+1):
                 ngrams = zip(*[string[i:] for i in range(n)])
