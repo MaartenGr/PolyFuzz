@@ -8,11 +8,11 @@ pip install polyfuzz
 You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:
 
 ```python
-pip install bertopic[sbert]
-pip install bertopic[flair]
-pip install bertopic[gensim]
-pip install bertopic[spacy]
-pip install bertopic[use]
+pip install polyfuzz[sbert]
+pip install polyfuzz[flair]
+pip install polyfuzz[gensim]
+pip install polyfuzz[spacy]
+pip install polyfuzz[use]
 ```
 
 If you want to speed up the cosine similarity comparison and decrease memory usage when using embedding models, 
