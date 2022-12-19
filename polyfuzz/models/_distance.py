@@ -90,11 +90,13 @@ class EditDistance(BaseMatcher):
                                  from_string: str,
                                  to_list: List[str]) -> Tuple[str, str, float]:
         """ Calculate the edit distance between a string and a list """
+        list_to_match = to_list.copy()
+        
         if self.equal_lists:
-            to_list.remove(from_string)
+            list_to_match.remove(from_string)
 
-        matches = [self.scorer(from_string, to_string) for to_string in to_list]
+        matches = [self.scorer(from_string, to_string) for to_string in list_to_match]
         index = np.argmax(matches)
         value = np.max(matches)
 
-        return from_string, to_list[index], value
+        return from_string, list_to_match[index], value
