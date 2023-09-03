@@ -37,7 +37,7 @@ fast_cosine = [
 ]
 
 embeddings_packages = [
-    "torch>=1.4.0,<1.7.1", 
+    "torch>=1.4.0", 
     "flair>= 0.7"
 ]
 
