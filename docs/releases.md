@@ -1,3 +1,7 @@
+## **v0.4.2**
+
+* Fixed Flair dependency being to restrictive
+
 ## **v0.4.1**
 
 

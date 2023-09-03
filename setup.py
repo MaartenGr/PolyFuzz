@@ -37,7 +37,7 @@ fast_cosine = [
 ]
 
 embeddings_packages = [
-    "torch>=1.4.0,<1.7.1", 
+    "torch>=1.4.0", 
     "flair>= 0.7"
 ]
 
@@ -62,7 +62,7 @@ with open("README.md", "r") as fh:
 setup(
     name="polyfuzz",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.4.1",
+    version="0.4.2",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="PolyFuzz performs fuzzy string matching, grouping, and evaluation.",
