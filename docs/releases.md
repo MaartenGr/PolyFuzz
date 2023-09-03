@@ -1,3 +1,11 @@
+## **v0.4.1**
+
+
+* Fixed deprecated `np.float`
+* Fixed [#53](https://github.com/MaartenGr/PolyFuzz/issues/53)
+* Fixed typo in README ([#45](https://github.com/MaartenGr/PolyFuzz/pull/45)) by [dobraczka](https://github.com/dobraczka)
+* Fixed API documentation ([#38](https://github.com/MaartenGr/PolyFuzz/pull/38)) by [maxbachmann](https://github.com/maxbachmann)
+
 ## **v0.4.0**
 
 
