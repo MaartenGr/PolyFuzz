@@ -141,7 +141,7 @@ class PolyFuzz:
         # Custom models
         elif isinstance(self.method, BaseMatcher):
             self.matches = {self.method.model_id: self.method.match(from_list, to_list)}
-            logging.info(f"Ran model with model id = {self.method.model_id}")
+            logger.info(f"Ran model with model id = {self.method.model_id}")
 
         # Multiple custom models
         elif isinstance(self.method, Iterable):
@@ -149,7 +149,7 @@ class PolyFuzz:
             self.matches = {}
             for model in self.method:
                 self.matches[model.model_id] = model.match(from_list, to_list)
-                logging.info(f"Ran model with model id = {model.model_id}")
+                logger.info(f"Ran model with model id = {model.model_id}")
 
         return self
 
