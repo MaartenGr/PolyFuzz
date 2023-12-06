@@ -41,7 +41,7 @@ def check_grouped(model):
 
 def create_logger():
     """ Initialize logger """
-    logger = logging.getLogger('BERTopic')
+    logger = logging.getLogger('PolyFuzz')
     logger.setLevel(logging.WARNING)
     sh = logging.StreamHandler()
     sh.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(message)s'))
