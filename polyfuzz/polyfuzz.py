@@ -8,7 +8,6 @@ from polyfuzz.utils import check_matches, check_grouped, create_logger
 from polyfuzz.models import TFIDF, RapidFuzz, Embeddings, BaseMatcher
 from polyfuzz.metrics import precision_recall_curve, visualize_precision_recall
 
-logger = create_logger()
 
 
 class PolyFuzz:
@@ -79,10 +78,12 @@ class PolyFuzz:
         self.cluster_mappings = None
         self.grouped_matches = None
 
+        # Logger
+        self.logger = create_logger()
         if verbose:
-            logger.setLevel(logging.DEBUG)
+            self.logger.setLevel(logging.DEBUG)
         else:
-            logger.setLevel(logging.WARNING)
+            self.logger.setLevel(logging.WARNING)
 
     def match(self,
               from_list: List[str],
@@ -136,12 +137,12 @@ class PolyFuzz:
                                  "* 'TF-IDF'\n"
                                  "* 'EditDistance'\n"
                                  "* 'Embeddings'\n")
-            logger.info(f"Ran model with model id = {self.method}")
+            self.logger.info(f"Ran model with model id = {self.method}")
 
         # Custom models
         elif isinstance(self.method, BaseMatcher):
             self.matches = {self.method.model_id: self.method.match(from_list, to_list)}
-            logger.info(f"Ran model with model id = {self.method.model_id}")
+            self.logger.info(f"Ran model with model id = {self.method.model_id}")
 
         # Multiple custom models
         elif isinstance(self.method, Iterable):
@@ -149,7 +150,7 @@ class PolyFuzz:
             self.matches = {}
             for model in self.method:
                 self.matches[model.model_id] = model.match(from_list, to_list)
-                logger.info(f"Ran model with model id = {model.model_id}")
+                self.logger.info(f"Ran model with model id = {model.model_id}")
 
         return self
 
