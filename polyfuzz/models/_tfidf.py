@@ -52,7 +52,7 @@ class TFIDF(BaseMatcher):
                  min_similarity: float = 0.75,
                  top_n: int = 1,
                  cosine_method: str = "sparse",
-                 model_id: str = None
+                 model_id: str = None,
                  remove_space_ngrams = True):
         super().__init__(model_id)
         self.type = "TF-IDF"
