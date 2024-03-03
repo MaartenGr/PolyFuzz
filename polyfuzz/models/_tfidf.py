@@ -37,12 +37,13 @@ class TFIDF(BaseMatcher):
                         knn uses 1-nearest neighbor to extract the most similar strings
                         it is significantly slower than both methods but requires little memory
         model_id: The name of the particular instance, used when comparing models
+        remove_space_ngrams: Remove n-grams that contain a space
 
     Usage:
 
     ```python
     from polymatcher.models import TFIDF
-    model = TFIDF(n_gram_range=(3, 3), clean_string=True, use_knn=False)
+    model = TFIDF(n_gram_range=(3, 3), clean_string=True)
     ```
     """
     def __init__(self,
@@ -51,7 +52,8 @@ class TFIDF(BaseMatcher):
                  min_similarity: float = 0.75,
                  top_n: int = 1,
                  cosine_method: str = "sparse",
-                 model_id: str = None):
+                 model_id: str = None,
+                 remove_space_ngrams = True):
         super().__init__(model_id)
         self.type = "TF-IDF"
         self.n_gram_range = n_gram_range
@@ -61,6 +63,7 @@ class TFIDF(BaseMatcher):
         self.top_n = top_n
         self.vectorizer = None
         self.tf_idf_to = None
+        self.remove_space_ngrams = remove_space_ngrams
 
     def match(self,
               from_list: List[str],
@@ -127,7 +130,10 @@ class TFIDF(BaseMatcher):
         result = []
         for n in range(self.n_gram_range[0], self.n_gram_range[1]+1):
             ngrams = zip(*[string[i:] for i in range(n)])
-            ngrams = [''.join(ngram) for ngram in ngrams if ' ' not in ngram]
+            if self.remove_space_ngrams:
+                ngrams = [''.join(ngram) for ngram in ngrams if ' ' not in ngram]
+            else:
+                ngrams = [''.join(ngram) for ngram in ngrams]
             result.extend(ngrams)
 
         return result
