@@ -7,6 +7,7 @@ from typing import Tuple, List, Mapping
 from matplotlib import gridspec
 from matplotlib.cm import get_cmap
 from matplotlib.lines import Line2D
+from matplotlib.figure import Figure
 
 
 def precision_recall_curve(matches: pd.DataFrame,
@@ -57,7 +58,7 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
                                min_precisions: Mapping[str, List[float]],
                                recall: Mapping[str, List[float]],
                                kde: bool = True,
-                               save_path: str = None):
+                               save_path: str = None) -> Figure:
     """ Visualize the precision recall curve for one or more models
 
     Arguments:
@@ -129,7 +130,6 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
     ax1.set_xlabel(r"$\bf{Precision}$" + "\n(Minimum Similarity)")
     ax1.set_ylabel(r"$\bf{Recall}$" + "\n(Percentage Matched)")
 
-
     # Similarity Histogram
     if kde:
         for color, model_name in zip(cmap.colors, model_names):
@@ -159,3 +159,5 @@ def visualize_precision_recall(matches: Mapping[str, pd.DataFrame],
 
     if save_path:
         plt.savefig(save_path, dpi=300)
+
+    return fig
