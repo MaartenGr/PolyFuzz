@@ -142,5 +142,5 @@ class TFIDF(BaseMatcher):
 def _clean_string(string: str) -> str:
     """ Only keep alphanumerical characters """
     string = re.sub(r'[^A-Za-z0-9 ]+', '', string.lower())
-    string = re.sub('\s+', ' ', string).strip()
+    string = re.sub(r'\s+', ' ', string).strip()
     return string
