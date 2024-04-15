@@ -1,3 +1,5 @@
+import importlib.util
+
 import numpy as np
 import pandas as pd
 from scipy.sparse import csr_matrix
@@ -5,11 +7,9 @@ from typing import List
 from sklearn.neighbors import NearestNeighbors
 from sklearn.metrics.pairwise import cosine_similarity as scikit_cosine_similarity
 
-try:
-    from sparse_dot_topn import awesome_cossim_topn
-    _HAVE_SPARSE_DOT = True
-except ImportError:
-    _HAVE_SPARSE_DOT = False
+_HAVE_SPARSE_DOT = importlib.util.find_spec("sparse_dot_topn") is not None
+if _HAVE_SPARSE_DOT:
+    from sparse_dot_topn import sp_matmul_topn
 
 
 def cosine_similarity(from_vector: np.ndarray,
@@ -69,17 +69,16 @@ def cosine_similarity(from_vector: np.ndarray,
 
         similarities = [np.round(1 - distances[:, i], 3) for i in range(distances.shape[1])]
 
-    # Fast, but does has some installation issues
+    # Fast
     elif _HAVE_SPARSE_DOT and method == "sparse":
         if isinstance(to_vector, np.ndarray):
             to_vector = csr_matrix(to_vector)
         if isinstance(from_vector, np.ndarray):
             from_vector = csr_matrix(from_vector)
 
-        # There is a bug with awesome_cossim_topn that when to_vector and from_vector
-        # have the same shape, setting topn to 1 does not work. Apparently, you need
-        # to it at least to 2 for it to work
-        similarity_matrix = awesome_cossim_topn(from_vector, to_vector.T, top_n+1, min_similarity)
+        similarity_matrix = sp_matmul_topn(
+            from_vector, to_vector, top_n=top_n, threshold=min_similarity, sort=True
+        )
 
         if to_list is None:
             similarity_matrix = similarity_matrix.tolil()
