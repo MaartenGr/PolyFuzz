@@ -1,5 +1,3 @@
-import importlib.util
-
 import numpy as np
 import pandas as pd
 from scipy.sparse import csr_matrix
@@ -7,10 +5,8 @@ from typing import List
 from sklearn.neighbors import NearestNeighbors
 from sklearn.metrics.pairwise import cosine_similarity as scikit_cosine_similarity
 
-_HAVE_SPARSE_DOT = importlib.util.find_spec("sparse_dot_topn") is not None
-if _HAVE_SPARSE_DOT:
-    from sparse_dot_topn import sp_matmul_topn
 
+from polyfuzz.models._utils_sdtn import _HAVE_SPARSE_DOT, sp_matmul_topn
 
 def cosine_similarity(from_vector: np.ndarray,
                       to_vector: np.ndarray,

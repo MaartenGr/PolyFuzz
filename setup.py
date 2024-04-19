@@ -32,7 +32,10 @@ sbert_packages = [
     "sentence-transformers>=0.4.1"
 ]
 
-fast_cosine = ["sparse_dot_topn>=1.1.1"]
+fast_cosine = [
+    "sparse_dot_topn<1.0; python_version < '3.8'",
+    "sparse_dot_topn>=1.1.5; python_version >= '3.8'",
+]
 
 embeddings_packages = [
     "torch>=1.4.0", 
