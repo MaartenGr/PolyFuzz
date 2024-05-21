@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Tuple, List, Mapping
 from matplotlib import gridspec
-from matplotlib.cm import get_cmap
+from matplotlib.pyplot import get_cmap
 from matplotlib.lines import Line2D
 
 
