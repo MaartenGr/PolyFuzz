@@ -1,6 +1,6 @@
 <img src="images/logo.png" width="70%" height="70%"/>
 
-[![PyPI - Python](https://img.shields.io/badge/python-3.9%20|%203.10%20|%203.11-blue.svg)](https://pypi.org/project/polyfuzz/)
+[![PyPI - Python](https://img.shields.io/badge/python-3.9%20|%203.10%20|%203.11%20|%203.12-blue.svg)](https://pypi.org/project/polyfuzz/)
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/polyfuzz/blob/master/LICENSE)
 [![PyPI - PyPi](https://img.shields.io/pypi/v/polyfuzz)](https://pypi.org/project/polyfuzz/)
 [![Build](https://img.shields.io/github/workflow/status/MaartenGr/polyfuzz/Code%20Checks/master)](https://pypi.org/project/polyfuzz/)
