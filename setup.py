@@ -86,9 +86,7 @@ setup(
         "Operating System :: POSIX",
         "Operating System :: Unix",
         "Operating System :: MacOS",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     install_requires=base_packages,
     extras_require={
@@ -101,5 +99,5 @@ setup(
         "use": use_packages,
         "gensim": gensim_packages,
     },
-    python_requires='>=3.6',
+    python_requires='>=3.9',
 )
