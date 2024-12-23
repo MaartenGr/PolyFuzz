@@ -65,7 +65,6 @@ In other words, we `fit` on `train_words` and we use `transform` on any incoming
 
 ```python
 from sklearn.datasets import fetch_20newsgroups
-from sklearn.feature_extraction.text import CountVectorizer
 from polyfuzz import PolyFuzz
 
 train_words = ["apple", "apples", "appl", "recal", "house", "similarity"]
