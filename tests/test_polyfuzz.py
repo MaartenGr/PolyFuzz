@@ -84,7 +84,9 @@ def test_grouper(method):
 
     assert model.get_clusters() == {1: ['apples', 'apple']}
     assert model.get_cluster_mappings() == {'apples': 1, 'apple': 1}
+    import pdb
 
+    pdb.set_trace()
 
 def test_grouper_same_list():
     model = PolyFuzz("TF-IDF").match(from_list, from_list)
