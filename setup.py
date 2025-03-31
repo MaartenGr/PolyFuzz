@@ -33,7 +33,8 @@ sbert_packages = [
 ]
 
 fast_cosine = [
-    "sparse_dot_topn>=0.2.9"
+    "sparse_dot_topn<1.0; python_version < '3.8'",
+    "sparse_dot_topn>=1.1.5; python_version >= '3.8'",
 ]
 
 embeddings_packages = [
