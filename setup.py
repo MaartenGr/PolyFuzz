@@ -1,10 +1,7 @@
 from setuptools import setup, find_packages
 
 
-test_packages = [
-    "pytest>=5.4.3",
-    "pytest-cov>=2.6.1"
-]
+test_packages = ["pytest>=5.4.3", "pytest-cov>=2.6.1"]
 
 docs_packages = [
     "mkdocs==1.1",
@@ -21,38 +18,25 @@ base_packages = [
     "matplotlib>= 3.2.2",
     "seaborn>= 0.11.0",
     "rapidfuzz>= 0.13.1",
-    "scikit_learn>= 0.22.2.post1"
+    "scikit_learn>= 0.22.2.post1",
 ]
 
-gensim_packages = [
-    "gensim>=4.0.0"
-]
+gensim_packages = ["gensim>=4.0.0"]
 
-sbert_packages = [
-    "sentence-transformers>=0.4.1"
-]
+sbert_packages = ["sentence-transformers>=0.4.1"]
 
-fast_cosine = [
-    "sparse_dot_topn>=0.2.9"
-]
+fast_cosine = ["sparse_dot_topn>=0.2.9"]
 
-embeddings_packages = [
-    "torch>=1.4.0", 
-    "flair>= 0.7"
-]
+embeddings_packages = ["torch>=1.4.0", "flair>= 0.7"]
 
-spacy_packages = [
-    "spacy>=3.0.1"
-]
+spacy_packages = ["spacy>=3.0.1"]
 
-use_packages = [
-    "tensorflow",
-    "tensorflow_hub",
-    "tensorflow_text"
-]
+use_packages = ["tensorflow", "tensorflow_hub", "tensorflow_text"]
 
 
-extra_packages = embeddings_packages + fast_cosine + sbert_packages + spacy_packages + use_packages
+extra_packages = (
+    embeddings_packages + fast_cosine + sbert_packages + spacy_packages + use_packages
+)
 
 dev_packages = docs_packages + test_packages + extra_packages
 
@@ -62,7 +46,7 @@ with open("README.md", "r") as fh:
 setup(
     name="polyfuzz",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.4.2",
+    version="0.4.3",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="PolyFuzz performs fuzzy string matching, grouping, and evaluation.",
@@ -102,5 +86,5 @@ setup(
         "use": use_packages,
         "gensim": gensim_packages,
     },
-    python_requires='>=3.9',
+    python_requires=">=3.9",
 )
