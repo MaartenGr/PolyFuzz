@@ -1,3 +1,10 @@
+## **v0.4.3**
+
+* Fixed logger [#67](https://github.com/MaartenGr/PolyFuzz/pull/67) by [raffaem](https://github.com/raffaem)
+* Remove older python versions [#83](https://github.com/MaartenGr/PolyFuzz/pull/83)
+* Add option to omit removing n-grams with space [#76](https://github.com/MaartenGr/PolyFuzz/pull/76) by [Laubeee](https://github.com/Laubeee)
+* Remove unused CountVect in quickstart.md [#82](https://github.com/MaartenGr/PolyFuzz/pull/82) by [maciejskorski](https://github.com/maciejskorski)
+
 ## **v0.4.2**
 
 * Fixed Flair dependency being to restrictive
