@@ -1,4 +1,4 @@
-<img src="images/logo.png" width="70%" height="70%"/>
+<img src="images/logo.png" width="70%" />
 
 [![PyPI Downloads](https://static.pepy.tech/badge/polyfuzz)](https://pepy.tech/projects/polyfuzz)
 [![PyPI - Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://pypi.org/project/polyfuzz/)
@@ -169,7 +169,7 @@ Creating the visualizations is as simple as:
 ```
 model.visualize_precision_recall()
 ```
-<img src="images/tfidf.png" width="100%" height="100%"/> 
+<img src="images/tfidf.png" width="100%" /> 
 
 ## Models
 Currently, the following models are implemented in PolyFuzz:
@@ -219,7 +219,7 @@ Finally, visualize the results to compare the models:
 model.visualize_precision_recall(kde=True)
 ```
 
-<img src="images/multiple_models.png" width="100%" height="100%"/>
+<img src="images/multiple_models.png" width="100%" />
 
 ## Custom Grouper
 We can even use one of the `polyfuzz.models` to be used as the grouper in case you would like to use 
